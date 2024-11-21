@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/constants.dart';
-import 'package:leviosa/cubit/cubit/user_cubit.dart';
+import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/user_service.dart';
 import 'package:leviosa/widgets/common/loader.dart';

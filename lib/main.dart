@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leviosa/app_router.dart';
-import 'package:leviosa/cubit/cubit/user_cubit.dart';
+import 'package:leviosa/cubit/theme_cubit.dart';
+import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/firebase_options.dart';
 
 void main() async {
@@ -21,6 +22,7 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => UserCubit()),
+        BlocProvider(create: (context) => ThemeCubit()),
       ],
       child: MaterialApp.router(
         routerConfig: appRouter,

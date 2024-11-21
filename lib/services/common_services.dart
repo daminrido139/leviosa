@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:leviosa/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leviosa/cubit/theme_cubit.dart';
 
-class CommonServices {
-  static UserRole userRole() {
-    //TODO
-    return UserRole.student;
-  }
+bool isLightMode(BuildContext context) {
+  return context.watch<ThemeCubit>().isLightTheme();
+}
 
-  static void goToHomePage(BuildContext context) {}
+String pad0(int t) {
+  return t.toString().padLeft(2, '0');
 }
