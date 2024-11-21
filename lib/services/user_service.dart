@@ -5,18 +5,15 @@ import 'package:leviosa/model/user_model.dart';
 class UserService {
   static final _firestore = FirebaseFirestore.instance;
 
-  static Future<UserModel?> getUserData(
-    String college,
-    String username,
-  ) async {
-    final email = FirebaseAuth.instance.currentUser?.email;
+  static Future<UserModel?> getUserData([String? email]) async {
+    email = email ?? FirebaseAuth.instance.currentUser?.email;
     if (email == null) {
       return null;
     }
-    final college = email.split('@')[1].split('.')[0];
+    final school = email.split('@')[1].split('.')[0];
     final userData = (await _firestore
             .collection('school')
-            .doc(college)
+            .doc(school)
             .collection('users')
             .doc(email)
             .get())
