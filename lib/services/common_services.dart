@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:leviosa/constants.dart';
 
 class CommonServices {
@@ -5,4 +6,6 @@ class CommonServices {
     //TODO
     return UserRole.student;
   }
+
+  static void goToHomePage(BuildContext context) {}
 }

@@ -25,8 +25,12 @@ class _LoginpageState extends State<SignInPage> {
 
   void _onLogin() async {
     try {
-      await AuthService.signInWithEmailAndPassword(
-          emailController.text.trim(), passwordController.text.trim());
+      final email = emailController.text.trim();
+      final password = passwordController.text.trim();
+      if (email.isEmpty || password.isEmpty) {
+        return;
+      }
+      await AuthService.signInWithEmailAndPassword(email, password);
       context.go(RouterConstants.commonStudentPageRoute);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
