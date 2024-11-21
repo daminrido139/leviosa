@@ -111,8 +111,7 @@ class _LoginpageState extends State<SignInPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide:
-                  BorderSide(color: Theme.of(context).colorScheme.primary),
+              borderSide: const BorderSide(width: 2, color: Color(0xffad9c00)),
             ),
           ),
         ));
@@ -132,8 +131,7 @@ class _LoginpageState extends State<SignInPage> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide:
-                  BorderSide(color: Theme.of(context).colorScheme.primary),
+              borderSide: const BorderSide(width: 2, color: Color(0xffad9c00)),
             ),
             suffixIcon: IconButton(
               onPressed: () {
