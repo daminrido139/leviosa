@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "607595355808",
+    "project_id": "leviosa-b7b76",
+    "storage_bucket": "leviosa-b7b76.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607595355808:android:e2b4de7206cfaefe02b3c5",
+        "android_client_info": {
+          "package_name": "com.leviosa.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAb1W4dExfnwE2SirgEt0VGpLg4u7tonXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

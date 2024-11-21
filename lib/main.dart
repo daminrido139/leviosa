@@ -1,6 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:leviosa/app_router.dart';
+import 'package:leviosa/firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MainApp());
 }
 
@@ -9,12 +16,22 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+    return MaterialApp.router(
+      routerConfig: appRouter,
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context)
+              .copyWith(textScaler: const TextScaler.linear(0.9)),
+          child: child!,
+        );
+      },
+      theme: ThemeData(
+        colorSchemeSeed: Colors.yellow,
+        scaffoldBackgroundColor: Colors.white,
+        brightness: Brightness.light,
+        useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
