@@ -1,7 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/auth_service.dart';
+import 'package:leviosa/ui/app_entry.dart';
 import 'package:leviosa/ui/common_page/common_student_page.dart';
+import 'package:leviosa/ui/common_page/common_teacher_page.dart';
 import 'package:leviosa/ui/sign_in_page/sign_in_page.dart';
 
 final appRouter = GoRouter(
@@ -9,7 +11,7 @@ final appRouter = GoRouter(
     // If logged in
     if (AuthService.isLoggedIn()) {
       if (state.fullPath == RouterConstants.signInPage) {
-        return RouterConstants.commonStudentPageRoute;
+        return RouterConstants.appEntry;
       }
       return null;
     }
@@ -24,9 +26,19 @@ final appRouter = GoRouter(
       builder: (context, state) => const SignInPage(),
     ),
     GoRoute(
+      path: RouterConstants.appEntry,
+      name: RouterConstants.appEntry,
+      builder: (context, state) => const AppEntry(),
+    ),
+    GoRoute(
       path: RouterConstants.commonStudentPageRoute,
       name: RouterConstants.commonStudentPageRoute,
       builder: (context, state) => const CommonStudentPage(),
+    ),
+    GoRoute(
+      path: RouterConstants.commonTeacherPageRoute,
+      name: RouterConstants.commonTeacherPageRoute,
+      builder: (context, state) => const CommonTeacherPage(),
     ),
     // GoRoute(
     //   path: RouterConstants.callPage,

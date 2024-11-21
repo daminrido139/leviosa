@@ -19,7 +19,8 @@ class UserModel {
       createdAt: json["created_at"],
       name: json["name"],
       profilePicture: json["profile_picture"],
-      role: UserRole.values.firstWhere((s) => s.toString() == json["role"]),
+      role: UserRole.values
+          .firstWhere((s) => s.toString().split('.')[1] == json["role"]),
     );
   }
 

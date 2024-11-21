@@ -21,6 +21,7 @@ class UserService {
     if (userData == null) {
       return null;
     }
+    print(userData);
     return UserModel.fromJson(userData);
   }
 }

@@ -31,7 +31,7 @@ class _LoginpageState extends State<SignInPage> {
         return;
       }
       await AuthService.signInWithEmailAndPassword(email, password);
-      context.go(RouterConstants.commonStudentPageRoute);
+      context.go(RouterConstants.appEntry);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
