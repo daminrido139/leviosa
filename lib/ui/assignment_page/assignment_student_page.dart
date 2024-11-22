@@ -41,13 +41,9 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
       appBar: AppBar(
         leadingWidth: 60,
         backgroundColor: Colors.white,
-        leading: Row(
-          children: [
-            SizedBox(
-              width: 15,
-            ),
-            DefaultDp(name: "Sachita", size: 40),
-          ],
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 15),
+          child: DefaultDp(name: "Sachita", size: 40),
         ),
         title: const Text(
           'Assignments',
