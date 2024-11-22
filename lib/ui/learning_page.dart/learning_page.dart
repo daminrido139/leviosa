@@ -4,33 +4,43 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/constants.dart';
 import 'package:leviosa/router_constants.dart';
-import 'package:leviosa/ui/learning_page.dart/subjectstudents_page.dart';
+import 'package:leviosa/ui/drawer_page/drawerstudent_page.dart';
+import 'package:leviosa/widgets/common/default_dp.dart';
 
-class Learningpage extends StatelessWidget {
+class Learningpage extends StatefulWidget {
   const Learningpage({super.key});
+
+  @override
+  State<Learningpage> createState() => _LearningpageState();
+}
+
+class _LearningpageState extends State<Learningpage> {
+  final GlobalKey<ScaffoldState> key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: key,
+      drawer: const DrawerstudentPage(),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 233, 223, 190),
-        elevation: 0,
-        toolbarHeight: 50,
-        leadingWidth: 30,
-        scrolledUnderElevation: 0,
-        leading: const SizedBox.shrink(),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {},
+        leadingWidth: 60,
+        backgroundColor: Colors.white,
+        leading: InkWell(
+          onTap: () {
+            key.currentState!.openDrawer();
+          },
+          child: const Row(
+            children: [
+              SizedBox(
+                width: 15,
+              ),
+              DefaultDp(name: "Sachita", size: 40),
+            ],
           ),
-        ],
+        ),
         title: const Text(
-          "Learning section",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-          ),
+          'Learning Section',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
       ),
       body: GridView.builder(
@@ -49,17 +59,6 @@ class Learningpage extends StatelessWidget {
   }
 
   // SizedBox(
-  //   height: 140,
-  //   child: ListView.builder(
-  //       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-  //       shrinkWrap: true,
-  //       scrollDirection: Axis.vertical,
-  //       itemCount: horizontallst.length,
-  //       itemBuilder: (context, ind) {
-  //         return customhorizontalcard(horizontallst[ind], ind);
-  //       }),
-  // ),
-
   customhorizontalcard(imgurl, ind, BuildContext context) {
     String level = (ind + 1).toString();
     return InkWell(

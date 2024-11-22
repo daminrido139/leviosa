@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/constants.dart';
 import 'package:leviosa/router_constants.dart';
-import 'package:leviosa/ui/learning_page.dart/youtubeplayerpagestudent_page.dart';
 
 class Subjectspage extends StatelessWidget {
   const Subjectspage({super.key});
