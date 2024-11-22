@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
 
+  @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +41,8 @@ class ChatPage extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: TextField(
+          canRequestFocus: false,
+          onTap: () => context.push(RouterConstants.chatSearchPage),
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
@@ -41,9 +50,9 @@ class ChatPage extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
-                borderSide:
-                    const BorderSide(width: 2, color: Color(0xffad9c00)),
+                borderSide: const BorderSide(color: Colors.black),
               ),
+              prefixIcon: const Icon(Icons.search),
               hintText: "Search"),
         ));
   }

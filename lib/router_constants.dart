@@ -6,4 +6,5 @@ class RouterConstants {
   static const appEntry = "/app-entry";
   static const subjectPage = "/subject-page";
   static const youtubePlayScreenPage = "/youtube-play-screen-page";
+  static const chatSearchPage = "/chat-search-page";
 }
