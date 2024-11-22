@@ -34,7 +34,6 @@ class MainApp extends StatelessWidget {
           );
         },
         theme: ThemeData(
-          colorSchemeSeed: Colors.yellow,
           scaffoldBackgroundColor: Colors.white,
           brightness: Brightness.light,
           useMaterial3: true,
