@@ -45,9 +45,14 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
       appBar: AppBar(
         leadingWidth: 60,
         backgroundColor: Colors.white,
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 15.0),
-          child: DefaultDp(name: "Sachita", size: 40),
+        leading: InkWell(
+          onTap: () {
+            key.currentState!.openDrawer();
+          },
+          child: const Padding(
+            padding: EdgeInsets.only(left: 15.0),
+            child: DefaultDp(name: "Sachita", size: 40),
+          ),
         ),
         title: const Text(
           'Assignments',

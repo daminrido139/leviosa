@@ -7,6 +7,7 @@ import 'package:leviosa/ui/common_page/common_student_page.dart';
 import 'package:leviosa/ui/common_page/common_teacher_page.dart';
 import 'package:leviosa/ui/learning_page.dart/subjectstudents_page.dart';
 import 'package:leviosa/ui/learning_page.dart/youtubeplayerpagestudent_page.dart';
+import 'package:leviosa/ui/settings_page/settingsstudent_page.dart';
 import 'package:leviosa/ui/sign_in_page/sign_in_page.dart';
 
 final appRouter = GoRouter(
@@ -63,6 +64,11 @@ final appRouter = GoRouter(
       path: RouterConstants.commonTeacherPageRoute,
       name: RouterConstants.commonTeacherPageRoute,
       builder: (context, state) => const CommonTeacherPage(),
+    ),
+    GoRoute(
+      path: RouterConstants.settingsPageStudents,
+      name: RouterConstants.settingsPageStudents,
+      builder: (context, state) => const SettingsstudentPage(),
     ),
     // GoRoute(
     //   path: RouterConstants.callPage,
