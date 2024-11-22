@@ -9,6 +9,7 @@ import 'package:leviosa/widgets/calender/event_cell_builder.dart';
 import 'package:leviosa/widgets/calender/month_cell_builder.dart';
 import 'package:leviosa/widgets/calender/week_day_box.dart';
 import 'package:leviosa/widgets/calender/week_number_box.dart';
+import 'package:leviosa/widgets/common/default_dp.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
@@ -54,31 +55,32 @@ class _CalendarPageState extends State<CalendarPage> {
     final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Row(
-            children: [
-              const SizedBox(width: 26),
-              const Text(
-                'Calendar',
-                style: TextStyle(
-                  fontSize: 21,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Spacer(),
-              Text(
-                displayDate,
-                style: const TextStyle(
-                  fontSize: 17.5,
-                  letterSpacing: -0.3,
-                ),
-              ),
-              const SizedBox(width: 20),
-            ],
-          ),
+        backgroundColor: Colors.white,
+        leadingWidth: 60,
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 15),
+          child: DefaultDp(name: "Sachita", size: 40),
         ),
-        leadingWidth: double.infinity,
+        title: Row(
+          children: [
+            const Text(
+              'Calendar',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Spacer(),
+            Text(
+              displayDate,
+              style: const TextStyle(
+                fontSize: 17.5,
+                letterSpacing: -0.3,
+              ),
+            ),
+            const SizedBox(width: 20),
+          ],
+        ),
       ),
       body: Column(
         children: [

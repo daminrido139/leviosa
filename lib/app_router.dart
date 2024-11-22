@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/auth_service.dart';
 import 'package:leviosa/ui/app_entry.dart';
+import 'package:leviosa/ui/chat_page/chat_search_page.dart';
 import 'package:leviosa/ui/common_page/common_student_page.dart';
 import 'package:leviosa/ui/common_page/common_teacher_page.dart';
 import 'package:leviosa/ui/learning_page.dart/subjectstudents_page.dart';
@@ -42,6 +43,11 @@ final appRouter = GoRouter(
           tittle: args["title"],
         );
       },
+    ),
+    GoRoute(
+      path: RouterConstants.chatSearchPage,
+      name: RouterConstants.chatSearchPage,
+      builder: (context, state) => const ChatSearchPage(),
     ),
     GoRoute(
       path: RouterConstants.appEntry,
