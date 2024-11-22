@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
+import 'package:leviosa/ui/drawer_page/drawerstudent_page.dart';
 
 class AssignmentStudentPage extends StatefulWidget {
   const AssignmentStudentPage({super.key});
@@ -12,6 +13,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
     with SingleTickerProviderStateMixin {
   late final TabController tabController;
   int currentIndex = 0;
+  final GlobalKey<ScaffoldState> key = GlobalKey();
 
   @override
   void initState() {
@@ -38,16 +40,23 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: key,
+      drawer: const DrawerstudentPage(),
       appBar: AppBar(
         leadingWidth: 60,
         backgroundColor: Colors.white,
-        leading: const Row(
-          children: [
-            SizedBox(
-              width: 15,
-            ),
-            DefaultDp(name: "Sachita", size: 40),
-          ],
+        leading: InkWell(
+          onTap: () {
+            key.currentState!.openDrawer();
+          },
+          child: const Row(
+            children: [
+              SizedBox(
+                width: 15,
+              ),
+              DefaultDp(name: "Sachita", size: 40),
+            ],
+          ),
         ),
         title: const Text(
           'Assignments',
