@@ -4,4 +4,6 @@ class RouterConstants {
   static const commonTeacherPageRoute = "/common-teacher-page";
   static const callPage = "/call-page";
   static const appEntry = "/app-entry";
+  static const subjectPage = "/subject-page";
+  static const youtubePlayScreenPage = "/youtube-play-screen-page";
 }

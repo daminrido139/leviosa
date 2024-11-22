@@ -29,7 +29,7 @@ class _HomepageState extends State<CommonStudentPage> {
           ChatPage(),
           AssignmentStudentPage(),
           CoursestudentPage(),
-          LearningPage(),
+          Learningpage()
         ],
       ),
       bottomNavigationBar: Container(
