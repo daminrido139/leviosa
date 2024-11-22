@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leviosa/widgets/common/default_dp.dart';
 
 class AssignmentStudentPage extends StatefulWidget {
   const AssignmentStudentPage({super.key});
@@ -38,7 +39,20 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Assignment'),
+        leadingWidth: 60,
+        backgroundColor: Colors.white,
+        leading: Row(
+          children: [
+            SizedBox(
+              width: 15,
+            ),
+            DefaultDp(name: "Sachita", size: 40),
+          ],
+        ),
+        title: const Text(
+          'Assignments',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
       ),
       body: Column(
         children: [

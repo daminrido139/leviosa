@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:leviosa/ui/assignment_page/assignment_student_page.dart';
 import 'package:leviosa/ui/calendar_page/calendar_page.dart';
 import 'package:leviosa/ui/chat_page/chat_page.dart';
+import 'package:leviosa/ui/course_channel_page/course_channel_page.dart';
+import 'package:leviosa/ui/course_page/coursestudent_page.dart';
 import 'package:leviosa/ui/learning_page.dart/learning_page.dart';
 import 'package:leviosa/ui/profile_page/profile_student_page.dart';
 
@@ -26,7 +28,7 @@ class _HomepageState extends State<CommonStudentPage> {
           CalendarPage(),
           ChatPage(),
           AssignmentStudentPage(),
-          ProfileStudentPage(),
+          CoursestudentPage(),
           LearningPage(),
         ],
       ),
