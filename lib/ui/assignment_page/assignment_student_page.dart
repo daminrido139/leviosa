@@ -41,7 +41,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
       appBar: AppBar(
         leadingWidth: 60,
         backgroundColor: Colors.white,
-        leading: Row(
+        leading: const Row(
           children: [
             SizedBox(
               width: 15,
