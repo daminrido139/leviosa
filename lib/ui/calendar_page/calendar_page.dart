@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:leviosa/services/calendar_services.dart';
 import 'package:leviosa/services/common_services.dart';
+import 'package:leviosa/ui/drawer_page/drawerstudent_page.dart';
 import 'package:leviosa/widgets/calender/day_date_box.dart';
 import 'package:leviosa/widgets/calender/day_title_box.dart';
 import 'package:leviosa/widgets/calender/event_cell_builder.dart';
@@ -23,6 +24,8 @@ class _CalendarPageState extends State<CalendarPage> {
   final GlobalKey<MonthViewState> monthViewKey = GlobalKey();
   final GlobalKey<WeekViewState> weekViewKey = GlobalKey();
   final GlobalKey<DayViewState> dayViewKey = GlobalKey();
+  final GlobalKey<ScaffoldState> key = GlobalKey();
+
   //////////////////////////////////////////////////////////
   List<Widget Function()> calendarViews = [];
   int selectedView = 0; // default to day span
@@ -54,12 +57,18 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
+      drawer: const DrawerstudentPage(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         leadingWidth: 60,
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 15),
-          child: DefaultDp(name: "Sachita", size: 40),
+        leading: InkWell(
+          onTap: () {
+            key.currentState!.openDrawer();
+          },
+          child: const Padding(
+            padding: EdgeInsets.only(left: 15),
+            child: DefaultDp(name: "Sachita", size: 40),
+          ),
         ),
         title: Row(
           children: [

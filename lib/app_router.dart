@@ -10,6 +10,7 @@ import 'package:leviosa/ui/learning_page.dart/subjectstudents_page.dart';
 import 'package:leviosa/ui/learning_page.dart/youtubeplayerpagestudent_page.dart';
 import 'package:leviosa/ui/settings_page/settingsstudent_page.dart';
 import 'package:leviosa/ui/sign_in_page/sign_in_page.dart';
+import 'package:leviosa/ui/sign_to_text/sign_to_text_page.dart';
 import 'package:leviosa/ui/text_to_sign_page/text_to_sign_page.dart';
 import 'package:leviosa/ui/video_meeting_page/videocall_page.dart';
 
@@ -71,6 +72,11 @@ final appRouter = GoRouter(
       path: RouterConstants.chatSearchPage,
       name: RouterConstants.chatSearchPage,
       builder: (context, state) => const ChatSearchPage(),
+    ),
+    GoRoute(
+      path: RouterConstants.signToText,
+      name: RouterConstants.signToText,
+      builder: (context, state) => const SignToTextPage(),
     ),
     GoRoute(
       path: RouterConstants.textToSign,

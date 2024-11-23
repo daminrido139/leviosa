@@ -20,47 +20,106 @@ class _CommonTeacherPageState extends State<CommonTeacherPage> {
       body: IndexedStack(
         index: selectedPage,
         children: const [
-          ChatPage(),
           CalendarPage(),
+          ChatPage(),
           CourseChannelPage(),
           ProfileTeacherPage(),
         ],
       ),
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (value) {
-          setState(() {
-            selectedPage = value;
-          });
-        },
-        destinations: [
-          NavigationDestination(
-            icon: Icon(
-              selectedPage == 0 ? Icons.message : Icons.message_outlined,
+      bottomNavigationBar: Container(
+        height: 60,
+        decoration:
+            const BoxDecoration(color: Color.fromARGB(255, 233, 223, 190)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            InkWell(
+              onTap: () {
+                selectedPage = 0;
+                setState(() {});
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    selectedPage == 0
+                        ? Icons.calendar_month
+                        : Icons.calendar_month_outlined,
+                  ),
+                  Text(
+                    "Calendar",
+                    style: TextStyle(
+                        fontWeight: selectedPage == 0
+                            ? FontWeight.bold
+                            : FontWeight.normal),
+                  )
+                ],
+              ),
             ),
-            label: "Chats",
-          ),
-          NavigationDestination(
-            icon: Icon(
-              selectedPage == 1
-                  ? Icons.calendar_month
-                  : Icons.calendar_month_outlined,
+            InkWell(
+              onTap: () {
+                selectedPage = 1;
+                setState(() {});
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    selectedPage == 1 ? Icons.message : Icons.message_outlined,
+                  ),
+                  Text(
+                    "Chats",
+                    style: TextStyle(
+                        fontWeight: selectedPage == 1
+                            ? FontWeight.bold
+                            : FontWeight.normal),
+                  )
+                ],
+              ),
             ),
-            label: "Calendar",
-          ),
-          NavigationDestination(
-            icon: Icon(
-              selectedPage == 2 ? Icons.book : Icons.book_outlined,
+            InkWell(
+              onTap: () {
+                selectedPage = 2;
+                setState(() {});
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    selectedPage == 2 ? Icons.science : Icons.science_outlined,
+                  ),
+                  Text(
+                    "Assignment",
+                    style: TextStyle(
+                        fontWeight: selectedPage == 2
+                            ? FontWeight.bold
+                            : FontWeight.normal),
+                  )
+                ],
+              ),
             ),
-            label: "Course",
-          ),
-          NavigationDestination(
-            icon: Icon(
-              selectedPage == 3 ? Icons.person : Icons.person_outline,
+            InkWell(
+              onTap: () {
+                selectedPage = 3;
+                setState(() {});
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                      selectedPage == 3 ? Icons.school : Icons.school_outlined),
+                  Text(
+                    "Course",
+                    style: TextStyle(
+                        fontWeight: selectedPage == 3
+                            ? FontWeight.bold
+                            : FontWeight.normal),
+                  )
+                ],
+              ),
             ),
-            label: "Profile",
-          ),
-        ],
-        selectedIndex: selectedPage,
+          ],
+        ),
       ),
     );
   }
