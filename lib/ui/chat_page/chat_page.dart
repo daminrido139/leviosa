@@ -155,7 +155,7 @@ class _ChatPageState extends State<ChatPage> {
                     if (snapshots.hasData) {
                       final snap = snapshots.data!.docs;
                       return ListView.builder(
-                          key: UniqueKey(),
+                          cacheExtent: 9999,
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: snap.length,
@@ -164,6 +164,7 @@ class _ChatPageState extends State<ChatPage> {
                             final messageData = doc.data();
 
                             return LeviChatBox(
+                              key: Key(doc.id),
                               subTitle: messageData['lastMessage'] ?? "",
                               time: timestampTohhmmm(
                                   messageData['lastMessageTime']),

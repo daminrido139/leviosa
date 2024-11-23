@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/services/auth_service.dart';
 import 'package:leviosa/services/chat_services.dart';
 import 'package:leviosa/services/common_services.dart';
 import 'package:leviosa/widgets/chat/levi_chat_bubble.dart';
+import 'package:leviosa/widgets/common/default_dp.dart';
 
 class ChatRoom extends StatefulWidget {
   final String receiverUid;
   final String receiverName;
-  const ChatRoom(
-      {super.key, required this.receiverUid, required this.receiverName});
+  final DefaultDp leading;
+  const ChatRoom({
+    super.key,
+    required this.receiverUid,
+    required this.receiverName,
+    required this.leading,
+  });
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
@@ -62,8 +69,26 @@ class _ChatRoomState extends State<ChatRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 70,
+        leadingWidth: 80,
         backgroundColor: Colors.white,
         scrolledUnderElevation: 0,
+        leading: Row(
+          children: [
+            GestureDetector(
+              onTap: () => context.pop(),
+              child: const Icon(Icons.arrow_back),
+            ),
+            widget.leading,
+          ],
+        ),
+        title: Text(
+          widget.receiverName,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        ),
       ),
       backgroundColor: Colors.white,
       body: Column(

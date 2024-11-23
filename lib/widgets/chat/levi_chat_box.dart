@@ -73,9 +73,11 @@ class _LeviChatBoxState extends State<LeviChatBox> {
       child: ListTile(
         minTileHeight: 76,
         onTap: () async {
+          if (name == null || leading == null) return;
           await Future.delayed(Durations.medium1);
           context.push(RouterConstants.chatRoom, extra: {
-            "receiver_name": name ?? "",
+            "receiver_name": name,
+            "leading": leading,
             "receiver_uid": widget.receiverId,
           });
         },

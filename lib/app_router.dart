@@ -46,6 +46,7 @@ final appRouter = GoRouter(
         return ChatRoom(
           receiverUid: args["receiver_uid"],
           receiverName: args["receiver_name"],
+          leading: args["leading"],
         );
       },
     ),
