@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/auth_service.dart';
 import 'package:leviosa/services/chat_services.dart';
@@ -29,9 +31,10 @@ class _ChatPageState extends State<ChatPage> {
         appBar: AppBar(
           leadingWidth: 60,
           backgroundColor: Colors.white,
-          leading: const Padding(
-            padding: EdgeInsets.only(left: 15),
-            child: DefaultDp(name: "Sachita", size: 40),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child:
+                DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
           ),
           title: const Text(
             'Chats',

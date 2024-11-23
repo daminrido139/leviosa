@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 
-class DrawerstudentPage extends StatefulWidget {
-  const DrawerstudentPage({super.key});
+class DrawerPage extends StatefulWidget {
+  const DrawerPage({super.key});
 
   @override
-  State<DrawerstudentPage> createState() => _DrawerstudentPageState();
+  State<DrawerPage> createState() => _DrawerPageState();
 }
 
-class _DrawerstudentPageState extends State<DrawerstudentPage> {
+class _DrawerPageState extends State<DrawerPage> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -21,13 +23,13 @@ class _DrawerstudentPageState extends State<DrawerstudentPage> {
             const SizedBox(
               height: 45,
             ),
-            const DefaultDp(name: "Sachita", size: 60),
+            DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
             const SizedBox(
               height: 15,
             ),
-            const Text(
-              "Sachita R",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            Text(
+              context.read<UserCubit>().state.name,
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             customlisttile("Profile", Icons.person_outline, () {}),
             customlisttile("Notification", Icons.notifications_outlined, () {}),

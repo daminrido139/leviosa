@@ -6,16 +6,22 @@ import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/course/course_box.dart';
 import 'package:leviosa/widgets/course/course_search_bar.dart';
 
-class CourseChannelTeacherPage extends StatefulWidget {
-  const CourseChannelTeacherPage({super.key});
+class CourseChannetStudentPage extends StatefulWidget {
+  const CourseChannetStudentPage({super.key});
 
   @override
-  State<CourseChannelTeacherPage> createState() =>
-      _CourseChannelTeacherPageState();
+  State<CourseChannetStudentPage> createState() =>
+      _CourseChannetStudentPageState();
 }
 
-class _CourseChannelTeacherPageState extends State<CourseChannelTeacherPage> {
+class _CourseChannetStudentPageState extends State<CourseChannetStudentPage> {
   final GlobalKey<ScaffoldState> key = GlobalKey();
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +30,6 @@ class _CourseChannelTeacherPageState extends State<CourseChannelTeacherPage> {
       appBar: AppBar(
         leadingWidth: 60,
         backgroundColor: Colors.white,
-        shadowColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
         leading: InkWell(
           onTap: () {
             key.currentState!.openDrawer();

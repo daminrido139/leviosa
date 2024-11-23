@@ -1,10 +1,12 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/constants.dart';
+import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/router_constants.dart';
-import 'package:leviosa/ui/drawer_page/drawerstudent_page.dart';
+import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 
 class Learningpage extends StatefulWidget {
@@ -21,7 +23,7 @@ class _LearningpageState extends State<Learningpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: key,
-      drawer: const DrawerstudentPage(),
+      drawer: const DrawerPage(),
       appBar: AppBar(
         leadingWidth: 60,
         backgroundColor: Colors.white,
@@ -29,12 +31,12 @@ class _LearningpageState extends State<Learningpage> {
           onTap: () {
             key.currentState!.openDrawer();
           },
-          child: const Row(
+          child: Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 15,
               ),
-              DefaultDp(name: "Sachita", size: 40),
+              DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
             ],
           ),
         ),
