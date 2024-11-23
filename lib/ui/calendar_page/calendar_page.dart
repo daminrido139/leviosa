@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:leviosa/services/calendar_services.dart';
 import 'package:leviosa/services/common_services.dart';
-import 'package:leviosa/ui/drawer_page/drawerstudent_page.dart';
+import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/calender/day_date_box.dart';
 import 'package:leviosa/widgets/calender/day_title_box.dart';
 import 'package:leviosa/widgets/calender/event_cell_builder.dart';
@@ -57,7 +57,7 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
-      drawer: const DrawerstudentPage(),
+      drawer: const DrawerPage(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         leadingWidth: 60,

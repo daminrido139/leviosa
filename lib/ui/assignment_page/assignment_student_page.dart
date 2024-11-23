@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
-import 'package:leviosa/ui/drawer_page/drawerstudent_page.dart';
+import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 
 class AssignmentStudentPage extends StatefulWidget {
   const AssignmentStudentPage({super.key});
@@ -41,7 +41,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
   Widget build(BuildContext context) {
     return Scaffold(
       key: key,
-      drawer: const DrawerstudentPage(),
+      drawer: const DrawerPage(),
       appBar: AppBar(
         leadingWidth: 60,
         backgroundColor: Colors.white,
