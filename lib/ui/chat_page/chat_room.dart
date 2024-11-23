@@ -295,7 +295,6 @@ class _ChatRoomState extends State<ChatRoom> {
           //     context.read<ChatRoomCubit>().state.receiverId!);
 
           final docs = snapshot.data!.docs;
-          print(docs.length.toString() + "👋👋👋👋👋👋👋");
           for (final doc in docs) {
             final data = doc.data();
             if (data["sender_id"] == widget.receiverUid &&
@@ -308,9 +307,9 @@ class _ChatRoomState extends State<ChatRoom> {
             }
           }
 
-          DateTime? prevMessageDateTime;
-          DateTime? tempMessageDateTime;
-          bool showDate = false;
+          // DateTime? prevMessageDateTime;
+          // DateTime? tempMessageDateTime;
+          // bool showDate = false;
 
           return Stack(
             children: [
@@ -329,14 +328,14 @@ class _ChatRoomState extends State<ChatRoom> {
                     //     data["reactions"] ?? {};
                     // final reaction = reactionData.values.toList();
                     // reaction.removeWhere((e) => e == null);
-                    showDate = (prevMessageDateTime == null)
-                        ? false
-                        : !isSameDay(
-                            prevMessageDateTime!,
-                            (data["time"] as Timestamp).toDate(),
-                          );
-                    tempMessageDateTime = prevMessageDateTime;
-                    prevMessageDateTime = (data["time"] as Timestamp).toDate();
+                    // showDate = (prevMessageDateTime == null)
+                    //     ? false
+                    //     : !isSameDay(
+                    //         prevMessageDateTime!,
+                    //         (data["time"] as Timestamp).toDate(),
+                    //       );
+                    // tempMessageDateTime = prevMessageDateTime;
+                    // prevMessageDateTime = (data["time"] as Timestamp).toDate();
                     return LeviChatBubble(
                       key: Key(docs[index].id.toString()),
                       receiverId: widget.receiverUid,

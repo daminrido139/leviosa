@@ -1,7 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:leviosa/model/user_model.dart';
 
 class ChatServices {
   static final _firestore = FirebaseFirestore.instance;
+
+  static final Map<String, UserModel> _userCache = {};
+
+  static void cacheUser(String userId, UserModel user) {
+    if (_userCache.containsKey(userId)) return;
+    _userCache[userId] = user;
+  }
+
+  static UserModel? getUserCache(String userId) {
+    if (_userCache.containsKey(userId)) return _userCache[userId];
+    return null;
+  }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> listenChats(
+    String senderUid,
+  ) {
+    final school = senderUid.split('@')[1].split('.')[0];
+    return _firestore
+        .collection("school")
+        .doc(school)
+        .collection("users")
+        .doc(senderUid)
+        .collection('chat_info')
+        .orderBy(
+          'lastMessageTime',
+          descending: true,
+        )
+        .snapshots();
+  }
 
   static Future<void> sendMessage(
     String senderUid,
