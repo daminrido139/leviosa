@@ -58,6 +58,12 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
           'Assignments',
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.note_add_outlined),
+          )
+        ],
       ),
       body: Column(
         children: [
