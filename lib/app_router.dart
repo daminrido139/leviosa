@@ -10,6 +10,8 @@ import 'package:leviosa/ui/learning_page.dart/subjectstudents_page.dart';
 import 'package:leviosa/ui/learning_page.dart/youtubeplayerpagestudent_page.dart';
 import 'package:leviosa/ui/settings_page/settingsstudent_page.dart';
 import 'package:leviosa/ui/sign_in_page/sign_in_page.dart';
+import 'package:leviosa/ui/text_to_sign_page/text_to_sign_page.dart';
+import 'package:leviosa/ui/video_meeting_page/videocall_page.dart';
 
 final appRouter = GoRouter(
   redirect: (context, state) {
@@ -58,9 +60,22 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: RouterConstants.videoCallPage,
+      name: RouterConstants.videoCallPage,
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>;
+        return VideocallPage(callId: args["callId"]);
+      },
+    ),
+    GoRoute(
       path: RouterConstants.chatSearchPage,
       name: RouterConstants.chatSearchPage,
       builder: (context, state) => const ChatSearchPage(),
+    ),
+    GoRoute(
+      path: RouterConstants.textToSign,
+      name: RouterConstants.textToSign,
+      builder: (context, state) => const TextToSignPage(),
     ),
     GoRoute(
       path: RouterConstants.appEntry,

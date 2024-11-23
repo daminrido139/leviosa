@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/ui/drawer_page/drawerstudent_page.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
+import 'package:leviosa/widgets/common/leviosa_button.dart';
 
 class CoursestudentPage extends StatefulWidget {
   const CoursestudentPage({super.key});
@@ -11,6 +14,12 @@ class CoursestudentPage extends StatefulWidget {
 
 class _CoursestudentPageState extends State<CoursestudentPage> {
   final GlobalKey<ScaffoldState> key = GlobalKey();
+  final calling = TextEditingController();
+  @override
+  void dispose() {
+    calling.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +46,9 @@ class _CoursestudentPageState extends State<CoursestudentPage> {
           'Course',
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
+      ),
+      body: Column(
+        children: [],
       ),
     );
   }
