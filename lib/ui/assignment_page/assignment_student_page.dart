@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 
@@ -49,9 +51,10 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
           onTap: () {
             key.currentState!.openDrawer();
           },
-          child: const Padding(
-            padding: EdgeInsets.only(left: 15.0),
-            child: DefaultDp(name: "Sachita", size: 40),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child:
+                DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
           ),
         ),
         title: const Text(

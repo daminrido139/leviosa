@@ -1,6 +1,8 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/services/calendar_services.dart';
 import 'package:leviosa/services/common_services.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
@@ -65,9 +67,10 @@ class _CalendarPageState extends State<CalendarPage> {
           onTap: () {
             key.currentState!.openDrawer();
           },
-          child: const Padding(
-            padding: EdgeInsets.only(left: 15),
-            child: DefaultDp(name: "Sachita", size: 40),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child:
+                DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
           ),
         ),
         title: Row(

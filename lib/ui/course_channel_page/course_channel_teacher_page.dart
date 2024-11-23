@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/course/course_box.dart';
@@ -28,12 +30,12 @@ class _CourseChannelTeacherPageState extends State<CourseChannelTeacherPage> {
           onTap: () {
             key.currentState!.openDrawer();
           },
-          child: const Row(
+          child: Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 15,
               ),
-              DefaultDp(name: "Sachita", size: 40),
+              DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
             ],
           ),
         ),
