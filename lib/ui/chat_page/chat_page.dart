@@ -6,6 +6,7 @@ import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/auth_service.dart';
 import 'package:leviosa/services/chat_services.dart';
 import 'package:leviosa/services/common_services.dart';
+import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/chat/levi_chat_box.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/common/leviosa_button.dart';
@@ -30,6 +31,8 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: key,
+        drawer: const DrawerPage(),
         appBar: AppBar(
           leadingWidth: 60,
           backgroundColor: Colors.white,
