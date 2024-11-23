@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/auth_service.dart';
 import 'package:leviosa/ui/app_entry.dart';
+import 'package:leviosa/ui/chat_page/chat_room.dart';
 import 'package:leviosa/ui/chat_page/chat_search_page.dart';
 import 'package:leviosa/ui/common_page/common_student_page.dart';
 import 'package:leviosa/ui/common_page/common_teacher_page.dart';
@@ -33,6 +34,17 @@ final appRouter = GoRouter(
       path: RouterConstants.subjectPage,
       name: RouterConstants.subjectPage,
       builder: (context, state) => const Subjectspage(),
+    ),
+    GoRoute(
+      path: RouterConstants.chatRoom,
+      name: RouterConstants.chatRoom,
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>;
+        return ChatRoom(
+          receiverUid: args["receiver_uid"],
+          receiverName: args["receiver_name"],
+        );
+      },
     ),
     GoRoute(
       path: RouterConstants.youtubePlayScreenPage,

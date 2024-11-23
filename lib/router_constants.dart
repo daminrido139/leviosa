@@ -8,4 +8,5 @@ class RouterConstants {
   static const youtubePlayScreenPage = "/youtube-play-screen-page";
   static const chatSearchPage = "/chat-search-page";
   static const settingsPageStudents = "/settingsPageStudents";
+  static const chatRoom = "/chat-room";
 }
