@@ -11,4 +11,5 @@ class RouterConstants {
   static const chatRoom = "/chat-room";
   static const videoCallPage = "/videoCall-Page";
   static const textToSign = "/text-To-Sign-Page";
+  static const signToText = "/Sign-To-Text-Page";
 }
