@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
@@ -34,6 +33,9 @@ class _ChatRoomState extends State<ChatRoom> {
   @override
   void initState() {
     _scrollController.addListener(scrollListener);
+    ChatServices.setCountZero(AuthService.getUserId(), widget.receiverUid);
+    ChatServices.setMessageSeenAtChatInfo(
+        widget.receiverUid, AuthService.getUserId());
     super.initState();
   }
 
@@ -59,12 +61,19 @@ class _ChatRoomState extends State<ChatRoom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        scrolledUnderElevation: 0,
+      ),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           // if (context.watch<ChatRoomCubit>().state.receiverId != null)
           //   _primaryAppBar(),
           // Container(height: 0.5, color: const Color(0xB2A1A1A1)),
           Expanded(child: buildChats()),
+          const SizedBox(height: 10),
+
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -299,11 +308,11 @@ class _ChatRoomState extends State<ChatRoom> {
             final data = doc.data();
             if (data["sender_id"] == widget.receiverUid &&
                 data["seen"] == false) {
-              // ChatServices.messageSeen(
-              //   doc.id,
-              //   AuthService.getUserId(),
-              //   context.read<ChatRoomCubit>().state.receiverId!,
-              // );
+              ChatServices.setMessageSeen(
+                doc.id,
+                AuthService.getUserId(),
+                widget.receiverUid,
+              );
             }
           }
 
@@ -340,7 +349,7 @@ class _ChatRoomState extends State<ChatRoom> {
                       key: Key(docs[index].id.toString()),
                       receiverId: widget.receiverUid,
                       replyTo: data["reply_to"] as String?,
-                      message: data["message"] as String?,
+                      message: data["message"] as String,
                       messageId: docs[index].id,
                       isCurrentUser: alignment == Alignment.centerRight,
                       time: timestampTohhmmm(data["time"]),
@@ -487,9 +496,9 @@ class _ChatRoomState extends State<ChatRoom> {
       children: [
         const SizedBox(width: 10),
         Expanded(child: leviTextField()),
-        const SizedBox(width: 10),
+        const SizedBox(width: 8),
         sendBtn(),
-        const SizedBox(width: 20),
+        const SizedBox(width: 10),
       ],
     );
   }
@@ -511,16 +520,24 @@ class _ChatRoomState extends State<ChatRoom> {
       controller: _messageController,
       maxLines: 10,
       minLines: 1,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         hintText: 'Start Typing...',
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
             color: Color.fromRGBO(151, 151, 151, 1),
             fontSize: 20,
             fontWeight: FontWeight.w400),
-        contentPadding: EdgeInsets.fromLTRB(18, 14, 0, 0),
-        border: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        enabledBorder: InputBorder.none,
+        border: OutlineInputBorder(
+            borderSide:
+                const BorderSide(color: Color.fromARGB(255, 233, 223, 190)),
+            borderRadius: BorderRadius.circular(10)),
+        focusedBorder: OutlineInputBorder(
+            borderSide:
+                const BorderSide(color: Color.fromARGB(255, 233, 223, 190)),
+            borderRadius: BorderRadius.circular(10)),
+        enabledBorder: OutlineInputBorder(
+            borderSide:
+                const BorderSide(color: Color.fromARGB(255, 233, 223, 190)),
+            borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
@@ -545,14 +562,20 @@ class _ChatRoomState extends State<ChatRoom> {
   }
 
   Widget sendBtn() {
-    return IconButton(
-        onPressed: onSendBtnClicked,
-        icon: Icon(
-          Icons.send,
-          size: 28,
-          color: isLightMode(context)
-              ? const Color.fromRGBO(73, 73, 73, 1)
-              : const Color.fromRGBO(191, 191, 191, 1),
-        ));
+    return DecoratedBox(
+      decoration: const ShapeDecoration(
+        shape: CircleBorder(),
+        color: Color.fromARGB(255, 233, 223, 190),
+      ),
+      child: IconButton(
+          onPressed: onSendBtnClicked,
+          icon: Icon(
+            Icons.send,
+            size: 28,
+            color: isLightMode(context)
+                ? const Color.fromRGBO(73, 73, 73, 1)
+                : const Color.fromRGBO(191, 191, 191, 1),
+          )),
+    );
   }
 }

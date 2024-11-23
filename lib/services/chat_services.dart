@@ -97,6 +97,57 @@ class ChatServices {
     });
   }
 
+  static Future<void> setCountZero(String userId, String otherId) async {
+    final school = userId.split('@')[1].split('.')[0];
+
+    _firestore
+        .collection("school")
+        .doc(school)
+        .collection("users")
+        .doc(userId)
+        .collection("chat_info")
+        .doc(otherId)
+        .set(
+      {"count": 0},
+      SetOptions(merge: true),
+    );
+  }
+
+  static Future<void> setMessageSeen(
+      String messageId, String senderUid, String receiverUid) async {
+    final school = senderUid.split('@')[1].split('.')[0];
+    final ids = [senderUid, receiverUid];
+    ids.sort();
+    final String chatRoomId = ids.join("-");
+    _firestore
+        .collection("school")
+        .doc(school)
+        .collection("chats")
+        .doc(chatRoomId)
+        .collection("chats")
+        .doc(messageId)
+        .set(
+      {"seen": true},
+      SetOptions(merge: true),
+    );
+  }
+
+  static Future<void> setMessageSeenAtChatInfo(
+      String senderUid, String receiverUid) async {
+    final school = senderUid.split('@')[1].split('.')[0];
+    _firestore
+        .collection("school")
+        .doc(school)
+        .collection("users")
+        .doc(senderUid)
+        .collection("chat_info")
+        .doc(receiverUid)
+        .set(
+      {"seen": true},
+      SetOptions(merge: true),
+    );
+  }
+
   static Stream<QuerySnapshot<Map<String, dynamic>>> receiveMessage(
       String senderUid, String receiverUid, int limit) {
     final school = senderUid.split('@')[1].split('.')[0];

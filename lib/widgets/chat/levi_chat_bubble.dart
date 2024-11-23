@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:leviosa/services/common_services.dart';
 
 class LeviChatBubble extends StatelessWidget {
-  final String? message;
+  final String message;
   final String time;
   final bool isSeen;
   final String? replyTo;
@@ -27,8 +27,7 @@ class LeviChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 1),
-      padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
       child: _constrainedChatBubble(context),
     );
@@ -48,7 +47,7 @@ class LeviChatBubble extends StatelessWidget {
               fontWeight: FontWeight.w700,
               color: isLightMode(context)
                   ? (isCurrentUser)
-                      ? Colors.white
+                      ? Colors.black45
                       : const Color.fromRGBO(208, 209, 219, 1)
                   : (isCurrentUser)
                       ? const Color(0xFFA6A6A6)
@@ -58,8 +57,8 @@ class LeviChatBubble extends StatelessWidget {
           const SizedBox(width: 4),
           (isCurrentUser)
               ? isSeen
-                  ? const Icon(Icons.check, color: Colors.blue)
-                  : const Icon(Icons.check, color: Colors.grey)
+                  ? const Icon(Icons.check, color: Colors.blue, size: 14)
+                  : const Icon(Icons.check, color: Colors.black45, size: 14)
               : const SizedBox(),
           const SizedBox(width: 8),
         ],
@@ -68,8 +67,6 @@ class LeviChatBubble extends StatelessWidget {
   }
 
   Widget _constrainedChatBubble(BuildContext context) {
-    final bool isReplyForMe = isCurrentUser ? isMyReply : !isMyReply;
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -80,31 +77,27 @@ class LeviChatBubble extends StatelessWidget {
               constraints: const BoxConstraints(maxWidth: 500, minWidth: 100),
               child: DecoratedBox(
                 decoration: ShapeDecoration(
+                  gradient: isCurrentUser
+                      ? const LinearGradient(
+                          colors: [
+                            Color.fromRGBO(228, 212, 156, 1),
+                            Color(0xffad9c00),
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        )
+                      : null,
                   shape: RoundedRectangleBorder(
-                    side: (isCurrentUser)
-                        ? BorderSide.none
-                        : isLightMode(context)
-                            ? const BorderSide(
-                                width: 1,
-                                color: Color.fromRGBO(197, 197, 197, 1),
-                              )
-                            : BorderSide.none,
-                    borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(16),
-                      topRight: const Radius.circular(16),
-                      bottomLeft: (isCurrentUser)
-                          ? const Radius.circular(16)
-                          : Radius.zero,
-                      bottomRight: (isCurrentUser)
-                          ? Radius.zero
-                          : const Radius.circular(16),
-                    ),
-                  ),
-                  color: isLightMode(context)
-                      ? (isCurrentUser ? const Color(0xFF2B5278) : Colors.white)
-                      : isCurrentUser
-                          ? const Color(0xFF315E8A)
-                          : const Color(0xFFDBDBDB),
+                      side: (isCurrentUser)
+                          ? BorderSide.none
+                          : isLightMode(context)
+                              ? const BorderSide(
+                                  width: 1,
+                                  color: Color.fromRGBO(197, 197, 197, 1),
+                                )
+                              : BorderSide.none,
+                      borderRadius: BorderRadius.circular(16)),
+                  color: isCurrentUser ? null : Colors.white,
                   shadows: const [
                     BoxShadow(
                       color: Color.fromRGBO(0, 0, 0, 0.067),
@@ -114,90 +107,27 @@ class LeviChatBubble extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: LayoutBuilder(builder: (context, constraints) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //////////////// reply box  //////////////////////////////////
-                      if (replyTo != null)
-                        Container(
-                          width: (replyTo!.length - 5 <
-                                  (message == null ? 0 : message!.length))
-                              ? constraints.minWidth
-                              : null,
-                          margin: const EdgeInsets.fromLTRB(6, 6, 6, 0),
-                          padding: const EdgeInsets.all(8),
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              side: isCurrentUser
-                                  ? BorderSide.none
-                                  : (isLightMode(context))
-                                      ? const BorderSide(
-                                          width: 1,
-                                          color:
-                                              Color.fromRGBO(197, 197, 197, 1),
-                                        )
-                                      : BorderSide.none,
-                              borderRadius: BorderRadius.only(
-                                topLeft: const Radius.circular(16),
-                                topRight: const Radius.circular(16),
-                                bottomLeft: (isCurrentUser)
-                                    ? const Radius.circular(16)
-                                    : Radius.zero,
-                                bottomRight: (isCurrentUser)
-                                    ? Radius.zero
-                                    : const Radius.circular(16),
-                              ),
-                            ),
-                            color: isLightMode(context)
-                                ? Colors.white
-                                : Colors.black,
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                isReplyForMe ? 'You' : receiverName,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: isLightMode(context)
-                                      ? Colors.black
-                                      : Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(replyTo!,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: isLightMode(context)
-                                        ? Colors.black
-                                        : Colors.white,
-                                  )),
-                            ],
-                          ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ///////////////////Message/////////////////
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 16, right: 16, top: 8),
+                      child: Text(
+                        message,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                        ).copyWith(
+                          fontFamilyFallback: const ['Apple Color Emoji'],
                         ),
-                      ///////////////////Message/////////////////
-                      if (message != null)
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 16, right: 16, top: 12),
-                          child: Text(
-                            message!,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color:
-                                  (isCurrentUser) ? Colors.white : Colors.black,
-                            ).copyWith(
-                              fontFamilyFallback: const ['Apple Color Emoji'],
-                            ),
-                          ),
-                        ),
-                      //////////////////////////////////////////////////////////////////////////
-                      const SizedBox(height: 24)
-                    ],
-                  );
-                }),
+                      ),
+                    ),
+                    //////////////////////////////////////////////////////////////////////////
+                    const SizedBox(height: 18)
+                  ],
+                ),
               ),
             ),
             _timeAndSeenStatusWidget(context),

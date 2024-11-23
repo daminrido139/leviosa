@@ -69,7 +69,7 @@ class _ChatSearchPageState extends State<ChatSearchPage> {
                   ),
                   receiverName: data['name'] ?? "",
                   onTap: () {
-                    context.push(RouterConstants.chatRoom, extra: {
+                    context.pushReplacement(RouterConstants.chatRoom, extra: {
                       "receiver_name": data['name'] ?? "",
                       "receiver_uid": doc.id,
                     });

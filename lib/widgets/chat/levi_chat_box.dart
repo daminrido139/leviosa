@@ -72,7 +72,8 @@ class _LeviChatBoxState extends State<LeviChatBox> {
       padding: const EdgeInsets.only(bottom: 2, left: 4, right: 4),
       child: ListTile(
         minTileHeight: 76,
-        onTap: () {
+        onTap: () async {
+          await Future.delayed(Durations.medium1);
           context.push(RouterConstants.chatRoom, extra: {
             "receiver_name": name ?? "",
             "receiver_uid": widget.receiverId,
@@ -108,10 +109,12 @@ class _LeviChatBoxState extends State<LeviChatBox> {
         subtitleTextStyle: const TextStyle(color: Colors.red),
         subtitle: Row(
           children: [
-            if (widget.lastMessageUid == widget.senderId)
+            if (widget.lastMessageUid == widget.senderId) ...[
               widget.seen
-                  ? const Icon(Icons.check, color: Colors.blue)
-                  : const Icon(Icons.check, color: Colors.grey),
+                  ? const Icon(Icons.check, color: Colors.blue, size: 15)
+                  : const Icon(Icons.check, color: Colors.grey, size: 15),
+              const SizedBox(width: 4)
+            ],
             Expanded(
               child: Text(
                 widget.subTitle,
@@ -129,12 +132,11 @@ class _LeviChatBoxState extends State<LeviChatBox> {
             if (widget.count != '0')
               Container(
                 alignment: Alignment.center,
-                width: 25,
+                width: 20,
                 height: 20,
-                decoration: ShapeDecoration(
-                  color: const Color.fromARGB(255, 33, 118, 255),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6)),
+                decoration: const ShapeDecoration(
+                  color: Color.fromRGBO(203, 193, 100, 1),
+                  shape: CircleBorder(),
                 ),
                 child: Text(
                   widget.count,
