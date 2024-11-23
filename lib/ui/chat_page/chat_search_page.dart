@@ -16,6 +16,7 @@ class ChatSearchPage extends StatefulWidget {
 class _ChatSearchPageState extends State<ChatSearchPage> {
   final FocusNode _focusNode = FocusNode();
   final List<QueryDocumentSnapshot<Map<String, dynamic>>> users = [];
+  List<QueryDocumentSnapshot<Map<String, dynamic>>> searchRes = [];
 
   @override
   void initState() {
@@ -28,7 +29,39 @@ class _ChatSearchPageState extends State<ChatSearchPage> {
     final QuerySnapshot<Map<String, dynamic>> data =
         await UserService.getAllUsers();
     users.addAll(data.docs);
+    searchRes.addAll(data.docs);
     setState(() {});
+  }
+
+  /// Filters and sorts a list of strings based on the search query
+  List<QueryDocumentSnapshot<Map<String, dynamic>>> searchEngine(String query) {
+    if (query.isEmpty)
+      return users; // Return the full list if the query is empty
+
+    String lowerQuery = query.toLowerCase();
+
+    // Sort and filter items
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> results =
+        users.where((item) {
+      return (item.data())["name"].toLowerCase().contains(lowerQuery);
+    }).toList()
+          ..sort((a, b) {
+            // Convert both strings to lowercase for case-insensitive comparison
+            String aLower = a.data()["name"].toLowerCase();
+            String bLower = b.data()["name"].toLowerCase();
+
+            // Sort based on the position of the query in the string
+            int aIndex = aLower.indexOf(lowerQuery);
+            int bIndex = bLower.indexOf(lowerQuery);
+
+            // If both have the same index, sort alphabetically
+            if (aIndex == bIndex) return aLower.compareTo(bLower);
+
+            // Otherwise, prefer the string with the query appearing earlier
+            return aIndex.compareTo(bIndex);
+          });
+
+    return results;
   }
 
   @override
@@ -50,10 +83,9 @@ class _ChatSearchPageState extends State<ChatSearchPage> {
           Expanded(
             child: ListView.builder(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: users.length,
+              itemCount: searchRes.length,
               itemBuilder: (context, index) {
-                final doc = users[index];
+                final doc = searchRes[index];
                 // if (doc.id == AuthService.getUserId()) {
                 //   return const SizedBox.shrink();
                 // }
@@ -68,9 +100,15 @@ class _ChatSearchPageState extends State<ChatSearchPage> {
                     size: 49,
                   ),
                   receiverName: data['name'] ?? "",
-                  onTap: () {
+                  onTap: () async {
+                    await Future.delayed(Durations.medium1);
                     context.pushReplacement(RouterConstants.chatRoom, extra: {
-                      "receiver_name": data['name'] ?? "",
+                      "receiver_name": data['name'],
+                      "leading": DefaultDp(
+                        name: data['name'],
+                        dpUrl: data['profileUrl'],
+                        size: 49,
+                      ),
                       "receiver_uid": doc.id,
                     });
                   },
@@ -87,6 +125,10 @@ class _ChatSearchPageState extends State<ChatSearchPage> {
     return Padding(
       padding: const EdgeInsets.only(right: 15),
       child: TextField(
+        onChanged: (value) {
+          searchRes = searchEngine(value);
+          setState(() {});
+        },
         focusNode: _focusNode,
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(

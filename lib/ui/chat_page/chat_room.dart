@@ -69,7 +69,6 @@ class _ChatRoomState extends State<ChatRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 70,
         leadingWidth: 80,
         backgroundColor: Colors.white,
         scrolledUnderElevation: 0,
@@ -91,21 +90,31 @@ class _ChatRoomState extends State<ChatRoom> {
         ),
       ),
       backgroundColor: Colors.white,
-      body: Column(
+      body: Stack(
         children: [
-          // if (context.watch<ChatRoomCubit>().state.receiverId != null)
-          //   _primaryAppBar(),
-          // Container(height: 0.5, color: const Color(0xB2A1A1A1)),
-          Expanded(child: buildChats()),
-          const SizedBox(height: 10),
-
+          SizedBox.expand(
+            child: Image.asset(
+              "assets/img/chat-bg.jpeg",
+              fit: BoxFit.cover,
+            ),
+          ),
           Column(
-            mainAxisSize: MainAxisSize.min,
             children: [
-              replyBox(),
-              if (replyTo != null) const SizedBox(height: 10),
-              buildTextField(),
-              const SizedBox(height: 15),
+              // if (context.watch<ChatRoomCubit>().state.receiverId != null)
+              //   _primaryAppBar(),
+              // Container(height: 0.5, color: const Color(0xB2A1A1A1)),
+              Expanded(child: buildChats()),
+              const SizedBox(height: 10),
+
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  replyBox(),
+                  if (replyTo != null) const SizedBox(height: 10),
+                  buildTextField(),
+                  const SizedBox(height: 15),
+                ],
+              ),
             ],
           ),
         ],
@@ -546,6 +555,8 @@ class _ChatRoomState extends State<ChatRoom> {
       maxLines: 10,
       minLines: 1,
       decoration: InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
         hintText: 'Start Typing...',
         hintStyle: const TextStyle(
             color: Color.fromRGBO(151, 151, 151, 1),

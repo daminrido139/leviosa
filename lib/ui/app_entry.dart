@@ -38,8 +38,9 @@ class _AppEntryState extends State<AppEntry> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Loader(),
+    return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.white),
+      body: const Loader(),
     );
   }
 }
