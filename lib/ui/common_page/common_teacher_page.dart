@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/ui/calendar_page/calendar_page.dart';
 import 'package:leviosa/ui/chat_page/chat_page.dart';
-import 'package:leviosa/ui/course_channel_page/course_channel_page.dart';
+import 'package:leviosa/ui/course_channel_page/course_channel_teacher_page.dart';
 import 'package:leviosa/ui/profile_page/profile_teacher_page.dart';
 
 class CommonTeacherPage extends StatefulWidget {
@@ -22,7 +22,7 @@ class _CommonTeacherPageState extends State<CommonTeacherPage> {
         children: const [
           CalendarPage(),
           ChatPage(),
-          CourseChannelPage(),
+          CourseChannelTeacherPage(),
           ProfileTeacherPage(),
         ],
       ),
