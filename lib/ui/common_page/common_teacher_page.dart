@@ -22,7 +22,7 @@ class _CommonTeacherPageState extends State<CommonTeacherPage> {
         children: const [
           CalendarPage(),
           ChatPage(),
-          CourseChannelPage(),
+          CourseChannelTeacherPage(),
           ProfileTeacherPage(),
         ],
       ),
