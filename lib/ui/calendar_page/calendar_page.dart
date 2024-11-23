@@ -67,10 +67,13 @@ class _CalendarPageState extends State<CalendarPage> {
           onTap: () {
             key.currentState!.openDrawer();
           },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child:
-                DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
+          child: Row(
+            children: [
+              const SizedBox(
+                width: 15,
+              ),
+              DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
+            ],
           ),
         ),
         title: Row(

@@ -19,6 +19,8 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final calling = TextEditingController();
+  final GlobalKey<ScaffoldState> key = GlobalKey();
+
   @override
   void dispose() {
     calling.dispose();
@@ -31,10 +33,18 @@ class _ChatPageState extends State<ChatPage> {
         appBar: AppBar(
           leadingWidth: 60,
           backgroundColor: Colors.white,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child:
+          leading: InkWell(
+            onTap: () {
+              key.currentState!.openDrawer();
+            },
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 15,
+                ),
                 DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
+              ],
+            ),
           ),
           title: const Text(
             'Chats',
