@@ -3,14 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 
-class DrawerstudentPage extends StatefulWidget {
-  const DrawerstudentPage({super.key});
+class DrawerPage extends StatefulWidget {
+  const DrawerPage({super.key});
 
   @override
-  State<DrawerstudentPage> createState() => _DrawerstudentPageState();
+  State<DrawerPage> createState() => _DrawerPageState();
 }
 
-class _DrawerstudentPageState extends State<DrawerstudentPage> {
+class _DrawerPageState extends State<DrawerPage> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
