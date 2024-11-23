@@ -8,4 +8,8 @@ class RouterConstants {
   static const youtubePlayScreenPage = "/youtube-play-screen-page";
   static const chatSearchPage = "/chat-search-page";
   static const settingsPageStudents = "/settingsPageStudents";
+  static const chatRoom = "/chat-room";
+  static const videoCallPage = "/videoCall-Page";
+  static const textToSign = "/text-To-Sign-Page";
+  static const signToText = "/Sign-To-Text-Page";
 }

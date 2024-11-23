@@ -21,11 +21,15 @@ class DefaultDp extends StatelessWidget {
   ];
 
   static Color genColor(String char) {
+    int index = 0;
     if (char.isEmpty) {
       final int randInt = (DateTime.now().millisecond) % colors.length;
       return colors[randInt];
     }
-    return colors[char.toUpperCase().codeUnitAt(0) % colors.length];
+    for (var i in char.codeUnits) {
+      index += i;
+    }
+    return colors[index % colors.length];
   }
 
   @override
@@ -37,7 +41,7 @@ class DefaultDp extends StatelessWidget {
             height: size,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: genColor(name.isEmpty ? name : name[0]),
+              color: genColor(name),
             ),
             child: Text(
               name.isEmpty ? '' : name[0].toUpperCase(),

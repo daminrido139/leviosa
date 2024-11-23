@@ -16,6 +16,8 @@ class AuthService {
     }
   }
 
+  static String getUserId() => FirebaseAuth.instance.currentUser!.email!;
+
   static Future<void> logout() async {
     await _firebaseAuth.signOut();
   }
