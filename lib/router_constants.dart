@@ -9,4 +9,6 @@ class RouterConstants {
   static const chatSearchPage = "/chat-search-page";
   static const settingsPageStudents = "/settingsPageStudents";
   static const chatRoom = "/chat-room";
+  static const videoCallPage = "/videoCall-Page";
+  static const textToSign = "/text-To-Sign-Page";
 }

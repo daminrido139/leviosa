@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:leviosa/ui/assignment_page/assignment_student_page.dart';
 import 'package:leviosa/ui/calendar_page/calendar_page.dart';
 import 'package:leviosa/ui/chat_page/chat_page.dart';
-import 'package:leviosa/ui/course_page/coursestudent_page.dart';
+import 'package:leviosa/ui/course_channel_page/coursestudent_page.dart';
 import 'package:leviosa/ui/learning_page.dart/learning_page.dart';
 
 class CommonStudentPage extends StatefulWidget {
