@@ -51,10 +51,13 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
           onTap: () {
             key.currentState!.openDrawer();
           },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15.0),
-            child:
-                DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
+          child: Row(
+            children: [
+              const SizedBox(
+                width: 15,
+              ),
+              DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
+            ],
           ),
         ),
         title: const Text(
