@@ -59,6 +59,7 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
+      key: key,
       drawer: const DrawerPage(),
       appBar: AppBar(
         backgroundColor: Colors.white,
