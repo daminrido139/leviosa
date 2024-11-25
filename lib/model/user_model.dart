@@ -6,12 +6,14 @@ class UserModel {
   final String name;
   final String? profilePicture;
   final UserRole role;
+  final String? rollno;
 
   const UserModel({
     required this.createdAt,
     required this.name,
     required this.profilePicture,
     required this.role,
+    required this.rollno,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -21,6 +23,7 @@ class UserModel {
       profilePicture: json["profile_picture"],
       role: UserRole.values
           .firstWhere((s) => s.toString().split('.')[1] == json["role"]),
+      rollno: json['rollno'],
     );
   }
 
@@ -30,6 +33,7 @@ class UserModel {
       "name": name,
       "profile_picture": profilePicture,
       "role": role.toString(),
+      "rollno": rollno,
     };
   }
 }

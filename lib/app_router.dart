@@ -7,6 +7,7 @@ import 'package:leviosa/ui/chat_page/chat_room.dart';
 import 'package:leviosa/ui/chat_page/chat_search_page.dart';
 import 'package:leviosa/ui/common_page/common_student_page.dart';
 import 'package:leviosa/ui/common_page/common_teacher_page.dart';
+import 'package:leviosa/ui/course_channel_page/create_course_page.dart';
 import 'package:leviosa/ui/learning_page.dart/subjectstudents_page.dart';
 import 'package:leviosa/ui/learning_page.dart/youtubeplayerpagestudent_page.dart';
 import 'package:leviosa/ui/settings_page/settingsstudent_page.dart';
@@ -74,6 +75,11 @@ final appRouter = GoRouter(
       path: RouterConstants.leviosaChatBot,
       name: RouterConstants.leviosaChatBot,
       builder: (context, state) => const LeviosaChatBot(),
+    ),
+    GoRoute(
+      path: RouterConstants.createCourse,
+      name: RouterConstants.createCourse,
+      builder: (context, state) => const CreateCoursePage(),
     ),
     GoRoute(
       path: RouterConstants.chatSearchPage,
