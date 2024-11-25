@@ -12,4 +12,5 @@ class RouterConstants {
   static const videoCallPage = "/videoCall-Page";
   static const textToSign = "/text-To-Sign-Page";
   static const signToText = "/Sign-To-Text-Page";
+  static const leviosaChatBot = "/leviosa-Chat-Bot";
 }

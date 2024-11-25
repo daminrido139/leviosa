@@ -31,173 +31,184 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: key,
-        drawer: const DrawerPage(),
-        appBar: AppBar(
-          leadingWidth: 60,
-          backgroundColor: Colors.white,
-          leading: InkWell(
+      key: key,
+      drawer: const DrawerPage(),
+      appBar: AppBar(
+        leadingWidth: 60,
+        backgroundColor: Colors.white,
+        leading: InkWell(
+          onTap: () {
+            key.currentState!.openDrawer();
+          },
+          child: Row(
+            children: [
+              const SizedBox(
+                width: 15,
+              ),
+              DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
+            ],
+          ),
+        ),
+        title: const Text(
+          'Chats',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.push(RouterConstants.textToSign);
+            },
+            icon: const Icon(
+              Icons.text_fields_outlined,
+              color: Color.fromRGBO(228, 212, 156, 1),
+            ),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          InkWell(
+            onTap: () {},
+            child: const CircleAvatar(
+              radius: 18,
+              backgroundImage: AssetImage("assets/img/videocall1.webp"),
+            ),
+          ),
+          const SizedBox(
+            width: 25,
+          )
+        ],
+      ),
+      body: Column(
+        children: [
+          InkWell(
             onTap: () {
-              key.currentState!.openDrawer();
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Dialog(
+                        child: Container(
+                      height: 200,
+                      width: 50,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 233, 223, 190),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text(
+                            "Call id:",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                              controller: calling,
+                              decoration: const InputDecoration(
+                                  hintText: "Please Enter call id",
+                                  border: OutlineInputBorder()),
+                            ),
+                          ),
+                          const Spacer(),
+                          LeviosaButton(
+                            child: const Text(
+                              "Join Meeting",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () {
+                              context.push(
+                                RouterConstants.videoCallPage,
+                                extra: {
+                                  "callId": calling.text,
+                                },
+                              );
+                            },
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          )
+                        ],
+                      ),
+                    ));
+                  });
             },
             child: Row(
               children: [
                 const SizedBox(
-                  width: 15,
+                  height: 3,
                 ),
-                DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: Icon(Icons.video_camera_front_outlined),
+                ),
+                Text(
+                  "Create a Meet with a Id...",
+                  style: TextStyle(color: Colors.blue[100]),
+                ),
               ],
             ),
           ),
-          title: const Text(
-            'Chats',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                context.push(RouterConstants.textToSign);
-              },
-              icon: const Icon(
-                Icons.text_fields_outlined,
-                color: Color.fromRGBO(228, 212, 156, 1),
-              ),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            InkWell(
-              onTap: () {},
-              child: const CircleAvatar(
-                radius: 18,
-                backgroundImage: AssetImage("assets/img/videocall1.webp"),
-              ),
-            ),
-            const SizedBox(
-              width: 25,
-            )
-          ],
+          const SizedBox(height: 10),
+          searchBox(),
+          const SizedBox(height: 10),
+          Expanded(
+            child: StreamBuilder(
+                stream: ChatServices.listenChats(AuthService.getUserId()),
+                builder: (context, snapshots) {
+                  if (snapshots.hasError) {
+                    return Center(child: Text(snapshots.error.toString()));
+                  }
+                  if (snapshots.hasData) {
+                    final snap = snapshots.data!.docs;
+                    return ListView.builder(
+                        cacheExtent: 9999,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: snap.length,
+                        itemBuilder: (context, index) {
+                          final doc = snap[index];
+                          final messageData = doc.data();
+
+                          return LeviChatBox(
+                            key: Key(doc.id),
+                            subTitle: messageData['lastMessage'] ?? "",
+                            time: timestampTohhmmm(
+                                messageData['lastMessageTime']),
+                            count: messageData['count'].toString(),
+                            senderId: AuthService.getUserId(),
+                            seen: messageData['seen'] ?? false,
+                            lastMessageUid: messageData["lastMessageUID"] ?? "",
+                            receiverId: doc.id,
+                          );
+                        });
+                  }
+
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }),
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.push(RouterConstants.leviosaChatBot);
+        },
+        backgroundColor: const Color.fromARGB(255, 243, 227, 173),
+        child: SizedBox(
+          width: 30,
+          height: 30,
+          child: Image.asset("assets/img/chatbot_15320513.png"),
         ),
-        body: Column(
-          children: [
-            InkWell(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Dialog(
-                          child: Container(
-                        height: 200,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 233, 223, 190),
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const Text(
-                              "Call id:",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w600),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextField(
-                                controller: calling,
-                                decoration: const InputDecoration(
-                                    hintText: "Please Enter call id",
-                                    border: OutlineInputBorder()),
-                              ),
-                            ),
-                            const Spacer(),
-                            LeviosaButton(
-                              child: const Text(
-                                "Join Meeting",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              onTap: () {
-                                context.push(
-                                  RouterConstants.videoCallPage,
-                                  extra: {
-                                    "callId": calling.text,
-                                  },
-                                );
-                              },
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            )
-                          ],
-                        ),
-                      ));
-                    });
-              },
-              child: Row(
-                children: [
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Icon(Icons.video_camera_front_outlined),
-                  ),
-                  Text(
-                    "Create a Meet with a Id...",
-                    style: TextStyle(color: Colors.blue[100]),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 10),
-            searchBox(),
-            const SizedBox(height: 10),
-            Expanded(
-              child: StreamBuilder(
-                  stream: ChatServices.listenChats(AuthService.getUserId()),
-                  builder: (context, snapshots) {
-                    if (snapshots.hasError) {
-                      return Center(child: Text(snapshots.error.toString()));
-                    }
-                    if (snapshots.hasData) {
-                      final snap = snapshots.data!.docs;
-                      return ListView.builder(
-                          cacheExtent: 9999,
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: snap.length,
-                          itemBuilder: (context, index) {
-                            final doc = snap[index];
-                            final messageData = doc.data();
-
-                            return LeviChatBox(
-                              key: Key(doc.id),
-                              subTitle: messageData['lastMessage'] ?? "",
-                              time: timestampTohhmmm(
-                                  messageData['lastMessageTime']),
-                              count: messageData['count'].toString(),
-                              senderId: AuthService.getUserId(),
-                              seen: messageData['seen'] ?? false,
-                              lastMessageUid:
-                                  messageData["lastMessageUID"] ?? "",
-                              receiverId: doc.id,
-                            );
-                          });
-                    }
-
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }),
-            )
-          ],
-        ));
+      ),
+    );
   }
 
   Widget searchBox() {

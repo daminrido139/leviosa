@@ -33,7 +33,7 @@ class _HomepageState extends State<CommonStudentPage> {
       bottomNavigationBar: Container(
         height: 60,
         decoration:
-            const BoxDecoration(color: Color.fromARGB(255, 233, 223, 190)),
+            const BoxDecoration(color: Color.fromARGB(255, 243, 227, 173)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
