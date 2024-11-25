@@ -108,7 +108,6 @@ class _LeviChatBoxState extends State<LeviChatBox> {
             ),
           ],
         ),
-        subtitleTextStyle: const TextStyle(color: Colors.red),
         subtitle: Row(
           children: [
             if (widget.lastMessageUid == widget.senderId) ...[

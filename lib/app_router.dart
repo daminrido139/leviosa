@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/auth_service.dart';
+import 'package:leviosa/ui/Generative_ai/leviosa_chat_bot.dart';
 import 'package:leviosa/ui/app_entry.dart';
 import 'package:leviosa/ui/chat_page/chat_room.dart';
 import 'package:leviosa/ui/chat_page/chat_search_page.dart';
@@ -68,6 +69,11 @@ final appRouter = GoRouter(
         final args = state.extra as Map<String, dynamic>;
         return VideocallPage(callId: args["callId"]);
       },
+    ),
+    GoRoute(
+      path: RouterConstants.leviosaChatBot,
+      name: RouterConstants.leviosaChatBot,
+      builder: (context, state) => const LeviosaChatBot(),
     ),
     GoRoute(
       path: RouterConstants.chatSearchPage,

@@ -169,28 +169,28 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
     return Column(
       children: [
         const SizedBox(height: 20),
-        customlistview(
+        assignmentcard(
             context,
             "20 Sept",
             "(two days)",
             const Color.fromARGB(255, 243, 163, 97),
             "Assignment -1 (Number)",
             "OC"),
-        customlistview(
+        assignmentcard(
             context,
             "21 Sept",
             "(three days)",
             const Color.fromARGB(255, 243, 208, 102),
             "Assignment -2 (Alphabets)",
             "Mc"),
-        customlistview(
+        assignmentcard(
             context,
             "23 Sept",
             "(four days)",
             const Color.fromARGB(255, 188, 118, 235),
             "Assignment -3 (Colors)",
             "KI"),
-        customlistview(
+        assignmentcard(
             context,
             "24 Sept",
             "(five days)",
@@ -225,7 +225,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
     );
   }
 
-  Widget customlistview(
+  Widget assignmentcard(
       BuildContext context, subtext, txt, color, pretxt, htxt) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
