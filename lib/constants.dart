@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum UserRole {
   student,
   teacher,
@@ -35,3 +37,5 @@ class Utility {
     "assets/img/class8.jpeg",
   ];
 }
+
+const Color leviosaColor = Color.fromARGB(255, 243, 227, 173);

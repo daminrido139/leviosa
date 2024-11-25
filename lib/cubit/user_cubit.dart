@@ -11,6 +11,7 @@ class UserCubit extends Cubit<UserModel> {
             name: "",
             profilePicture: null,
             role: UserRole.none,
+            rollno: null,
           ),
         );
 
@@ -21,6 +22,7 @@ class UserCubit extends Cubit<UserModel> {
         name: userModel.name,
         profilePicture: userModel.profilePicture,
         role: userModel.role,
+        rollno: userModel.rollno,
       ),
     );
   }

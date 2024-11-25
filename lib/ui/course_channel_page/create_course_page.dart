@@ -6,17 +6,18 @@ import 'package:leviosa/services/user_service.dart';
 import 'package:leviosa/widgets/chat/new_chat_box.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 
-class ChatSearchPage extends StatefulWidget {
-  const ChatSearchPage({super.key});
+class CreateCoursePage extends StatefulWidget {
+  const CreateCoursePage({super.key});
 
   @override
-  State<ChatSearchPage> createState() => _ChatSearchPageState();
+  State<CreateCoursePage> createState() => _CreateCoursePageState();
 }
 
-class _ChatSearchPageState extends State<ChatSearchPage> {
+class _CreateCoursePageState extends State<CreateCoursePage> {
   final FocusNode _focusNode = FocusNode();
   final List<QueryDocumentSnapshot<Map<String, dynamic>>> users = [];
   List<QueryDocumentSnapshot<Map<String, dynamic>>> searchRes = [];
+  List<String> selectedStudents = [];
 
   @override
   void initState() {
@@ -67,59 +68,81 @@ class _ChatSearchPageState extends State<ChatSearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const SizedBox(height: 50),
-          Row(
-            children: [
-              const SizedBox(width: 5),
-              IconButton(
-                onPressed: () => context.pop(),
-                icon: const Icon(Icons.arrow_back),
-              ),
-              Expanded(child: searchBox()),
-            ],
-          ),
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.only(top: 20),
-              shrinkWrap: true,
-              itemCount: searchRes.length,
-              itemBuilder: (context, index) {
-                final doc = searchRes[index];
-                // if (doc.id == AuthService.getUserId()) {
-                //   return const SizedBox.shrink();
-                // }
-                final data = doc.data();
-                if (data['name'] == null) {
-                  return const SizedBox.shrink();
-                }
-                return NewChatBox(
-                  rollNo: data['rollno'],
-                  leading: DefaultDp(
-                    name: data['name'],
-                    dpUrl: data['profileUrl'],
-                    size: 49,
-                  ),
-                  receiverName: data['name'] ?? "",
-                  onTap: () async {
-                    await Future.delayed(Durations.medium1);
-                    context.pushReplacement(RouterConstants.chatRoom, extra: {
-                      "receiver_name": data['name'],
-                      "leading": DefaultDp(
-                        name: data['name'],
-                        dpUrl: data['profileUrl'],
-                        size: 49,
-                      ),
-                      "receiver_uid": doc.id,
-                    });
-                  },
-                );
-              },
+      body: selectStudent(),
+    );
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  Widget selectStudent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 50),
+        Row(
+          children: [
+            const SizedBox(width: 5),
+            IconButton(
+              onPressed: () => context.pop(),
+              icon: const Icon(Icons.arrow_back),
             ),
-          )
-        ],
-      ),
+            Expanded(child: searchBox()),
+          ],
+        ),
+        if (selectedStudents.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(left: 30, top: 20),
+            child: Text(
+              '${selectedStudents.length} Selected',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.only(top: 7),
+            shrinkWrap: true,
+            itemCount: searchRes.length,
+            itemBuilder: (context, index) {
+              final doc = searchRes[index];
+              // if (doc.id == AuthService.getUserId()) {
+              //   return const SizedBox.shrink();
+              // }
+              final data = doc.data();
+              if (data['name'] == null) {
+                return const SizedBox.shrink();
+              }
+              return NewChatBox(
+                rollNo: data['rollno'],
+                leading: DefaultDp(
+                  name: data['name'],
+                  dpUrl: data['profileUrl'],
+                  size: 49,
+                ),
+                receiverName: data['name'] ?? "",
+                onTap: () {
+                  if (selectedStudents.contains(doc.id)) {
+                    selectedStudents.remove(doc.id);
+                  } else {
+                    selectedStudents.add(doc.id);
+                  }
+                  setState(() {});
+                },
+                isChecked: selectedStudents.contains(doc.id),
+                onCheckboxTap: () {
+                  if (selectedStudents.contains(doc.id)) {
+                    selectedStudents.remove(doc.id);
+                  } else {
+                    selectedStudents.add(doc.id);
+                  }
+                  setState(() {});
+                },
+              );
+            },
+          ),
+        )
+      ],
     );
   }
 
@@ -151,4 +174,5 @@ class _ChatSearchPageState extends State<ChatSearchPage> {
       ),
     );
   }
+  ///////////////////////////////////////////////////////////////////////
 }
