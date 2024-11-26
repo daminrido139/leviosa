@@ -30,3 +30,7 @@ String timestampTohhmmm(Timestamp timestamp) {
   String minuteStr = pad0(minute);
   return '$hourStr:$minuteStr $period';
 }
+
+String getSchool(String email) {
+  return email.split('@')[1].split('.')[0];
+}

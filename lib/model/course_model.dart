@@ -17,10 +17,12 @@ class CourseModel {
   factory CourseModel.fromJson(Map<String, dynamic> json) {
     return CourseModel(
       createdAt: json["created_at"],
-      courseName: json["courseName"],
-      courseCode: json["courseCode"],
-      createrId: json["createrId"],
-      participantsId: json["participantsId"],
+      courseName: json["course_name"],
+      courseCode: json["course_code"],
+      createrId: json["creater_id"],
+      participantsId: (json["participants_id"] as List<dynamic>)
+          .map((e) => e.toString())
+          .toList(),
     );
   }
 

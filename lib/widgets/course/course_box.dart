@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leviosa/app_router.dart';
+import 'package:leviosa/model/course_model.dart';
 import 'package:leviosa/router_constants.dart';
 
 class CourseBox extends StatelessWidget {
-  const CourseBox({super.key});
+  final CourseModel courseModel;
+  const CourseBox({super.key, required this.courseModel});
   static final List<Color> colors = [
     Colors.red.shade200,
     Colors.green.shade200,
@@ -40,19 +41,28 @@ class CourseBox extends StatelessWidget {
           child: ListTile(
             onTap: () => context.push(RouterConstants.courseTeachersPage),
             leading: Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                    color: genColor("achita"),
-                    borderRadius: BorderRadius.circular(8))),
-            title: const Text(
-              "Auto Mobile Enginerring",
-              style: TextStyle(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                  color: genColor(courseModel.courseName),
+                  borderRadius: BorderRadius.circular(8)),
+              child: Center(
+                  child: Text(
+                courseModel.courseName.substring(0, 2),
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              )),
+            ),
+            title: Text(
+              courseModel.courseName,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            subtitle: const Text("U18AU7996"),
+            subtitle: Text(courseModel.courseCode),
           ),
         ));
   }

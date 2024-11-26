@@ -1,10 +1,16 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leviosa/constants.dart';
+import 'package:leviosa/services/auth_service.dart';
+import 'package:leviosa/services/course_service.dart';
 import 'package:leviosa/services/user_service.dart';
 import 'package:leviosa/widgets/chat/new_chat_box.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/common/leviosa_button.dart';
+import 'package:leviosa/widgets/common/loader.dart';
 import 'package:provider/provider.dart';
 
 class CreateCoursePage extends StatefulWidget {
@@ -15,6 +21,7 @@ class CreateCoursePage extends StatefulWidget {
 }
 
 class _CreateCoursePageState extends State<CreateCoursePage> {
+  final _formKey = GlobalKey<FormState>();
   final FocusNode _focusNode = FocusNode();
   final List<QueryDocumentSnapshot<Map<String, dynamic>>> users = [];
   List<QueryDocumentSnapshot<Map<String, dynamic>>> searchRes = [];
@@ -22,6 +29,7 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
   TextEditingController courseNameController = TextEditingController();
   TextEditingController courseCodeController = TextEditingController();
   bool inSelectedPage = true;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -102,86 +110,107 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   Widget courseDetails() {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const SizedBox(
-        height: 20,
-      ),
-      entercourseDetails(
-          "Course Name", "Enter a Course Name", courseNameController),
-      entercourseDetails(
-          "Course Code", "Enter a Course Code", courseCodeController),
-      const SizedBox(
-        height: 13,
-      ),
-      Row(
-        children: [
-          const SizedBox(width: 13),
-          const Stack(
-            children: [
-              SizedBox(width: 100),
-              DefaultDp(name: "name", size: 49),
-              Positioned(
-                left: 25,
-                child: DefaultDp(name: "k", size: 49),
-              ),
-              Positioned(
-                left: 50,
-                child: DefaultDp(name: "s", size: 49),
-              ),
-            ],
-          ),
-          const SizedBox(width: 20),
-          Text(
-            "${selectedStudents.length} Students selected",
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
-      Expanded(
-        child: ListView.builder(
-          padding: const EdgeInsets.only(top: 7),
-          shrinkWrap: true,
-          itemCount: users.length,
-          itemBuilder: (context, index) {
-            final doc = users[index];
-            if (!selectedStudents.contains(doc.id)) {
-              return const SizedBox.shrink();
-            }
-            // if (doc.id == AuthService.getUserId()) {
-            //   return const SizedBox.shrink();
-            // }
-            final data = doc.data();
-            if (data['name'] == null) {
-              return const SizedBox.shrink();
-            }
-            return NewChatBox(
-              rollNo: data['rollno'],
-              leading: DefaultDp(
-                name: data['name'],
-                dpUrl: data['profileUrl'],
-                size: 49,
-              ),
-              receiverName: data['name'] ?? "",
-              onTap: () {},
-            );
-          },
+    return Form(
+      key: _formKey,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        entercourseDetails(
+            "Course Name", "Enter a Course Name", courseNameController),
+        entercourseDetails(
+            "Course Code", "Enter a Course Code", courseCodeController),
+        const SizedBox(
+          height: 13,
         ),
-      ),
-      if (selectedStudents.isNotEmpty)
-        LeviosaButton(
-            onTap: () {
-              context.pop();
+        Row(
+          children: [
+            const SizedBox(width: 13),
+            Stack(
+              children: [
+                SizedBox(
+                    width: min<double>(100, 40.0 * selectedStudents.length)),
+                DefaultDp(name: selectedStudents[0], size: 49),
+                if (selectedStudents.length > 1)
+                  Positioned(
+                    left: 25,
+                    child: DefaultDp(name: selectedStudents[1], size: 49),
+                  ),
+                if (selectedStudents.length > 2)
+                  Positioned(
+                    left: 50,
+                    child: DefaultDp(name: selectedStudents[2], size: 49),
+                  ),
+              ],
+            ),
+            const SizedBox(width: 20),
+            Text(
+              "${selectedStudents.length} Students selected",
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            ),
+          ],
+        ),
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.only(top: 7),
+            shrinkWrap: true,
+            itemCount: users.length,
+            itemBuilder: (context, index) {
+              final doc = users[index];
+              if (!selectedStudents.contains(doc.id)) {
+                return const SizedBox.shrink();
+              }
+              // if (doc.id == AuthService.getUserId()) {
+              //   return const SizedBox.shrink();
+              // }
+              final data = doc.data();
+              if (data['name'] == null) {
+                return const SizedBox.shrink();
+              }
+              return NewChatBox(
+                rollNo: data['rollno'],
+                leading: DefaultDp(
+                  name: data['name'],
+                  dpUrl: data['profileUrl'],
+                  size: 49,
+                ),
+                receiverName: data['name'] ?? "",
+                onTap: () {},
+              );
             },
-            width: double.infinity,
-            radius: BorderRadius.zero,
-            child: const Text(
-              'Create Course',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w500,
-              ),
-            )),
-    ]);
+          ),
+        ),
+        if (selectedStudents.isNotEmpty)
+          LeviosaButton(
+              onTap: () async {
+                if (isLoading || !(_formKey.currentState!.validate())) {
+                  return;
+                }
+                isLoading = true;
+                setState(() {});
+                try {
+                  await CourseService.createCourse(
+                    selectedStudents,
+                    courseNameController.text,
+                    courseCodeController.text,
+                  );
+                } catch (e) {
+                  isLoading = false;
+                  setState(() {});
+                }
+
+                Navigator.pop(context);
+              },
+              width: double.infinity,
+              radius: BorderRadius.zero,
+              child: isLoading
+                  ? const Loader()
+                  : const Text(
+                      'Create Course',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )),
+      ]),
+    );
   }
 
   Widget entercourseDetails(
@@ -198,36 +227,39 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
         ),
       ),
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.grey.shade300),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              children: [
-                const SizedBox(width: 4),
-                Expanded(
-                  child: TextField(
-                    controller: controller,
-                    style: const TextStyle(fontSize: 20),
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.zero,
-                      border: InputBorder.none,
-                      hintText: hinttext,
-                      hintStyle: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        child: Row(
+          children: [
+            const SizedBox(width: 4),
+            Expanded(
+              child: TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter $hinttext';
+                  }
+                  return null;
+                },
+                controller: controller,
+                style: const TextStyle(fontSize: 20),
+                cursorColor: Colors.black,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide:
+                        const BorderSide(width: 2, color: Color(0xffad9c00)),
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.circular(12)),
+                  hintText: hinttext,
+                  hintStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       )
     ]);
@@ -267,9 +299,9 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
             itemCount: searchRes.length,
             itemBuilder: (context, index) {
               final doc = searchRes[index];
-              // if (doc.id == AuthService.getUserId()) {
-              //   return const SizedBox.shrink();
-              // }
+              if (doc.id == AuthService.getUserId()) {
+                return const SizedBox.shrink();
+              }
               final data = doc.data();
               if (data['name'] == null) {
                 return const SizedBox.shrink();
