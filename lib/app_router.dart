@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:leviosa/model/course_model.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/auth_service.dart';
 import 'package:leviosa/ui/Generative_ai/leviosa_chat_bot.dart';
@@ -103,15 +104,22 @@ final appRouter = GoRouter(
       name: RouterConstants.appEntry,
       builder: (context, state) => const AppEntry(),
     ),
-    GoRoute(
-      path: RouterConstants.courseTeachersPage,
-      name: RouterConstants.courseTeachersPage,
-      builder: (context, state) => const CourseTeacherPage(),
-    ),
+
     GoRoute(
       path: RouterConstants.courseStudentsPage,
       name: RouterConstants.courseStudentsPage,
-      builder: (context, state) => const CourseStudentPage(),
+      builder: (context, state) {
+        final courseModel = state.extra as CourseModel;
+        return CourseStudentPage(courseModel: courseModel);
+      },
+    ),
+    GoRoute(
+      path: RouterConstants.courseTeachersPage,
+      name: RouterConstants.courseTeachersPage,
+      builder: (context, state) {
+        final courseModel = state.extra as CourseModel?;
+        return CourseTeacherPage(courseModel: courseModel);
+      },
     ),
     GoRoute(
       path: RouterConstants.commonStudentPageRoute,
