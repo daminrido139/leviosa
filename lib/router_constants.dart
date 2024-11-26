@@ -14,4 +14,6 @@ class RouterConstants {
   static const signToText = "/Sign-To-Text-Page";
   static const leviosaChatBot = "/leviosa-Chat-Bot";
   static const createCourse = "/create-course";
+  static const courseTeachersPage = "/course-teachers-page";
+  static const courseStudentsPage = "/course-students-page";
 }

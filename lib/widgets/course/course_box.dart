@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:leviosa/app_router.dart';
+import 'package:leviosa/router_constants.dart';
 
 class CourseBox extends StatelessWidget {
   const CourseBox({super.key});
@@ -35,6 +38,7 @@ class CourseBox extends StatelessWidget {
         ),
         child: Center(
           child: ListTile(
+            onTap: () => context.push(RouterConstants.courseTeachersPage),
             leading: Container(
                 height: 50,
                 width: 50,
