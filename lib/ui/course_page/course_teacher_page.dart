@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:leviosa/constants.dart';
 import 'package:leviosa/model/course_model.dart';
 
 class CourseTeacherPage extends StatefulWidget {
