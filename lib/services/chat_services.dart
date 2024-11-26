@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:leviosa/model/user_model.dart';
+import 'package:leviosa/services/common_services.dart';
 
 class ChatServices {
   static final _firestore = FirebaseFirestore.instance;
@@ -19,7 +20,7 @@ class ChatServices {
   static Stream<QuerySnapshot<Map<String, dynamic>>> listenChats(
     String senderUid,
   ) {
-    final school = senderUid.split('@')[1].split('.')[0];
+    final school = getSchool(senderUid);
     return _firestore
         .collection("school")
         .doc(school)
@@ -42,7 +43,7 @@ class ChatServices {
     bool isMyReply,
   ) async {
     final nowTime = Timestamp.now();
-    final school = senderUid.split('@')[1].split('.')[0];
+    final school = getSchool(senderUid);
     final ids = [senderUid, receiverUid];
     ids.sort();
     final senderPath = _firestore
@@ -98,7 +99,7 @@ class ChatServices {
   }
 
   static Future<void> setCountZero(String userId, String otherId) async {
-    final school = userId.split('@')[1].split('.')[0];
+    final school = getSchool(userId);
 
     _firestore
         .collection("school")
@@ -115,7 +116,7 @@ class ChatServices {
 
   static Future<void> setMessageSeen(
       String messageId, String senderUid, String receiverUid) async {
-    final school = senderUid.split('@')[1].split('.')[0];
+    final school = getSchool(senderUid);
     final ids = [senderUid, receiverUid];
     ids.sort();
     final String chatRoomId = ids.join("-");
@@ -134,7 +135,7 @@ class ChatServices {
 
   static Future<void> setMessageSeenAtChatInfo(
       String senderUid, String receiverUid) async {
-    final school = senderUid.split('@')[1].split('.')[0];
+    final school = getSchool(senderUid);
     _firestore
         .collection("school")
         .doc(school)
@@ -150,7 +151,7 @@ class ChatServices {
 
   static Stream<QuerySnapshot<Map<String, dynamic>>> receiveMessage(
       String senderUid, String receiverUid, int limit) {
-    final school = senderUid.split('@')[1].split('.')[0];
+    final school = getSchool(senderUid);
     final ids = [senderUid, receiverUid];
     ids.sort();
     return _firestore

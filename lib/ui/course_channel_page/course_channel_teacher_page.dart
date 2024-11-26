@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
+import 'package:leviosa/model/course_model.dart';
 import 'package:leviosa/router_constants.dart';
+import 'package:leviosa/services/course_service.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/course/course_box.dart';
@@ -18,6 +20,19 @@ class CourseChannelTeacherPage extends StatefulWidget {
 
 class _CourseChannelTeacherPageState extends State<CourseChannelTeacherPage> {
   final GlobalKey<ScaffoldState> key = GlobalKey();
+  List<CourseModel> courses = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchMyCourses();
+  }
+
+  Future<void> fetchMyCourses() async {
+    courses = await CourseService.fetchMyTeachingCourses();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +62,9 @@ class _CourseChannelTeacherPageState extends State<CourseChannelTeacherPage> {
         ),
         actions: [
           GestureDetector(
-            onTap: () => context.push(RouterConstants.createCourse),
+            onTap: () => context
+                .push(RouterConstants.createCourse)
+                .then((_) => fetchMyCourses()),
             child: Container(
               height: 35,
               width: 80,
@@ -81,10 +98,12 @@ class _CourseChannelTeacherPageState extends State<CourseChannelTeacherPage> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 7,
+              itemCount: courses.length,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
-                return const CourseBox();
+                return CourseBox(
+                  courseModel: courses[index],
+                );
               },
             ),
           )
