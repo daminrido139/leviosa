@@ -5,10 +5,12 @@ class LeviosaButton extends StatelessWidget {
   final Widget child;
   final double? width;
   final double? height;
+  final BorderRadius? radius;
   const LeviosaButton({
     super.key,
     required this.onTap,
     required this.child,
+    this.radius,
     this.width,
     this.height,
   });
@@ -31,7 +33,7 @@ class LeviosaButton extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: radius ?? BorderRadius.circular(15),
           color: const Color.fromARGB(255, 253, 249, 227),
           boxShadow: [
             BoxShadow(
