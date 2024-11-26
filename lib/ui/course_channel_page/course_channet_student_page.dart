@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
+import 'package:leviosa/model/course_model.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/course/course_box.dart';
@@ -60,7 +62,14 @@ class _CourseChannetStudentPageState extends State<CourseChannetStudentPage> {
               itemCount: 7,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
-                return const CourseBox();
+                return CourseBox(
+                  courseModel: CourseModel(
+                      createdAt: Timestamp.now(),
+                      courseName: 'rerf',
+                      courseCode: 'courseCode',
+                      createrId: "createrId",
+                      participantsId: []),
+                );
               },
             ),
           )
