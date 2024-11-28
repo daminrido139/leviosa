@@ -80,7 +80,7 @@ class _CalendarPageState extends State<CalendarPage> {
         title: Row(
           children: [
             const Text(
-              'Calendar',
+              "Calender",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,

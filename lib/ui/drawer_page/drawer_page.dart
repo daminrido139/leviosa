@@ -33,6 +33,7 @@ class _DrawerPageState extends State<DrawerPage> {
             ),
             customlisttile("Profile", Icons.person_outline, () {}),
             customlisttile("Notification", Icons.notifications_outlined, () {}),
+            customlisttile("Language", Icons.language_outlined, () {}),
             customlisttile("Settings", Icons.settings_outlined, () {
               context.push(RouterConstants.settingsPageStudents);
             }),

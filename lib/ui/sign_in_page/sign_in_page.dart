@@ -55,7 +55,7 @@ class _LoginpageState extends State<SignInPage> {
             fit: BoxFit.fitHeight,
           ),
           Positioned(
-            bottom: -MediaQuery.of(context).size.height * 0.5,
+            bottom: -MediaQuery.of(context).size.height * 0.48,
             child: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
@@ -64,8 +64,39 @@ class _LoginpageState extends State<SignInPage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Row(
+                    children: [
+                      const Spacer(),
+                      DropdownButton<String>(
+                        icon: const Icon(Icons.language_outlined),
+                        value:
+                            "English", // Ensure this matches one of the items
+                        onChanged: (String? newValue) {
+                          // Handle selection change
+                          print('Selected: $newValue');
+                        },
+                        items: const [
+                          DropdownMenuItem(
+                            value: "English",
+                            child: Text("English"),
+                          ),
+                          DropdownMenuItem(
+                            value: "Gujarathi",
+                            child: Text("ગુજરાતી"),
+                          ),
+                          DropdownMenuItem(
+                            value: "Hindi",
+                            child: Text("हिन्दी"),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 25,
+                      )
+                    ],
+                  ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 25.0),
+                    padding: EdgeInsets.symmetric(vertical: 20.0),
                     child: Text(
                       "Welcome back 👋",
                       style: TextStyle(
@@ -96,7 +127,7 @@ class _LoginpageState extends State<SignInPage> {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
