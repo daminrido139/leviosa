@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leviosa/constants.dart';
 import 'package:leviosa/services/auth_service.dart';
 import 'package:leviosa/services/course_service.dart';
 import 'package:leviosa/services/user_service.dart';
@@ -11,7 +10,6 @@ import 'package:leviosa/widgets/chat/new_chat_box.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/common/leviosa_button.dart';
 import 'package:leviosa/widgets/common/loader.dart';
-import 'package:provider/provider.dart';
 
 class CreateCoursePage extends StatefulWidget {
   const CreateCoursePage({super.key});

@@ -33,6 +33,8 @@ class _AppEntryState extends State<AppEntry> {
       context.go(RouterConstants.commonStudentPageRoute);
     } else if (userModel.role == UserRole.teacher) {
       context.go(RouterConstants.commonTeacherPageRoute);
+    } else {
+      context.go(RouterConstants.commonParentPageRoute);
     }
   }
 
