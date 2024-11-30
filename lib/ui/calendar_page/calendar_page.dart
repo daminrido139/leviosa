@@ -13,6 +13,7 @@ import 'package:leviosa/widgets/calender/month_cell_builder.dart';
 import 'package:leviosa/widgets/calender/week_day_box.dart';
 import 'package:leviosa/widgets/calender/week_number_box.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
@@ -79,18 +80,18 @@ class _CalendarPageState extends State<CalendarPage> {
         ),
         title: Row(
           children: [
-            const Text(
+            const LeviosaText(
               "Calender",
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const Spacer(),
-            Text(
+            LeviosaText(
               displayDate,
               style: const TextStyle(
-                fontSize: 17.5,
+                fontSize: 16,
                 letterSpacing: -0.3,
               ),
             ),
@@ -120,7 +121,7 @@ class _CalendarPageState extends State<CalendarPage> {
         updateSpan(value);
         changeDate(DateTime.now(), 0);
       },
-      child: Text(
+      child: LeviosaText(
         label,
         style: TextStyle(
           fontWeight: FontWeight.w500,
@@ -232,7 +233,7 @@ class _CalendarPageState extends State<CalendarPage> {
       offset: const Offset(0, -7.5),
       child: Padding(
         padding: const EdgeInsets.only(right: 7.0),
-        child: Text(
+        child: LeviosaText(
           timeString,
           textAlign: TextAlign.right,
           style: const TextStyle(

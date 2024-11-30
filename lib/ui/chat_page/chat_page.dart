@@ -10,6 +10,7 @@ import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/chat/levi_chat_box.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/common/leviosa_button.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -49,7 +50,7 @@ class _ChatPageState extends State<ChatPage> {
             ],
           ),
         ),
-        title: const Text(
+        title: const LeviosaText(
           'Chats',
           style: TextStyle(
             fontSize: 22,
@@ -100,7 +101,7 @@ class _ChatPageState extends State<ChatPage> {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text(
+                          const LeviosaText(
                             "Call id:",
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w600),
@@ -116,7 +117,7 @@ class _ChatPageState extends State<ChatPage> {
                           ),
                           const Spacer(),
                           LeviosaButton(
-                            child: const Text(
+                            child: const LeviosaText(
                               "Join Meeting",
                               style: TextStyle(
                                   color: Colors.white,
@@ -148,7 +149,7 @@ class _ChatPageState extends State<ChatPage> {
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Icon(Icons.video_camera_front_outlined),
                 ),
-                Text(
+                LeviosaText(
                   "Create a Meet with a Id...",
                   style: TextStyle(color: Colors.blue[100]),
                 ),
@@ -163,7 +164,8 @@ class _ChatPageState extends State<ChatPage> {
                 stream: ChatServices.listenChats(AuthService.getUserId()),
                 builder: (context, snapshots) {
                   if (snapshots.hasError) {
-                    return Center(child: Text(snapshots.error.toString()));
+                    return Center(
+                        child: LeviosaText(snapshots.error.toString()));
                   }
                   if (snapshots.hasData) {
                     final snap = snapshots.data!.docs;

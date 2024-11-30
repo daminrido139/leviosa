@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/widgets/common/adv_network_image.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class DefaultDp extends StatelessWidget {
   final String name;

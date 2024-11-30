@@ -4,6 +4,7 @@ import 'package:leviosa/ui/calendar_page/calendar_page.dart';
 import 'package:leviosa/ui/chat_page/chat_page.dart';
 import 'package:leviosa/ui/course_channel_page/course_channet_student_page.dart';
 import 'package:leviosa/ui/learning_page.dart/learning_page.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class CommonStudentPage extends StatefulWidget {
   const CommonStudentPage({
@@ -50,7 +51,7 @@ class _HomepageState extends State<CommonStudentPage> {
                         ? Icons.calendar_month
                         : Icons.calendar_month_outlined,
                   ),
-                  Text(
+                  LeviosaText(
                     "Calendar",
                     style: TextStyle(
                         fontWeight: selectedPage == 0
@@ -71,7 +72,7 @@ class _HomepageState extends State<CommonStudentPage> {
                   Icon(
                     selectedPage == 1 ? Icons.message : Icons.message_outlined,
                   ),
-                  Text(
+                  LeviosaText(
                     "Chats",
                     style: TextStyle(
                         fontWeight: selectedPage == 1
@@ -92,7 +93,7 @@ class _HomepageState extends State<CommonStudentPage> {
                   Icon(
                     selectedPage == 2 ? Icons.science : Icons.science_outlined,
                   ),
-                  Text(
+                  LeviosaText(
                     "Assignment",
                     style: TextStyle(
                         fontWeight: selectedPage == 2
@@ -112,7 +113,7 @@ class _HomepageState extends State<CommonStudentPage> {
                 children: [
                   Icon(
                       selectedPage == 3 ? Icons.school : Icons.school_outlined),
-                  Text(
+                  LeviosaText(
                     "Course",
                     style: TextStyle(
                         fontWeight: selectedPage == 3
@@ -133,7 +134,7 @@ class _HomepageState extends State<CommonStudentPage> {
                   Icon(
                     selectedPage == 4 ? Icons.book : Icons.book_outlined,
                   ),
-                  Text(
+                  LeviosaText(
                     "Learning",
                     style: TextStyle(
                         fontWeight: selectedPage == 4

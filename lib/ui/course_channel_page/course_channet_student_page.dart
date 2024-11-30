@@ -5,6 +5,7 @@ import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/model/course_model.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:leviosa/widgets/course/course_box.dart';
 import 'package:leviosa/widgets/course/course_search_bar.dart';
 
@@ -45,7 +46,7 @@ class _CourseChannetStudentPageState extends State<CourseChannetStudentPage> {
             ],
           ),
         ),
-        title: const Text(
+        title: const LeviosaText(
           'Course',
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),

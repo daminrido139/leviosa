@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/services/calendar_services.dart';
 import 'package:leviosa/services/common_services.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class DayDateBox extends StatelessWidget {
   final DateTime dateTime;
@@ -27,7 +28,7 @@ class DayDateBox extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(
+          LeviosaText(
             CalendarServices.getDayByInd(dateTime.weekday - 1),
             style: const TextStyle(
                 fontSize: 17, color: Color.fromARGB(255, 134, 134, 143)),
@@ -36,7 +37,7 @@ class DayDateBox extends StatelessWidget {
           CircleAvatar(
             radius: 12,
             backgroundColor: isCurrentDate ? Colors.blue : Colors.transparent,
-            child: Text(
+            child: LeviosaText(
               dateTime.day.toString(),
               style: TextStyle(
                   fontSize: 17,

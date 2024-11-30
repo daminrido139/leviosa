@@ -8,6 +8,7 @@ import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class Learningpage extends StatefulWidget {
   const Learningpage({super.key});
@@ -40,7 +41,7 @@ class _LearningpageState extends State<Learningpage> {
             ],
           ),
         ),
-        title: const Text(
+        title: const LeviosaText(
           'Learning Section',
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
@@ -84,7 +85,7 @@ class _LearningpageState extends State<Learningpage> {
             ),
           ),
           Center(
-            child: Text(
+            child: LeviosaText(
               "CLASS $level",
               style: const TextStyle(
                 fontWeight: FontWeight.w500,

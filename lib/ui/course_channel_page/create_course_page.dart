@@ -9,6 +9,7 @@ import 'package:leviosa/services/user_service.dart';
 import 'package:leviosa/widgets/chat/new_chat_box.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/common/leviosa_button.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:leviosa/widgets/common/loader.dart';
 
 class CreateCoursePage extends StatefulWidget {
@@ -99,7 +100,7 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
                 backgroundColor: Colors.white,
                 shadowColor: Colors.transparent,
                 surfaceTintColor: Colors.transparent,
-                title: const Text(
+                title: const LeviosaText(
                   "COURSE DETAILS",
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 )),
@@ -139,9 +140,12 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
               ],
             ),
             const SizedBox(width: 20),
-            Text(
-              "${selectedStudents.length} Students selected",
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            Expanded(
+              child: LeviosaText(
+                "${selectedStudents.length} Students selected",
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              ),
             ),
           ],
         ),
@@ -193,14 +197,13 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
                   isLoading = false;
                   setState(() {});
                 }
-
-                Navigator.pop(context);
+                context.pop();
               },
               width: double.infinity,
               radius: BorderRadius.zero,
               child: isLoading
                   ? const Loader()
-                  : const Text(
+                  : const LeviosaText(
                       'Create Course',
                       style: TextStyle(
                         fontSize: 22,
@@ -216,7 +219,7 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Text(
+        child: LeviosaText(
           title,
           style: const TextStyle(
             fontSize: 20,
@@ -282,7 +285,7 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
         if (selectedStudents.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(left: 30, top: 20),
-            child: Text(
+            child: LeviosaText(
               '${selectedStudents.length} Selected',
               style: const TextStyle(
                 fontSize: 20,
@@ -341,7 +344,7 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
               },
               width: double.infinity,
               radius: BorderRadius.zero,
-              child: const Text(
+              child: const LeviosaText(
                 'Next',
                 style: TextStyle(
                   fontSize: 22,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/auth_service.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class SettingsstudentPage extends StatelessWidget {
   const SettingsstudentPage({super.key});
@@ -13,7 +14,7 @@ class SettingsstudentPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 233, 223, 190),
-        title: const Text(
+        title: const LeviosaText(
           'Settings',
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
@@ -35,7 +36,7 @@ class SettingsstudentPage extends StatelessWidget {
   customlisttile(name, IconData icon, ontap) {
     return ListTile(
       onTap: ontap,
-      title: Text(name),
+      title: LeviosaText(name),
       leading: Icon(icon),
       trailing: const Icon(Icons.keyboard_arrow_right_outlined),
     );

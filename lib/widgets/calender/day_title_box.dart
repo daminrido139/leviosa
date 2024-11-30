@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/services/calendar_services.dart';
 import 'package:leviosa/services/common_services.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class DayTitleBox extends StatelessWidget {
   final DateTime dateTime;
@@ -19,7 +20,7 @@ class DayTitleBox extends StatelessWidget {
           width: 0.5,
         ),
       ),
-      child: Text(
+      child: LeviosaText(
         '${CalendarServices.getMonthByInd(dateTime.month)} ${dateTime.day}, ${dateTime.year}',
         style: const TextStyle(
           fontSize: 17,

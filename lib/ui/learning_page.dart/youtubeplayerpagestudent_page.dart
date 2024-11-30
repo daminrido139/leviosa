@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:leviosa/ui/learning_page.dart/writting_pad.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class YoutubePlayerScreen extends StatefulWidget {
@@ -79,7 +80,7 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
         leading: const BackButton(
           color: Colors.white,
         ),
-        title: Text(
+        title: LeviosaText(
           widget.tittle,
           style: const TextStyle(color: Colors.white),
         ),

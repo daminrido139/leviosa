@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/constants.dart';
 import 'package:leviosa/router_constants.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class Subjectspage extends StatelessWidget {
   const Subjectspage({super.key});
@@ -10,7 +11,7 @@ class Subjectspage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Subjects'),
+        title: const LeviosaText('Subjects'),
         backgroundColor: const Color.fromARGB(255, 233, 223, 190),
       ),
       body: ListView.builder(
@@ -38,13 +39,6 @@ class Subjectspage extends StatelessWidget {
             "title": tittle,
           },
         );
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => YoutubePlayerScreen(
-        //               youtubeurl: Utility.youtubeurl[ind],
-        //               tittle: tittle,
-        //             )));
       },
       child: Center(
         child: Column(
@@ -71,12 +65,12 @@ class Subjectspage extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      Text(
+                      LeviosaText(
                         tittle,
                         style: const TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 22),
                       ),
-                      Text(subtittle)
+                      LeviosaText(subtittle)
                     ],
                   ),
                 ],

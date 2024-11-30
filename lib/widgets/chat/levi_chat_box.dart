@@ -8,6 +8,7 @@ import 'package:leviosa/services/chat_services.dart';
 import 'package:leviosa/services/common_services.dart';
 import 'package:leviosa/services/user_service.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class LeviChatBox extends StatefulWidget {
   final String subTitle;
@@ -141,7 +142,7 @@ class _LeviChatBoxState extends State<LeviChatBox> {
                   color: Color.fromRGBO(203, 193, 100, 1),
                   shape: CircleBorder(),
                 ),
-                child: Text(
+                child: LeviosaText(
                   widget.count,
                   style: const TextStyle(color: Colors.white),
                 ),

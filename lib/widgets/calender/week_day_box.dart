@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/services/calendar_services.dart';
 import 'package:leviosa/services/common_services.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class WeekDayBox extends StatelessWidget {
   final int day;
@@ -19,7 +20,7 @@ class WeekDayBox extends StatelessWidget {
           width: 0.5,
         ),
       ),
-      child: Text(
+      child: LeviosaText(
         CalendarServices.getDayByInd(day),
         style: const TextStyle(
             fontSize: 17, color: Color.fromARGB(255, 134, 134, 143)),

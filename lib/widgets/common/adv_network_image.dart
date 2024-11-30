@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class AdvancedNetworkImage extends StatelessWidget {
   final String imgUrl;
@@ -47,7 +48,7 @@ class AdvancedNetworkImage extends StatelessWidget {
           height: height,
           color: Colors.grey.shade900,
           alignment: Alignment.center,
-          child: const Text(
+          child: const LeviosaText(
             "Can't load!",
             style: TextStyle(fontSize: 12, color: Colors.white),
             overflow: TextOverflow.ellipsis,
