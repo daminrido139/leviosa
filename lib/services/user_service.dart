@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leviosa/constants.dart';
+import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/model/user_model.dart';
 import 'package:leviosa/services/auth_service.dart';
 import 'package:leviosa/services/common_services.dart';
@@ -29,6 +32,10 @@ class UserService {
         .set({'language': language.toString()}, SetOptions(merge: true));
   }
 
+  static String? getWardusername(BuildContext context) {
+    return context.read<UserCubit>().state.wardUsername;
+  }
+
   static Future<UserModel?> getUserData([String? email]) async {
     email = email ?? FirebaseAuth.instance.currentUser?.email;
     if (email == null) {
@@ -45,7 +52,6 @@ class UserService {
     if (userData == null) {
       return null;
     }
-    print(userData);
     return UserModel.fromJson(userData);
   }
 }

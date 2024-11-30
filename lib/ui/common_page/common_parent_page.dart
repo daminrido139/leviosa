@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leviosa/constants.dart';
 import 'package:leviosa/ui/assignment_page/assignment_student_page.dart';
 import 'package:leviosa/ui/calendar_page/calendar_page.dart';
 import 'package:leviosa/ui/chat_page/chat_page.dart';
@@ -31,8 +32,7 @@ class _CommonParentPageState extends State<CommonParentPage> {
       ),
       bottomNavigationBar: Container(
         height: 60,
-        decoration:
-            const BoxDecoration(color: Color.fromARGB(255, 233, 223, 190)),
+        decoration: const BoxDecoration(color: leviosaColor),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
