@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leviosa/constants.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
-import 'package:leviosa/widgets/common/leviosa_text.dart';
+import 'package:leviosa/services/auth_service.dart';
 
 class NewChatBox extends StatelessWidget {
   final Widget leading;
@@ -30,6 +30,7 @@ class NewChatBox extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: ListTile(
         onTap: onTap,
+        onLongPress: () => AuthService.switchUser(receiverId!, context),
         minTileHeight: 67,
         leading: leading,
         subtitle: Text(rollNo ??

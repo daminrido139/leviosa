@@ -35,6 +35,7 @@ class _CourseChannetStudentPageState extends State<CourseChannetStudentPage> {
         backgroundColor: Colors.white,
         leading: InkWell(
           onTap: () {
+            print('hey');
             key.currentState!.openDrawer();
           },
           child: Row(

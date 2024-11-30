@@ -1,9 +1,0 @@
-{
-   "@@locale" :"ar",
-   "language" :"Hindi",
-   "@language":{
-    "description" : "selected language"
-   },
-   "helloWord":"Wordhello"
-
-}
