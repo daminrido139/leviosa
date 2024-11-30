@@ -28,8 +28,7 @@ class UserModel {
       rollno: json['rollno'],
       language: json["language"] == null
           ? Language.english
-          : Language.values.firstWhere(
-              (s) => s.toString().split('.')[1] == json["language"]),
+          : Language.values.firstWhere((s) => s.toString() == json["language"]),
     );
   }
 
