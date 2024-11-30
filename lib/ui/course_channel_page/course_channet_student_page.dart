@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/model/course_model.dart';
+import 'package:leviosa/services/course_service.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
@@ -19,6 +20,18 @@ class CourseChannetStudentPage extends StatefulWidget {
 
 class _CourseChannetStudentPageState extends State<CourseChannetStudentPage> {
   final GlobalKey<ScaffoldState> key = GlobalKey();
+  List<CourseModel> courses = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchMyCourses();
+  }
+
+  Future<void> fetchMyCourses() async {
+    courses = await CourseService.fetchMyLearningCourses();
+    setState(() {});
+  }
 
   @override
   void dispose() {
@@ -35,7 +48,6 @@ class _CourseChannetStudentPageState extends State<CourseChannetStudentPage> {
         backgroundColor: Colors.white,
         leading: InkWell(
           onTap: () {
-            print('hey');
             key.currentState!.openDrawer();
           },
           child: Row(
@@ -61,16 +73,11 @@ class _CourseChannetStudentPageState extends State<CourseChannetStudentPage> {
           ////////////////////////////////
           Expanded(
             child: ListView.builder(
-              itemCount: 7,
+              itemCount: courses.length,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
                 return CourseBox(
-                  courseModel: CourseModel(
-                      createdAt: Timestamp.now(),
-                      courseName: 'rerf',
-                      courseCode: 'courseCode',
-                      createrId: "createrId",
-                      participantsId: []),
+                  courseModel: courses[index],
                 );
               },
             ),
