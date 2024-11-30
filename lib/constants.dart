@@ -7,6 +7,13 @@ enum UserRole {
   none,
 }
 
+enum Language {
+  english,
+  gujarati,
+  tamil,
+  hindi,
+}
+
 class Utility {
   static const List youtubeurl = [
     "vnH2BmcSRMA",

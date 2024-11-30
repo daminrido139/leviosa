@@ -7,23 +7,29 @@ class UserCubit extends Cubit<UserModel> {
   UserCubit()
       : super(
           UserModel(
-              createdAt: Timestamp(0, 0),
-              name: "",
-              profilePicture: null,
-              role: UserRole.none,
-              rollno: null,
-              language: null),
+            createdAt: Timestamp(0, 0),
+            name: "",
+            profilePicture: null,
+            role: UserRole.none,
+            rollno: null,
+            language: Language.english,
+          ),
         );
 
   void setUser(UserModel userModel) {
+    emit(userModel);
+  }
+
+  void changeLanguage(Language language) {
     emit(
       UserModel(
-          createdAt: userModel.createdAt,
-          name: userModel.name,
-          profilePicture: userModel.profilePicture,
-          role: userModel.role,
-          rollno: userModel.rollno,
-          language: userModel.language),
+        createdAt: state.createdAt,
+        name: state.name,
+        profilePicture: state.profilePicture,
+        role: state.role,
+        rollno: state.rollno,
+        language: language,
+      ),
     );
   }
 }

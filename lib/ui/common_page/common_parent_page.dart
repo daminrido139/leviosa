@@ -4,6 +4,7 @@ import 'package:leviosa/ui/calendar_page/calendar_page.dart';
 import 'package:leviosa/ui/chat_page/chat_page.dart';
 import 'package:leviosa/ui/course_channel_page/course_channel_teacher_page.dart';
 import 'package:leviosa/ui/profile_page/profile_parent_page.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class CommonParentPage extends StatefulWidget {
   const CommonParentPage({super.key});
@@ -48,7 +49,7 @@ class _CommonParentPageState extends State<CommonParentPage> {
                         ? Icons.calendar_month
                         : Icons.calendar_month_outlined,
                   ),
-                  Text(
+                  LeviosaText(
                     "Calendar",
                     style: TextStyle(
                         fontWeight: selectedPage == 0
@@ -69,7 +70,7 @@ class _CommonParentPageState extends State<CommonParentPage> {
                   Icon(
                     selectedPage == 1 ? Icons.message : Icons.message_outlined,
                   ),
-                  Text(
+                  LeviosaText(
                     "Chats",
                     style: TextStyle(
                         fontWeight: selectedPage == 1
@@ -90,7 +91,7 @@ class _CommonParentPageState extends State<CommonParentPage> {
                   Icon(
                     selectedPage == 2 ? Icons.science : Icons.science_outlined,
                   ),
-                  Text(
+                  LeviosaText(
                     "Assignment",
                     style: TextStyle(
                         fontWeight: selectedPage == 2
@@ -110,7 +111,7 @@ class _CommonParentPageState extends State<CommonParentPage> {
                 children: [
                   Icon(
                       selectedPage == 3 ? Icons.school : Icons.school_outlined),
-                  Text(
+                  LeviosaText(
                     "Course",
                     style: TextStyle(
                         fontWeight: selectedPage == 3
@@ -129,7 +130,7 @@ class _CommonParentPageState extends State<CommonParentPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(selectedPage == 4 ? Icons.person : Icons.person_outline),
-                  Text(
+                  LeviosaText(
                     "Profile",
                     style: TextStyle(
                         fontWeight: selectedPage == 4

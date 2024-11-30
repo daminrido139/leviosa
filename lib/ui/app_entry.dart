@@ -35,7 +35,7 @@ class _AppEntryState extends State<AppEntry> {
       context.go(RouterConstants.commonTeacherPageRoute);
     } else {
       context.push(
-        RouterConstants.videoCallPage,
+        RouterConstants.commonParentPageRoute,
       );
     }
   }

@@ -7,6 +7,7 @@ import 'package:leviosa/services/chat_services.dart';
 import 'package:leviosa/services/common_services.dart';
 import 'package:leviosa/widgets/chat/levi_chat_bubble.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class ChatRoom extends StatefulWidget {
   final String receiverUid;
@@ -147,7 +148,7 @@ class _ChatRoomState extends State<ChatRoom> {
   //               Column(
   //                 crossAxisAlignment: CrossAxisAlignment.start,
   //                 children: [
-  //                   Text(
+  //                   LeviosaText(
   //                     context.read<ChatRoomCubit>().state.receiverName ?? "",
   //                     style: GoogleFonts.inter(
   //                       color: isLightMode(context)
@@ -160,7 +161,7 @@ class _ChatRoomState extends State<ChatRoom> {
   //                   Row(
   //                     mainAxisSize: MainAxisSize.min,
   //                     children: [
-  //                       Text(
+  //                       LeviosaText(
   //                         ChatServices.formatLastSeen(
   //                             context.read<ChatRoomCubit>().state.lastSeen),
   //                         style: GoogleFonts.inter(
@@ -191,7 +192,7 @@ class _ChatRoomState extends State<ChatRoom> {
   //             ],
   //           );
   //         }
-  //         return Text(
+  //         return LeviosaText(
   //           "${state.length} Selected",
   //           style: GoogleFonts.inter(
   //             color: isLightMode(context)
@@ -245,13 +246,13 @@ class _ChatRoomState extends State<ChatRoom> {
   //           itemBuilder: (context) => [
   //                 popupActionBox(
   //                   Image.asset("assets/img/chats/mute.png"),
-  //                   const Text(
+  //                   const LeviosaText(
   //                     'Mute Notifications',
   //                   ),
   //                 ),
   //                 popupActionBox(
   //                     Image.asset("assets/img/chats/export.png"),
-  //                     const Text(
+  //                     const LeviosaText(
   //                       'Export Chat',
   //                     ), onTap: () {
   //                   ChatServices.exportChat(
@@ -262,7 +263,7 @@ class _ChatRoomState extends State<ChatRoom> {
   //                 }),
   //                 popupActionBox(
   //                     Image.asset("assets/img/chats/clear.png"),
-  //                     const Text(
+  //                     const LeviosaText(
   //                       'Clear history',
   //                     ), onTap: () {
   //                   ChatServices.clearChatHistory(AuthService.getUserId(),
@@ -270,7 +271,7 @@ class _ChatRoomState extends State<ChatRoom> {
   //                 }),
   //                 popupActionBox(
   //                     Image.asset("assets/img/chats/delete.png"),
-  //                     Text(
+  //                     LeviosaText(
   //                       'Delete Chat',
   //                       style: GoogleFonts.inter(
   //                         color: const Color(0xFFEF5C6A),
@@ -279,7 +280,7 @@ class _ChatRoomState extends State<ChatRoom> {
   //                         letterSpacing: 0.12,
   //                       ),
   //                     ),
-  //                     trailing: Text(
+  //                     trailing: LeviosaText(
   //                       'delete',
   //                       style: GoogleFonts.inter(
   //                         color: const Color(0xFF999999),
@@ -330,7 +331,7 @@ class _ChatRoomState extends State<ChatRoom> {
       ),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Center(child: Text(snapshot.error.toString()));
+          return Center(child: LeviosaText(snapshot.error.toString()));
         }
 
         if (snapshot.hasData) {
@@ -484,7 +485,7 @@ class _ChatRoomState extends State<ChatRoom> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const SizedBox(width: 10),
-                          Text(
+                          LeviosaText(
                             isMyReply ? 'You' : widget.receiverName,
                             style: TextStyle(
                               fontSize: 16,
@@ -495,7 +496,7 @@ class _ChatRoomState extends State<ChatRoom> {
                             ),
                           ),
                           const SizedBox(width: 10),
-                          Text(replyTo!,
+                          LeviosaText(replyTo!,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: isLightMode(context)

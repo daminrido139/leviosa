@@ -1,5 +1,6 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class MonthCellBuilder extends StatelessWidget {
   final DateTime date;
@@ -65,7 +66,7 @@ class MonthCellBuilder extends StatelessWidget {
               radius: highlightRadius,
               backgroundColor:
                   shouldHighlight ? highlightColor : Colors.transparent,
-              child: Text(
+              child: LeviosaText(
                 dateStringBuilder?.call(date) ?? "${date.day}",
                 style: TextStyle(
                   color: shouldHighlight
@@ -120,7 +121,7 @@ class MonthCellBuilder extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Text(
+            child: LeviosaText(
               events[index].title,
               overflow: TextOverflow.clip,
               maxLines: 1,

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/auth_service.dart';
 import 'package:leviosa/widgets/common/leviosa_button.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -35,7 +36,7 @@ class _LoginpageState extends State<SignInPage> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
+          content: LeviosaText(
             e.toString(),
           ),
         ),
@@ -78,15 +79,15 @@ class _LoginpageState extends State<SignInPage> {
                         items: const [
                           DropdownMenuItem(
                             value: "English",
-                            child: Text("English"),
+                            child: LeviosaText("English"),
                           ),
                           DropdownMenuItem(
                             value: "Gujarathi",
-                            child: Text("ગુજરાતી"),
+                            child: LeviosaText("ગુજરાતી"),
                           ),
                           DropdownMenuItem(
                             value: "Hindi",
-                            child: Text("हिन्दी"),
+                            child: LeviosaText("हिन्दी"),
                           ),
                         ],
                       ),
@@ -97,7 +98,7 @@ class _LoginpageState extends State<SignInPage> {
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 20.0),
-                    child: Text(
+                    child: LeviosaText(
                       "Welcome back 👋",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -116,7 +117,7 @@ class _LoginpageState extends State<SignInPage> {
                   LeviosaButton(
                     onTap: _onLogin,
                     width: 200,
-                    child: const Text(
+                    child: const LeviosaText(
                       "Login",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,

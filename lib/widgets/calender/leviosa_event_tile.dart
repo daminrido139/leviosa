@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class LeviosaEventTile extends StatelessWidget {
   final String title;
@@ -46,7 +47,7 @@ class LeviosaEventTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (title.isNotEmpty)
-            Text(
+            LeviosaText(
               title,
               style: titleStyle ??
                   TextStyle(
@@ -61,7 +62,7 @@ class LeviosaEventTile extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 15.0, top: 20),
-                child: Text(
+                child: LeviosaText(
                   description!,
                   style: descriptionStyle ??
                       TextStyle(
@@ -73,7 +74,7 @@ class LeviosaEventTile extends StatelessWidget {
             ),
           if (totalEvents > 1)
             Expanded(
-              child: Text(
+              child: LeviosaText(
                 "+${totalEvents - 1} more",
                 style: (descriptionStyle ??
                         TextStyle(
