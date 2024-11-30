@@ -7,13 +7,13 @@ class UserCubit extends Cubit<UserModel> {
   UserCubit()
       : super(
           UserModel(
-            createdAt: Timestamp(0, 0),
-            name: "",
-            profilePicture: null,
-            role: UserRole.none,
-            rollno: null,
-            language: Language.english,
-          ),
+              createdAt: Timestamp(0, 0),
+              name: "",
+              profilePicture: null,
+              role: UserRole.none,
+              rollno: null,
+              language: Language.english,
+              wardUsername: null),
         );
 
   void setUser(UserModel userModel) {
@@ -23,13 +23,13 @@ class UserCubit extends Cubit<UserModel> {
   void changeLanguage(Language language) {
     emit(
       UserModel(
-        createdAt: state.createdAt,
-        name: state.name,
-        profilePicture: state.profilePicture,
-        role: state.role,
-        rollno: state.rollno,
-        language: language,
-      ),
+          createdAt: state.createdAt,
+          name: state.name,
+          profilePicture: state.profilePicture,
+          role: state.role,
+          rollno: state.rollno,
+          language: language,
+          wardUsername: state.wardUsername),
     );
   }
 }
