@@ -32,4 +32,17 @@ class CourseService {
         .get();
     return snapshot.docs.map((q) => CourseModel.fromJson(q.data())).toList();
   }
+
+  static Future<List<CourseModel>> fetchMyLearningCourses(
+      {String? email}) async {
+    email = email ?? FirebaseAuth.instance.currentUser!.email!;
+    final school = getSchool(email);
+    final snapshot = await _firestore
+        .collection('school')
+        .doc(school)
+        .collection('courses')
+        .where('participants_id', arrayContains: email)
+        .get();
+    return snapshot.docs.map((q) => CourseModel.fromJson(q.data())).toList();
+  }
 }
