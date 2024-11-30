@@ -66,7 +66,7 @@ class _MainAppState extends State<MainApp> {
               debugShowCheckedModeBanner: false,
               locale: snapshot.data,
               supportedLocales: L10n.locals,
-              localizationsDelegates: [
+              localizationsDelegates: const [
                 AppLocalizations.delegate,
               ],
             );

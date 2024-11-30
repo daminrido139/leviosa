@@ -1,6 +1,6 @@
 {
-   "@@local" :"ar",
-   "language" :"English",
+   "@@locale" :"ar",
+   "language" :"Hindi",
    "@language":{
     "description" : "selected language"
    },

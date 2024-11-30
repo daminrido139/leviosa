@@ -60,7 +60,7 @@ class _CommonTeacherPageState extends State<CommonTeacherPage> {
                         : Icons.calendar_month_outlined,
                   ),
                   Text(
-                    "",
+                    "Calendar",
                     style: TextStyle(
                         fontWeight: selectedPage == 0
                             ? FontWeight.bold
