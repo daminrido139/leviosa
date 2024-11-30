@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/constants.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:o3d/o3d.dart';
 
 class TextToSignPage extends StatefulWidget {
@@ -46,16 +47,11 @@ class _TextToSignPageState extends State<TextToSignPage> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height;
     return Scaffold(
-        // appBar: AppBar(
-        //   title: const Text("Text/voice to Sign"),
-        //   backgroundColor: const Color.fromARGB(255, 233, 223, 190),
-        //   elevation: 0,
-        //   scrolledUnderElevation: 0,
-        // ),
         body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SizedBox(
-        height: 620,
+        height: height * 0.7,
         width: MediaQuery.of(context).size.width,
         child: isboy == true
             ? O3D(
@@ -113,13 +109,13 @@ class _TextToSignPageState extends State<TextToSignPage> {
           child: Column(
             children: [
               SizedBox(
-                  height: 150,
+                  height: height * 0.15,
                   width: MediaQuery.of(context).size.width / 2,
                   child: Image.asset(
                     "assets/img/boymodel.jpeg",
                     fit: BoxFit.contain,
                   )),
-              const Text(
+              const LeviosaText(
                 "Levio",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               )
@@ -135,13 +131,13 @@ class _TextToSignPageState extends State<TextToSignPage> {
           child: Column(
             children: [
               SizedBox(
-                  height: 150,
+                  height: height * 0.15,
                   width: MediaQuery.of(context).size.width / 2,
                   child: Image.asset(
                     "assets/img/girlmodel.jpeg",
                     fit: BoxFit.contain,
                   )),
-              const Text(
+              const LeviosaText(
                 "Livia",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               )
@@ -174,7 +170,7 @@ class _TextToSignPageState extends State<TextToSignPage> {
         //             fit: BoxFit.cover,
         //             errorBuilder: (context, error, stackTrace) {
         //               return const Center(
-        //                 child: Text(
+        //                 child: LeviosaText(
         //                   "Sry No Image Found....",
         //                   style: TextStyle(
         //                     fontSize: 24,
@@ -188,7 +184,7 @@ class _TextToSignPageState extends State<TextToSignPage> {
         //             fit: BoxFit.cover,
         //             errorBuilder: (context, error, stackTrace) {
         //               return const Center(
-        //                 child: Text(
+        //                 child: LeviosaText(
         //                   "Sry No Image Found....",
         //                   style: TextStyle(
         //                     fontSize: 24,

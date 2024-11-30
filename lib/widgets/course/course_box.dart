@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/model/course_model.dart';
 import 'package:leviosa/router_constants.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class CourseBox extends StatelessWidget {
   final CourseModel courseModel;
@@ -47,7 +48,7 @@ class CourseBox extends StatelessWidget {
                   color: genColor(courseModel.courseName),
                   borderRadius: BorderRadius.circular(8)),
               child: Center(
-                  child: Text(
+                  child: LeviosaText(
                 courseModel.courseName.substring(0, 2),
                 style: const TextStyle(
                   fontSize: 24,
@@ -55,14 +56,14 @@ class CourseBox extends StatelessWidget {
                 ),
               )),
             ),
-            title: Text(
+            title: LeviosaText(
               courseModel.courseName,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            subtitle: Text(courseModel.courseCode),
+            subtitle: LeviosaText(courseModel.courseCode),
           ),
         ));
   }

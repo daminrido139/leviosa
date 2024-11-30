@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:leviosa/model/image_generation_models.dart';
 import 'package:leviosa/widgets/common/gradient_text.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:provider/provider.dart';
 
 class LeviosaChatBot extends StatefulWidget {
@@ -87,7 +88,7 @@ class _LeviosaChatBotState extends State<LeviosaChatBot> {
           gradient: LinearGradient(
               colors: [Color.fromRGBO(228, 212, 156, 1), Color(0xffad9c00)]),
         ),
-        // title: Text(
+        // title: LeviosaText(
         //   'Leviosa ChatBot',
         //   style:
         //       TextStyle(color: Colors.amber[600], fontWeight: FontWeight.bold),
@@ -155,7 +156,7 @@ class _LeviosaChatBotState extends State<LeviosaChatBot> {
           color: isUserMessage ? Colors.amber[600] : Colors.black,
           borderRadius: BorderRadius.circular(15.0),
         ),
-        child: Text(
+        child: LeviosaText(
           message,
           style: TextStyle(
             color: isUserMessage ? Colors.black : Colors.white,

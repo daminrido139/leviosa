@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/model/course_model.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class CourseTeacherPage extends StatefulWidget {
   final CourseModel? courseModel;
@@ -27,7 +28,7 @@ class _CourseTeacherPageState extends State<CourseTeacherPage>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        title: LeviosaText(
             widget.courseModel?.courseName ?? "Linear Algebra - U18EEI5004"),
       ),
       body: Column(

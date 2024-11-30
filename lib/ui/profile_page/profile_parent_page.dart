@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class ProfileParentPage extends StatelessWidget {
   const ProfileParentPage({super.key});
@@ -7,7 +8,7 @@ class ProfileParentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
         body: Center(
-      child: Text("Profile page for parent"),
+      child: LeviosaText("Profile page for parent"),
     ));
   }
 }

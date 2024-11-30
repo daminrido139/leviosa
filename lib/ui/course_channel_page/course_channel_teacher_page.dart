@@ -7,6 +7,7 @@ import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/course_service.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:leviosa/widgets/course/course_box.dart';
 import 'package:leviosa/widgets/course/course_search_bar.dart';
 
@@ -56,7 +57,7 @@ class _CourseChannelTeacherPageState extends State<CourseChannelTeacherPage> {
             ],
           ),
         ),
-        title: const Text(
+        title: const LeviosaText(
           'Course',
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
@@ -67,7 +68,7 @@ class _CourseChannelTeacherPageState extends State<CourseChannelTeacherPage> {
                 .then((_) => fetchMyCourses()),
             child: Container(
               height: 35,
-              width: 80,
+              width: 100,
               margin: const EdgeInsets.all(10),
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -82,9 +83,9 @@ class _CourseChannelTeacherPageState extends State<CourseChannelTeacherPage> {
                     )
                   ]),
               child: const Center(
-                  child: Text(
+                  child: LeviosaText(
                 "+ Create",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
               )),
             ),
           )

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leviosa/constants.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class NewChatBox extends StatelessWidget {
   final Widget leading;

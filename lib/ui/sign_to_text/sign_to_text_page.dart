@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:translator/translator.dart';
 
 class SignToTextPage extends StatefulWidget {
   const SignToTextPage({super.key});
@@ -12,7 +11,6 @@ class SignToTextPage extends StatefulWidget {
 
 class _SignToTextPageState extends State<SignToTextPage> {
   String label = "Listening for a Indian Sign...";
-  String gujarati = "ભારતીય નિશાની સાંભળી રહ્યા છીએ...";
   String confidence = "";
   CameraController? cameraController;
   List<CameraDescription>? _availableCameras;
@@ -22,9 +20,7 @@ class _SignToTextPageState extends State<SignToTextPage> {
   String timeTaken = '';
   bool isRecording = false;
   bool flash = true;
-  String selectedLang = "English";
   final List<CameraImage> recordFrames = [];
-  GoogleTranslator translator = GoogleTranslator();
   List<String> lst = [
     "Zero",
     "one",
@@ -110,13 +106,6 @@ class _SignToTextPageState extends State<SignToTextPage> {
     }
   }
 
-  void trans(String txt) async {
-    gujarati = await translator.translate(txt, to: 'gu').then((v) {
-      return v.toString();
-    });
-    setState(() {});
-  }
-
   @override
   void initState() {
     initCamera();
@@ -157,52 +146,16 @@ class _SignToTextPageState extends State<SignToTextPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.only(right: 2),
-                            height: 35,
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: const Color(0xFFB6B1B1)),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            //alignment: Alignment.centerRight,
-                            child: DropdownButton(
-                              padding: const EdgeInsets.only(
-                                  left: 13, top: 6, bottom: 6, right: 8),
-                              underline: const SizedBox(),
-                              dropdownColor: Colors.white,
-                              value: selectedLang,
-                              iconSize: 19,
-                              borderRadius: BorderRadius.circular(20),
-                              icon: const Icon(Icons.keyboard_arrow_down),
-                              items: <String>["English", "Gujarti"]
-                                  .map((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (val) {
-                                selectedLang = val!;
-                                setState(() {});
-                              },
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () => talkToMe(label),
-                            child: Container(
-                              padding: const EdgeInsets.all(6),
-                              margin: const EdgeInsets.only(right: 10),
-                              decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color.fromARGB(255, 233, 223, 190)),
-                              child: const Icon(Icons.volume_up),
-                            ),
-                          )
-                        ],
+                      child: GestureDetector(
+                        onTap: () => talkToMe(label),
+                        child: Container(
+                          padding: const EdgeInsets.all(6),
+                          margin: const EdgeInsets.only(right: 10),
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 233, 223, 190)),
+                          child: const Icon(Icons.volume_up),
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -229,7 +182,7 @@ class _SignToTextPageState extends State<SignToTextPage> {
                       child: SingleChildScrollView(
                         child: SizedBox(
                           child: Text(
-                            selectedLang == "English" ? label : gujarati,
+                            label,
                             style: const TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.w500),
                           ),
@@ -292,7 +245,6 @@ class _SignToTextPageState extends State<SignToTextPage> {
                       }
                       isRecording = false;
                       setState(() {});
-                      trans(lst[int.parse(label)]);
                       talkToMe(label);
                     },
                     child: (isRecording)

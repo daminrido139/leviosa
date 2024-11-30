@@ -5,6 +5,8 @@ import 'package:leviosa/constants.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
+import 'package:leviosa/widgets/common/language_picker_dialog.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class DrawerPage extends StatefulWidget {
   const DrawerPage({super.key});
@@ -34,7 +36,18 @@ class _DrawerPageState extends State<DrawerPage> {
             ),
             customlisttile("Profile", Icons.person_outline, () {}),
             customlisttile("Notification", Icons.notifications_outlined, () {}),
-            customlisttile("Language", Icons.language_outlined, () {}),
+            customlisttile(
+                "Language",
+                Icons.language_outlined,
+                () => showDialog(
+                    context: context,
+                    builder: (context) => const Dialog(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8))),
+                          child: LanguagePickerDialog(),
+                        ))),
             customlisttile("Settings", Icons.settings_outlined, () {
               context.push(RouterConstants.settingsPageStudents);
             }),
@@ -49,7 +62,7 @@ class _DrawerPageState extends State<DrawerPage> {
   customlisttile(name, IconData icon, ontap) {
     return ListTile(
       onTap: ontap,
-      title: Text(name),
+      title: LeviosaText(name),
       leading: Icon(icon),
       trailing: const Icon(Icons.keyboard_arrow_right_outlined),
     );

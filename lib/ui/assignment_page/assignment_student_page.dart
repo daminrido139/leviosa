@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class AssignmentStudentPage extends StatefulWidget {
   const AssignmentStudentPage({super.key});
@@ -60,7 +61,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
             ],
           ),
         ),
-        title: const Text(
+        title: const LeviosaText(
           'Assignments',
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
@@ -100,7 +101,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
                             : const Color.fromARGB(255, 236, 234, 234),
                       ),
                       child: const Center(
-                        child: Text(
+                        child: LeviosaText(
                           "Forthcoming",
                         ),
                       ),
@@ -118,7 +119,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
                             : const Color.fromARGB(255, 236, 234, 234),
                       ),
                       child: const Center(
-                        child: Text(
+                        child: LeviosaText(
                           "Past due",
                         ),
                       ),
@@ -136,7 +137,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
                             : const Color.fromARGB(255, 236, 234, 234),
                       ),
                       child: const Center(
-                        child: Text(
+                        child: LeviosaText(
                           "Completed",
                         ),
                       ),
@@ -208,7 +209,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
         SizedBox(
           height: 100,
         ),
-        Text("NO Past Due Assignment")
+        LeviosaText("NO Past Due Assignment")
       ],
     );
   }
@@ -220,7 +221,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
         SizedBox(
           height: 100,
         ),
-        Text("Not yet Complete")
+        LeviosaText("Not yet Complete")
       ],
     );
   }
@@ -235,7 +236,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
-              child: Text(
+              child: LeviosaText(
                 subtext,
                 style:
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
@@ -243,7 +244,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 8),
-              child: Text(
+              child: LeviosaText(
                 txt,
                 style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
@@ -273,13 +274,13 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
                           color: color,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Center(child: Text(htxt)),
+                        child: Center(child: LeviosaText(htxt)),
                       ),
                     ),
                     const SizedBox(
                       width: 15,
                     ),
-                    Text(
+                    LeviosaText(
                       pretxt,
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w500),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:signature/signature.dart';
 
 class WritingPad extends StatelessWidget {
@@ -36,7 +37,7 @@ class WritingPad extends StatelessWidget {
           onPressed: () {
             controller.clear();
           },
-          child: const Text(
+          child: const LeviosaText(
             "Clear",
             style: TextStyle(
               color: Colors.white,
