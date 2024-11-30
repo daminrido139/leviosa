@@ -34,7 +34,9 @@ class _AppEntryState extends State<AppEntry> {
     } else if (userModel.role == UserRole.teacher) {
       context.go(RouterConstants.commonTeacherPageRoute);
     } else {
-      context.go(RouterConstants.commonParentPageRoute);
+      context.push(
+        RouterConstants.videoCallPage,
+      );
     }
   }
 

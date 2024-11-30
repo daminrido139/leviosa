@@ -1,0 +1,9 @@
+{
+   "@@locale" :"en",
+   "language" :"English",
+   "@language":{
+    "description" : "selected language"
+   },
+   "helloWord":"hello Word"
+
+}

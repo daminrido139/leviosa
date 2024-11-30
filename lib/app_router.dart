@@ -76,6 +76,13 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: RouterConstants.commonTeacherPageRoute,
+      name: RouterConstants.commonTeacherPageRoute,
+      builder: (context, state) {
+        return const CommonTeacherPage();
+      },
+    ),
+    GoRoute(
       path: RouterConstants.leviosaChatBot,
       name: RouterConstants.leviosaChatBot,
       builder: (context, state) => const LeviosaChatBot(),
@@ -131,11 +138,7 @@ final appRouter = GoRouter(
       name: RouterConstants.commonStudentPageRoute,
       builder: (context, state) => const CommonStudentPage(),
     ),
-    GoRoute(
-      path: RouterConstants.commonTeacherPageRoute,
-      name: RouterConstants.commonTeacherPageRoute,
-      builder: (context, state) => const CommonTeacherPage(),
-    ),
+
     GoRoute(
       path: RouterConstants.settingsPageStudents,
       name: RouterConstants.settingsPageStudents,
