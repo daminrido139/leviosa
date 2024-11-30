@@ -95,6 +95,7 @@ class _ChatSearchPageState extends State<ChatSearchPage> {
                   return const SizedBox.shrink();
                 }
                 return NewChatBox(
+                  receiverId: doc.id,
                   rollNo: data['rollno'],
                   leading: DefaultDp(
                     name: data['name'],
