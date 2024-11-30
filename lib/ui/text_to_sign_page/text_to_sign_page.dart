@@ -46,7 +46,6 @@ class _TextToSignPageState extends State<TextToSignPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(isboy);
     return Scaffold(
         // appBar: AppBar(
         //   title: const Text("Text/voice to Sign"),
