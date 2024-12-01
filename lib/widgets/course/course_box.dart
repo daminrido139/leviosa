@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leviosa/constants.dart';
+import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/model/course_model.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
@@ -40,7 +43,20 @@ class CourseBox extends StatelessWidget {
         ),
         child: Center(
           child: ListTile(
-            onTap: () => context.push(RouterConstants.courseTeachersPage),
+            onTap: () {
+              final userRole = context.read<UserCubit>().state.role;
+              if (userRole == UserRole.teacher) {
+                context.push(
+                  RouterConstants.courseTeachersPage,
+                  extra: courseModel,
+                );
+              } else if (userRole == UserRole.student) {
+                context.push(
+                  RouterConstants.courseStudentsPage,
+                  extra: courseModel,
+                );
+              }
+            },
             leading: Container(
               height: 50,
               width: 50,

@@ -3,21 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/model/course_model.dart';
 import 'package:leviosa/services/course_service.dart';
+import 'package:leviosa/services/user_service.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:leviosa/widgets/course/course_box.dart';
 import 'package:leviosa/widgets/course/course_search_bar.dart';
 
-class CourseChannetStudentPage extends StatefulWidget {
-  const CourseChannetStudentPage({super.key});
+class CourseChannelParentPage extends StatefulWidget {
+  const CourseChannelParentPage({super.key});
 
   @override
-  State<CourseChannetStudentPage> createState() =>
-      _CourseChannetStudentPageState();
+  State<CourseChannelParentPage> createState() =>
+      _CourseChannelParentPageState();
 }
 
-class _CourseChannetStudentPageState extends State<CourseChannetStudentPage> {
+class _CourseChannelParentPageState extends State<CourseChannelParentPage> {
   final GlobalKey<ScaffoldState> key = GlobalKey();
   List<CourseModel> courses = [];
 
@@ -28,7 +29,8 @@ class _CourseChannetStudentPageState extends State<CourseChannetStudentPage> {
   }
 
   Future<void> fetchMyCourses() async {
-    courses = await CourseService.fetchMyLearningCourses();
+    courses = await CourseService.fetchMyLearningCourses(
+        email: UserService.getWardusername(context));
     setState(() {});
   }
 

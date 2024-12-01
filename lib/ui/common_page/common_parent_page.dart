@@ -3,7 +3,7 @@ import 'package:leviosa/constants.dart';
 import 'package:leviosa/ui/assignment_page/assignment_student_page.dart';
 import 'package:leviosa/ui/calendar_page/calendar_page.dart';
 import 'package:leviosa/ui/chat_page/chat_page.dart';
-import 'package:leviosa/ui/course_channel_page/CourseChannet_Teacher_Page.dart';
+import 'package:leviosa/ui/course_channel_page/course_channel_parent_page.dart';
 import 'package:leviosa/ui/profile_page/profile_parent_page.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
@@ -26,7 +26,7 @@ class _CommonParentPageState extends State<CommonParentPage> {
           CalendarPage(),
           ChatPage(),
           AssignmentStudentPage(),
-          CourseChannetTeacherPage(),
+          CourseChannelParentPage(),
           ProfileParentPage()
         ],
       ),

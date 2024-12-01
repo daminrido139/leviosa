@@ -1,21 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CourseModel {
+  final String? id;
   final Timestamp createdAt;
   final String courseName;
   final String createrId;
   final String courseCode;
   final List<String> participantsId;
 
-  const CourseModel(
-      {required this.createdAt,
-      required this.courseName,
-      required this.courseCode,
-      required this.createrId,
-      required this.participantsId});
+  const CourseModel({
+    this.id,
+    required this.createdAt,
+    required this.courseName,
+    required this.courseCode,
+    required this.createrId,
+    required this.participantsId,
+  });
 
-  factory CourseModel.fromJson(Map<String, dynamic> json) {
+  factory CourseModel.fromJson(Map<String, dynamic> json, [String? id]) {
     return CourseModel(
+      id: id,
       createdAt: json["created_at"],
       courseName: json["course_name"],
       courseCode: json["course_code"],

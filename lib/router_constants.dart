@@ -5,7 +5,6 @@ class RouterConstants {
   static const commonStudentPageRoute = "/common-student-page";
   static const commonTeacherPageRoute = "/common-teacher-page";
   static const commonParentPageRoute = "/common-Parent-Page";
-
   static const callPage = "/call-page";
   static const appEntry = "/app-entry";
   static const subjectPage = "/subject-page";
@@ -23,4 +22,6 @@ class RouterConstants {
   static const assignmentStudentDetailedView =
       "/assignment-Student-Detailed-View";
   static const profilePage = "/profile-page";
+  static const newAssignmentPage = "/new-assignment-page";
+  static const utubePlayer = '/utube-player';
 }

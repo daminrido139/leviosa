@@ -105,12 +105,12 @@ class AssignmentStudentDetailedView extends StatelessWidget {
                       height: 30,
                       child: Image.asset("assets/img/doclogo.png")),
                 ),
-                Text("Odd 24-25-U18AUE0014-R12-OFF Road.doc"),
+                const Text("Odd 24-25-U18AUE0014-R12-OFF Road.doc"),
               ],
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         const Padding(
@@ -122,8 +122,8 @@ class AssignmentStudentDetailedView extends StatelessWidget {
             style: TextStyle(color: Colors.grey),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: LeviosaText("10 Possible Points"),
         )
         //////////////////////////////////////////////

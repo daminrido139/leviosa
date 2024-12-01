@@ -50,6 +50,7 @@ flutter:
 
   assets:
     - assets/img/
+    - assets/file/
 
 icons_launcher:
   image_path: "assets/img/leviosa-icon.jpeg"
