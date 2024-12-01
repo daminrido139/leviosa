@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
+import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
@@ -228,70 +230,75 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
 
   Widget assignmentcard(
       BuildContext context, subtext, txt, color, pretxt, htxt) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
-              child: LeviosaText(
-                subtext,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+    return InkWell(
+      onTap: () {
+        context.push(RouterConstants.assignmentStudentDetailedView);
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+                child: LeviosaText(
+                  subtext,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w500),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 8),
-              child: LeviosaText(
-                txt,
-                style: const TextStyle(fontSize: 16, color: Colors.grey),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 8),
+                child: LeviosaText(
+                  txt,
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
+                ),
               ),
-            ),
-          ],
-        ),
-        Center(
-          child: Container(
-            width: MediaQuery.of(context).size.width - 30,
-            height: 80,
-            decoration: BoxDecoration(
-                color: Colors.grey[50],
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey.shade300)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          color: color,
-                          borderRadius: BorderRadius.circular(10),
+            ],
+          ),
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width - 30,
+              height: 80,
+              decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey.shade300)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            color: color,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(child: LeviosaText(htxt)),
                         ),
-                        child: Center(child: LeviosaText(htxt)),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    LeviosaText(
-                      pretxt,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                  ],
-                )
-              ],
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      LeviosaText(
+                        pretxt,
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

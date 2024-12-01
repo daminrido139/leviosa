@@ -18,4 +18,6 @@ class RouterConstants {
   static const createCourse = "/create-course";
   static const courseTeachersPage = "/course-teachers-page";
   static const courseStudentsPage = "/course-students-page";
+  static const assignmentStudentDetailedView =
+      "/assignment-Student-Detailed-View";
 }
