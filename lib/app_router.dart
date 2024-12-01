@@ -10,6 +10,7 @@ import 'package:leviosa/ui/chat_page/chat_search_page.dart';
 import 'package:leviosa/ui/common_page/common_parent_page.dart';
 import 'package:leviosa/ui/common_page/common_student_page.dart';
 import 'package:leviosa/ui/common_page/common_teacher_page.dart';
+import 'package:leviosa/ui/course_channel_page/create_course_page.dart';
 import 'package:leviosa/ui/course_page/course_student_page.dart';
 import 'package:leviosa/ui/course_page/course_teacher_page.dart';
 import 'package:leviosa/ui/learning_page.dart/subjectstudents_page.dart';
@@ -123,17 +124,21 @@ final appRouter = GoRouter(
       name: RouterConstants.courseStudentsPage,
       builder: (context, state) {
         final courseModel = state.extra as CourseModel;
-        return CourseStudentPage(courseModel: courseModel);
+        return CourseStudentPage(course: courseModel);
       },
     ),
     GoRoute(
       path: RouterConstants.courseTeachersPage,
       name: RouterConstants.courseTeachersPage,
       builder: (context, state) {
-        final courseModel = state.extra as CourseModel?;
-        return CourseTeacherPage(courseModel: courseModel);
+        final courseModel = state.extra as CourseModel;
+        return CourseTeacherPage(course: courseModel);
       },
     ),
+    GoRoute(
+        path: RouterConstants.createCourse,
+        name: RouterConstants.createCourse,
+        builder: (context, state) => const CreateCoursePage()),
     GoRoute(
       path: RouterConstants.commonStudentPageRoute,
       name: RouterConstants.commonStudentPageRoute,

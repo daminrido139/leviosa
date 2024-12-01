@@ -28,9 +28,14 @@ class CourseService {
         .collection('school')
         .doc(school)
         .collection('courses')
-        .where('creater_id', isEqualTo: email)
+        .where(Filter.or(
+          Filter('creater_id', isEqualTo: email),
+          Filter('participants_id', arrayContains: email),
+        ))
         .get();
-    return snapshot.docs.map((q) => CourseModel.fromJson(q.data())).toList();
+    return snapshot.docs
+        .map((q) => CourseModel.fromJson(q.data(), q.id))
+        .toList();
   }
 
   static Future<List<CourseModel>> fetchMyLearningCourses(
@@ -43,6 +48,8 @@ class CourseService {
         .collection('courses')
         .where('participants_id', arrayContains: email)
         .get();
-    return snapshot.docs.map((q) => CourseModel.fromJson(q.data())).toList();
+    return snapshot.docs
+        .map((q) => CourseModel.fromJson(q.data(), q.id))
+        .toList();
   }
 }

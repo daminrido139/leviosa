@@ -4,10 +4,10 @@ import 'package:leviosa/ui/announcement_page/announcement_teacher_page.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class CourseTeacherPage extends StatefulWidget {
-  final CourseModel? courseModel;
+  final CourseModel course;
   const CourseTeacherPage({
     super.key,
-    required this.courseModel,
+    required this.course,
   });
 
   @override
@@ -29,14 +29,18 @@ class _CourseTeacherPageState extends State<CourseTeacherPage>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: LeviosaText(
-            widget.courseModel?.courseName ?? "Linear Algebra - U18EEI5004"),
+        title: Text(widget.course.courseName),
       ),
       body: Column(
         children: [
           TabBar(
+            labelColor: const Color.fromRGBO(135, 111, 34, 1),
+            unselectedLabelColor: Colors.grey.shade700,
             indicatorSize: TabBarIndicatorSize.tab,
             controller: tabController,
+            indicatorColor: const Color.fromRGBO(135, 111, 34, 1),
+            overlayColor:
+                const WidgetStatePropertyAll(Color.fromRGBO(135, 111, 34, 0.1)),
             tabs: const <Tab>[
               Tab(
                 text: 'Announcement',
@@ -52,8 +56,8 @@ class _CourseTeacherPageState extends State<CourseTeacherPage>
             child: TabBarView(
               controller: tabController,
               children: [
-                const AnnouncementTeacherPage(),
-                Container(color: Colors.blue),
+                AnnouncementTeacherPage(course: widget.course),
+                Container(color: Colors.white),
               ],
             ),
           ),
