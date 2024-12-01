@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/router_constants.dart';
@@ -65,37 +67,6 @@ class _LoginpageState extends State<SignInPage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Row(
-                    children: [
-                      const Spacer(),
-                      DropdownButton<String>(
-                        icon: const Icon(Icons.language_outlined),
-                        value:
-                            "English", // Ensure this matches one of the items
-                        onChanged: (String? newValue) {
-                          // Handle selection change
-                          print('Selected: $newValue');
-                        },
-                        items: const [
-                          DropdownMenuItem(
-                            value: "English",
-                            child: LeviosaText("English"),
-                          ),
-                          DropdownMenuItem(
-                            value: "Gujarathi",
-                            child: LeviosaText("ગુજરાતી"),
-                          ),
-                          DropdownMenuItem(
-                            value: "Hindi",
-                            child: LeviosaText("हिन्दी"),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 25,
-                      )
-                    ],
-                  ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 20.0),
                     child: LeviosaText(

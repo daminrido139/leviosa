@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leviosa/constants.dart';
 import 'package:leviosa/router_constants.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:go_router/go_router.dart';
@@ -29,11 +28,12 @@ class _LearningpageState extends State<Learningpage> {
     return Stack(
       children: [
         InteractiveViewer(
-            minScale: 0.5,
+            minScale: 0.4,
             constrained: false,
-            maxScale: 3.0,
+            maxScale: 10.0,
             transformationController: _controller,
             child: Stack(children: [
+              // Image.asset("assets/img/iceland.jpeg")
               Image.asset("assets/img/gamemap.png"),
               const Positioned(
                 bottom: 405,
