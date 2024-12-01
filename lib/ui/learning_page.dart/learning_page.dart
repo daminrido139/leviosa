@@ -1,6 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:leviosa/constants.dart';
+import 'package:leviosa/router_constants.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:go_router/go_router.dart';
 // import 'package:leviosa/constants.dart';
@@ -32,96 +35,96 @@ class _LearningpageState extends State<Learningpage> {
             transformationController: _controller,
             child: Stack(children: [
               Image.asset("assets/img/gamemap.png"),
-              SizedBox(
-                  height: 30,
-                  width: 30,
-                  child: Icon(
-                    Icons.lock,
-                    size: 50,
-                  ))
+              const Positioned(
+                bottom: 405,
+                right: 350,
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.lock,
+                      size: 90,
+                    ),
+                    Text(
+                      "Level 2",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+              const Positioned(
+                bottom: 635,
+                left: 240,
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.lock,
+                      size: 90,
+                    ),
+                    Text(
+                      "Level 3",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+              const Positioned(
+                bottom: 950,
+                left: 475,
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.lock,
+                      size: 90,
+                    ),
+                    Text(
+                      "Level 4",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+              Positioned(
+                bottom: 1245,
+                left: 685,
+                child: InkWell(
+                  onTap: () {},
+                  child: const Column(
+                    children: [
+                      Icon(
+                        Icons.lock,
+                        size: 90,
+                      ),
+                      Text(
+                        "Level 5",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 250,
+                left: 330,
+                child: InkWell(
+                  onTap: () {
+                    context.push(RouterConstants.subjectPage);
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "START",
+                      style:
+                          TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              )
             ]))
       ],
     );
   }
 }
-
-
-
-
-//     return Scaffold(
-//       key: key,
-//       drawer: const DrawerPage(),
-//       appBar: AppBar(
-//         leadingWidth: 60,
-//         backgroundColor: Colors.white,
-//         leading: InkWell(
-//           onTap: () {
-//             key.currentState!.openDrawer();
-//           },
-//           child: Row(
-//             children: [
-//               const SizedBox(
-//                 width: 15,
-//               ),
-//               DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
-//             ],
-//           ),
-//         ),
-//         title: const LeviosaText(
-//           'Learning Section',
-//           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-//         ),
-//       ),
-//       body: GridView.builder(
-//         padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 15),
-//         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//             crossAxisCount: 2,
-//             childAspectRatio: 1,
-//             mainAxisSpacing: 15,
-//             crossAxisSpacing: 15),
-//         itemCount: Utility.horizontallst.length,
-//         itemBuilder: (context, ind) {
-//           return customhorizontalcard(Utility.horizontallst[ind], ind, context);
-//         },
-//       ),
-//     );
-//   }
-
-//   // SizedBox(
-//   customhorizontalcard(imgurl, ind, BuildContext context) {
-//     String level = (ind + 1).toString();
-//     return InkWell(
-//       onTap: () {
-//         context.push(RouterConstants.subjectPage);
-//       },
-//       child: Stack(
-//         children: [
-//           Container(
-//             decoration: ShapeDecoration(
-//                 color: const Color.fromARGB(255, 33, 39, 45),
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(20),
-//                 )),
-//           ),
-//           ClipRRect(
-//             borderRadius: BorderRadius.circular(20),
-//             child: Opacity(
-//               opacity: 0.4,
-//               child: Image.asset(imgurl),
-//             ),
-//           ),
-//           Center(
-//             child: LeviosaText(
-//               "CLASS $level",
-//               style: const TextStyle(
-//                 fontWeight: FontWeight.w500,
-//                 fontSize: 28,
-//                 color: Color.fromRGBO(245, 245, 245, 1),
-//               ),
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
