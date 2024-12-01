@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/model/course_model.dart';
+import 'package:leviosa/ui/announcement_page/announcement_teacher_page.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class CourseTeacherPage extends StatefulWidget {
@@ -51,7 +52,7 @@ class _CourseTeacherPageState extends State<CourseTeacherPage>
             child: TabBarView(
               controller: tabController,
               children: [
-                Container(color: Colors.red),
+                const AnnouncementTeacherPage(),
                 Container(color: Colors.blue),
               ],
             ),
