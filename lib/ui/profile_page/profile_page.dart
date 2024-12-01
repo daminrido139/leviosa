@@ -83,7 +83,7 @@ class ProfilePage extends StatelessWidget {
           ],
         ),
         Positioned(
-          top: 26,
+          top: 40,
           left: 20,
           child: InkWell(
             onTap: () {
@@ -92,7 +92,7 @@ class ProfilePage extends StatelessWidget {
             child: const Icon(
               Icons.arrow_back,
               color: Colors.white,
-              size: 40,
+              size: 30,
             ),
           ),
         ),
