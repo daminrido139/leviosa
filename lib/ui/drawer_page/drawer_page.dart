@@ -34,7 +34,16 @@ class _DrawerPageState extends State<DrawerPage> {
               context.read<UserCubit>().state.name,
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            customlisttile("Profile", Icons.person_outline, () {}),
+            LeviosaText(
+              context.read<UserCubit>().state.role.toString().split(".")[1],
+              style: const TextStyle(
+                  fontSize: 20,
+                  // fontWeight: FontWeight.w500,
+                  color: Colors.grey),
+            ),
+            customlisttile("Profile", Icons.person_outline, () {
+              context.push(RouterConstants.profilePage);
+            }),
             customlisttile("Notification", Icons.notifications_outlined, () {}),
             customlisttile(
                 "Language",
