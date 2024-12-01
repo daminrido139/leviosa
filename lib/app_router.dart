@@ -4,12 +4,12 @@ import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/auth_service.dart';
 import 'package:leviosa/ui/Generative_ai/leviosa_chat_bot.dart';
 import 'package:leviosa/ui/app_entry.dart';
+import 'package:leviosa/ui/assignment_page/assignment_student_detailed_view.dart';
 import 'package:leviosa/ui/chat_page/chat_room.dart';
 import 'package:leviosa/ui/chat_page/chat_search_page.dart';
 import 'package:leviosa/ui/common_page/common_parent_page.dart';
 import 'package:leviosa/ui/common_page/common_student_page.dart';
 import 'package:leviosa/ui/common_page/common_teacher_page.dart';
-import 'package:leviosa/ui/course_channel_page/create_course_page.dart';
 import 'package:leviosa/ui/course_page/course_student_page.dart';
 import 'package:leviosa/ui/course_page/course_teacher_page.dart';
 import 'package:leviosa/ui/learning_page.dart/subjectstudents_page.dart';
@@ -43,6 +43,11 @@ final appRouter = GoRouter(
       path: RouterConstants.subjectPage,
       name: RouterConstants.subjectPage,
       builder: (context, state) => const Subjectspage(),
+    ),
+    GoRoute(
+      path: RouterConstants.assignmentStudentDetailedView,
+      name: RouterConstants.assignmentStudentDetailedView,
+      builder: (context, state) => const AssignmentStudentDetailedView(),
     ),
     GoRoute(
       path: RouterConstants.chatRoom,
@@ -87,11 +92,7 @@ final appRouter = GoRouter(
       name: RouterConstants.leviosaChatBot,
       builder: (context, state) => const LeviosaChatBot(),
     ),
-    GoRoute(
-      path: RouterConstants.createCourse,
-      name: RouterConstants.createCourse,
-      builder: (context, state) => const CreateCoursePage(),
-    ),
+
     GoRoute(
       path: RouterConstants.chatSearchPage,
       name: RouterConstants.chatSearchPage,
