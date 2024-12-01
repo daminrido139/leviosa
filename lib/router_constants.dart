@@ -19,4 +19,6 @@ class RouterConstants {
   static const courseStudentsPage = "/course-students-page";
   static const assignmentStudentDetailedView =
       "/assignment-Student-Detailed-View";
+  static const newAssignmentPage = "/new-assignment-page";
+  static const utubePlayer = '/utube-player';
 }

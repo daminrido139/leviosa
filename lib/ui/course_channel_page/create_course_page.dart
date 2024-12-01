@@ -9,6 +9,7 @@ import 'package:leviosa/services/user_service.dart';
 import 'package:leviosa/widgets/chat/new_chat_box.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/common/leviosa_button.dart';
+import 'package:leviosa/widgets/common/leviosa_form_field.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:leviosa/widgets/common/loader.dart';
 
@@ -112,10 +113,14 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
     return Form(
       key: _formKey,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        entercourseDetails(
-            "Course Name", "Enter a Course Name", courseNameController),
-        entercourseDetails(
-            "Course Code", "Enter a Course Code", courseCodeController),
+        LeviosaFormField(
+            title: "Course Name",
+            hintText: "Enter a Course Name",
+            controller: courseNameController),
+        LeviosaFormField(
+            title: "Course Code",
+            hintText: "Enter a Course Code",
+            controller: courseCodeController),
         const SizedBox(
           height: 13,
         ),
@@ -213,58 +218,6 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
                     )),
       ]),
     );
-  }
-
-  Widget entercourseDetails(
-      String title, String hinttext, TextEditingController controller) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: LeviosaText(
-          title,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        child: Row(
-          children: [
-            const SizedBox(width: 4),
-            Expanded(
-              child: TextFormField(
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter $hinttext';
-                  }
-                  return null;
-                },
-                controller: controller,
-                style: const TextStyle(fontSize: 20),
-                cursorColor: Colors.black,
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide:
-                        const BorderSide(width: 2, color: Color(0xffad9c00)),
-                  ),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(12)),
-                  hintText: hinttext,
-                  hintStyle: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      )
-    ]);
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/constants.dart';
 
-import 'package:leviosa/ui/assignment_page/assignment_student_page.dart';
+import 'package:leviosa/ui/assignment_page/assignment_teacher_page.dart';
 import 'package:leviosa/ui/calendar_page/calendar_page.dart';
 import 'package:leviosa/ui/chat_page/chat_page.dart';
 import 'package:leviosa/ui/course_channel_page/course_channel_teacher_page.dart';
@@ -28,7 +28,7 @@ class _CommonTeacherPageState extends State<CommonTeacherPage> {
         children: const [
           CalendarPage(),
           ChatPage(),
-          AssignmentStudentPage(),
+          AssignmentTeacherPage(),
           CourseChannelTeacherPage(),
         ],
       ),
