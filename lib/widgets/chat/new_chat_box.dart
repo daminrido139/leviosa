@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leviosa/constants.dart';
-import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/services/auth_service.dart';
 
 class NewChatBox extends StatelessWidget {
   final Widget leading;
   final String receiverName;
+  final String userRole;
   final String? receiverId;
   final void Function() onTap;
   final void Function()? onCheckboxTap;
@@ -22,6 +21,7 @@ class NewChatBox extends StatelessWidget {
     this.rollNo,
     this.isChecked,
     this.onCheckboxTap,
+    required this.userRole,
   });
 
   @override
@@ -33,8 +33,7 @@ class NewChatBox extends StatelessWidget {
         onLongPress: () => AuthService.switchUser(receiverId!, context),
         minTileHeight: 67,
         leading: leading,
-        subtitle: Text(rollNo ??
-            context.read<UserCubit>().state.role.toString().split(".")[1]),
+        subtitle: Text(rollNo ?? userRole),
         title: Text(
           receiverName,
           style: const TextStyle(
