@@ -1,6 +1,6 @@
-# **SignLearn: AI-Powered Sign Language Learning and Translation Platform**  
+# **Leviosa: AI-Powered Sign Language Learning and Translation Platform**  
 
-SignLearn is a groundbreaking application designed to empower deaf and mute students through real-time sign language translation, interactive learning modules, and advanced AI-powered tools. Built using Flutter, MediaPipe, and machine learning technologies, the app is tailored to bridge the communication gap and enhance education accessibility.  
+Leviosa is a groundbreaking application designed to empower deaf and mute students through real-time sign language translation, interactive learning modules, and advanced AI-powered tools. Built using Flutter, MediaPipe, and machine learning technologies, the app is tailored to bridge the communication gap and enhance education accessibility.  
 
 ---
 
