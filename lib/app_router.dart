@@ -5,6 +5,7 @@ import 'package:leviosa/services/auth_service.dart';
 import 'package:leviosa/ui/Generative_ai/leviosa_chat_bot.dart';
 import 'package:leviosa/ui/app_entry.dart';
 import 'package:leviosa/ui/assignment_page/assignment_student_detailed_view.dart';
+import 'package:leviosa/ui/assignment_page/new_assignment_page.dart';
 import 'package:leviosa/ui/chat_page/chat_room.dart';
 import 'package:leviosa/ui/chat_page/chat_search_page.dart';
 import 'package:leviosa/ui/common_page/common_parent_page.dart';
@@ -20,6 +21,7 @@ import 'package:leviosa/ui/sign_in_page/sign_in_page.dart';
 import 'package:leviosa/ui/sign_to_text/sign_to_text_page.dart';
 import 'package:leviosa/ui/text_to_sign_page/text_to_sign_page.dart';
 import 'package:leviosa/ui/video_meeting_page/videocall_page.dart';
+import 'package:leviosa/widgets/file/utube_player.dart';
 
 final appRouter = GoRouter(
   redirect: (context, state) {
@@ -128,11 +130,24 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: RouterConstants.newAssignmentPage,
+      name: RouterConstants.newAssignmentPage,
+      builder: (context, state) => const NewAssignmentPage(),
+    ),
+    GoRoute(
       path: RouterConstants.courseTeachersPage,
       name: RouterConstants.courseTeachersPage,
       builder: (context, state) {
         final courseModel = state.extra as CourseModel;
         return CourseTeacherPage(course: courseModel);
+      },
+    ),
+    GoRoute(
+      path: RouterConstants.utubePlayer,
+      name: RouterConstants.utubePlayer,
+      builder: (context, state) {
+        final videoId = state.extra as String;
+        return UTubePlayer(videoId: videoId);
       },
     ),
     GoRoute(

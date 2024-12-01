@@ -14,6 +14,13 @@ enum Language {
   hindi,
 }
 
+enum FileType {
+  youtube,
+  image,
+  video,
+  pdf,
+}
+
 class Utility {
   static const List youtubeurl = [
     "vnH2BmcSRMA",

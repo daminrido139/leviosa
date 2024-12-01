@@ -6,6 +6,10 @@ class CalendarServices {
     return "${pad0(hour)}:${pad0(mins)} ${hr ~/ 12 == 0 ? "AM" : "PM"}";
   }
 
+  static String dateFromDatetime(DateTime date) {
+    return '${date.day}/${date.month}/${date.year}';
+  }
+
   static String getDayByInd(int index) {
     switch (index) {
       case 0:
