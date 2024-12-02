@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/constants.dart';
 import 'package:leviosa/model/course_model.dart';
+import 'package:leviosa/services/assignment_services.dart';
 import 'package:leviosa/services/calendar_services.dart';
 import 'package:leviosa/services/cloudinary_service.dart';
 import 'package:leviosa/services/course_service.dart';
 import 'package:leviosa/services/file_services.dart';
+import 'package:leviosa/widgets/common/leviosa_button.dart';
 import 'package:leviosa/widgets/common/leviosa_form_field.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:leviosa/widgets/common/loader.dart';
@@ -117,10 +119,14 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const LeviosaText('Create Assignment'),
+        title: const LeviosaText(
+          'Create Assignment',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
         shadowColor: Colors.white,
+        leadingWidth: 30,
       ),
       body: courses.isEmpty
           ? const Loader()
@@ -142,7 +148,8 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                             title: 'Heading',
                             hintText: 'Enter a Heading',
                             controller: assignmentController,
-                            titleTextStyle: const TextStyle(fontSize: 18),
+                            titleTextStyle: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w600),
                             padding: EdgeInsets.zero,
                           ),
                           /////////////////////////////////
@@ -152,7 +159,8 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                             title: 'Description',
                             hintText: 'Enter a Description',
                             controller: descriptionController,
-                            titleTextStyle: const TextStyle(fontSize: 18),
+                            titleTextStyle: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w600),
                             padding: EdgeInsets.zero,
                             minLines: 3,
                             maxLines: 7,
@@ -173,19 +181,6 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Container(
-                                      width: double.infinity,
-                                      height: 40,
-                                      color: leviosaColor,
-                                      alignment: Alignment.centerRight,
-                                      child: IconButton(
-                                          onPressed: () {
-                                            attachments.removeAt(index);
-                                            setState(() {});
-                                            // in future, implement delete feature in cloudinary
-                                          },
-                                          icon: const Icon(Icons.close)),
-                                    ),
                                     NetworkFileViewer(
                                         typeUrl: attachments[index]),
                                   ],
@@ -199,8 +194,32 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                     ),
                   ),
                 ),
-                ////////////////////////////////////////////////////////////
                 if (isLoading) const LinearProgressIndicator(),
+
+                LeviosaButton(
+                    onTap: () {
+                      // AssignmentServices.createAssignment(
+                      //     createdAt,
+                      //     createrId,
+                      //     courseName,
+                      //     courseCode,
+                      //     heading,
+                      //     desc,
+                      //     dueDate,
+                      //     attachments);
+                    },
+                    width: double.infinity,
+                    radius: BorderRadius.zero,
+                    child: isLoading
+                        ? const Loader()
+                        : const LeviosaText(
+                            'Create Assignment',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )),
+                ////////////////////////////////////////////////////////////
               ],
             ),
     );
@@ -211,7 +230,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
       children: [
         const LeviosaText(
           'Select Course: ',
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         ),
         const SizedBox(width: 10),
         ///////////////////////////////
@@ -268,7 +287,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
       children: [
         const LeviosaText(
           'Due Date: ',
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         ),
         const SizedBox(width: 5),
         ///////////////////////////////
@@ -300,7 +319,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
         const Spacer(),
         const LeviosaText(
           'Due Time: ',
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         ),
         const SizedBox(width: 5),
         ///////////////////////////////
