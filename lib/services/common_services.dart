@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leviosa/constants.dart';
 import 'package:leviosa/cubit/theme_cubit.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 bool isLightMode(BuildContext context) {
   return context.watch<ThemeCubit>().isLightTheme();
@@ -33,4 +35,30 @@ String timestampTohhmmm(Timestamp timestamp) {
 
 String getSchool(String email) {
   return email.split('@')[1].split('.')[0];
+}
+
+showSnackBar(String content, BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      backgroundColor: leviosaColor,
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      behavior: SnackBarBehavior.floating,
+      content: Row(
+        children: [
+          const Icon(Icons.info_outline, size: 20),
+          const SizedBox(width: 5),
+          Expanded(
+            child: LeviosaText(
+              content,
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 17),
+            ),
+          ),
+        ],
+      ),
+      duration: const Duration(milliseconds: 2000),
+    ),
+  );
 }
