@@ -68,10 +68,33 @@ class _AssignmentTeacherPageState extends State<AssignmentTeacherPage>
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         actions: [
-          IconButton(
-            onPressed: () => context.push(RouterConstants.newAssignmentPage),
-            icon: const Icon(Icons.note_add_outlined),
-          )
+          InkWell(
+            onTap: () {
+              context.push(RouterConstants.newAssignmentPage);
+            },
+            child: Container(
+              height: 35,
+              width: 100,
+              margin: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  gradient: LinearGradient(colors: [
+                    Color.fromARGB(255, 243, 227, 173),
+                    Color.fromRGBO(228, 212, 156, 1),
+                  ], begin: Alignment.topCenter, end: Alignment.bottomLeft),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromRGBO(0, 0, 0, 0.1),
+                      blurRadius: 5,
+                    )
+                  ]),
+              child: const Center(
+                  child: LeviosaText(
+                "+ Create",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              )),
+            ),
+          ),
         ],
       ),
       body: Column(

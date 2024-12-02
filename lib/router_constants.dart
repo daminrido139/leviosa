@@ -1,5 +1,3 @@
-import 'package:leviosa/ui/profile_page/profile_page.dart';
-
 class RouterConstants {
   static const signInPage = "/sign-in-page";
   static const commonStudentPageRoute = "/common-student-page";
