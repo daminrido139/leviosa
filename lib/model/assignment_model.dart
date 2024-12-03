@@ -7,7 +7,7 @@ class AssignmentModel {
   final String courseCode;
   final String heading;
   final String desc;
-  final Timestamp dueDate;
+  final String dueDate;
   final List<String> attachments;
 
   const AssignmentModel(
@@ -29,7 +29,7 @@ class AssignmentModel {
       heading: json["heading"],
       desc: json["desc"],
       dueDate: json["due_date"],
-      attachments: (json["attachments"] as List<dynamic>)
+      attachments: (json["attachments"] as List<String>)
           .map((e) => e.toString())
           .toList(),
     );

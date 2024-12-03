@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:leviosa/model/assignment_model.dart';
@@ -7,13 +9,11 @@ class AssignmentServices {
   static final _firestore = FirebaseFirestore.instance;
 
   static Future<void> createAssignment(
-      Timestamp createdAt,
-      String createrId,
       String courseName,
       String courseCode,
       String heading,
       String desc,
-      Timestamp dueDate,
+      String dueDate,
       List<String> attachments) async {
     final email = FirebaseAuth.instance.currentUser!.email!;
     final school = getSchool(email);
@@ -22,10 +22,10 @@ class AssignmentServices {
         .doc(school)
         .collection('Assignment')
         .add(AssignmentModel(
-                createdAt: createdAt,
+                createdAt: Timestamp.now(),
                 courseName: courseName,
                 courseCode: courseCode,
-                createrId: createrId,
+                createrId: email,
                 heading: heading,
                 desc: desc,
                 dueDate: dueDate,

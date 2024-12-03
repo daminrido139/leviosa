@@ -1,16 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:leviosa/constants.dart';
 import 'package:leviosa/model/course_model.dart';
+import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/assignment_services.dart';
 import 'package:leviosa/services/calendar_services.dart';
-import 'package:leviosa/services/cloudinary_service.dart';
 import 'package:leviosa/services/course_service.dart';
 import 'package:leviosa/services/file_services.dart';
 import 'package:leviosa/widgets/common/leviosa_button.dart';
 import 'package:leviosa/widgets/common/leviosa_form_field.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:leviosa/widgets/common/loader.dart';
-import 'package:leviosa/widgets/file/network_file_viewer.dart';
 
 class NewAssignmentPage extends StatefulWidget {
   const NewAssignmentPage({super.key});
@@ -26,7 +28,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
   List<String> courseNameAndID = [];
   DateTime dueDateTime = DateTime.now().add(const Duration(days: 7));
   TimeOfDay dueTime = TimeOfDay.now();
-  List<String> attachments = [];
+  List<dynamic> attachments = [];
   bool isLoading = false;
 
   final TextEditingController assignmentController = TextEditingController();
@@ -56,17 +58,12 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
   Future<void> pickPDFS() async {
     isAttaching = false;
     isLoading = true;
-    setState(() {});
+
     try {
-      final pdfs = await FileServices.pickPdf();
-      for (var pdf in pdfs) {
-        if (pdf != null) {
-          final link = await CloudinaryService.uploadFileDirect(pdf);
-          if (link != null) {
-            attachments.add(link);
-          }
-        }
-      }
+      setState(() {});
+      final pdfs = await FileServices.pickPdf(context);
+      attachments.add(pdfs);
+      setState(() {});
     } catch (e) {
       isLoading = false;
       setState(() {});
@@ -80,13 +77,9 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     isLoading = true;
     setState(() {});
     try {
-      final imgs = await FileServices.pickImage();
-      for (var img in imgs) {
-        final link = await CloudinaryService.uploadFileDirect(img);
-        if (link != null) {
-          attachments.add(link);
-        }
-      }
+      final imgs = await FileServices.pickImage(context);
+      attachments.add(imgs);
+      setState(() {});
     } catch (e) {
       isLoading = false;
       setState(() {});
@@ -101,12 +94,8 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     setState(() {});
     try {
       final video = await FileServices.pickVideos();
-      if (video != null) {
-        final link = await CloudinaryService.uploadFileDirect(video);
-        if (link != null) {
-          attachments.add(link);
-        }
-      }
+      attachments.add(video);
+      setState(() {});
     } catch (e) {
       isLoading = false;
       setState(() {});
@@ -172,20 +161,38 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                           dueDate(),
                           /////////////////////////////////////
                           const SizedBox(height: 15),
-                          ////////////////////////////////
+                          //////////////////////////////// pdf ////////////////
+
                           ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: attachments.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    NetworkFileViewer(
-                                        typeUrl: attachments[index]),
-                                  ],
-                                );
+                                if (attachments[index][0] != null) {
+                                  String type = attachments[index][1];
+                                  if (type.split(".").last == "jpg" ||
+                                      type.split(".").last == "jpeg" ||
+                                      type.split(".").last == "png") {
+                                    return imageView(attachments[index][0],
+                                        attachments[index][1], index);
+                                  }
+                                  if (type.split(".").last == "mp4") {
+                                    return videoView(attachments[index][0],
+                                        attachments[index][1], index);
+                                  }
+                                  if (type.split(".").last == "pdf") {
+                                    return pdfView(attachments[index][0],
+                                        context, attachments[index][1], index);
+                                  }
+                                  return videoView(attachments[index][0],
+                                      attachments[index][1], index);
+                                }
+                                // return pdfView(attachments[index][0], context,
+                                //     attachments[index][1], index);
+                                return const SizedBox.shrink();
                               }),
+                          //
+                          // }),
                           const SizedBox(height: 15),
                           //////////////////////////////
                           addAttachment(),
@@ -197,16 +204,22 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                 if (isLoading) const LinearProgressIndicator(),
 
                 LeviosaButton(
-                    onTap: () {
-                      // AssignmentServices.createAssignment(
-                      //     createdAt,
-                      //     createrId,
-                      //     courseName,
-                      //     courseCode,
-                      //     heading,
-                      //     desc,
-                      //     dueDate,
-                      //     attachments);
+                    onTap: () async {
+                      isLoading = true;
+                      setState(() {});
+                      List<String> finalattachement =
+                          await FileServices.storeCloudinery(attachments);
+
+                      AssignmentServices.createAssignment(
+                        selectedCourse.split("-")[0],
+                        selectedCourse.split("-")[1],
+                        assignmentController.text,
+                        descriptionController.text,
+                        "$dueTime&#$dueDateTime",
+                        finalattachement,
+                      );
+                      isLoading = false;
+                      setState(() {});
                     },
                     width: double.infinity,
                     radius: BorderRadius.zero,
@@ -486,5 +499,140 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
           ),
       ],
     );
+  }
+
+  Widget pdfView(File file, BuildContext context, String filename, int index) {
+    // String filename = url.split("/").last;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: InkWell(
+        onTap: () {
+          context.push(RouterConstants.pdfViewer, extra: {"file": file});
+        },
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: leviosaColor,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                )
+              ]),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: Image.asset("assets/file/pdflogo.png"),
+                ),
+              ),
+              Text(filename),
+              const Spacer(),
+              IconButton(
+                  onPressed: () {
+                    attachments.removeAt(index);
+                    setState(() {});
+                    // in future, implement delete feature in cloudinary
+                  },
+                  icon: const Icon(Icons.close)),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    // implement a box, if it clicks, push a new page and display pdf using syncfusion_pdf_viewer package
+  }
+
+  Widget imageView(File url, String filename, int index) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: leviosaColor,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                )
+              ]),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: Image.file(url),
+                ),
+              ),
+              Text(filename),
+              const Spacer(),
+              IconButton(
+                  onPressed: () {
+                    attachments.removeAt(index);
+                    setState(() {});
+                    // in future, implement delete feature in cloudinary
+                  },
+                  icon: const Icon(Icons.close)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget videoView(File url, String filename, int index) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: leviosaColor,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                )
+              ]),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: Image.asset("assets/img/video.png"),
+                ),
+              ),
+              Text(filename),
+              const Spacer(),
+              IconButton(
+                  onPressed: () {
+                    attachments.removeAt(index);
+                    setState(() {});
+                    // in future, implement delete feature in cloudinary
+                  },
+                  icon: const Icon(Icons.close)),
+            ],
+          ),
+        ),
+      ),
+    );
+    // implement video player using better_player package
   }
 }
