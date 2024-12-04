@@ -22,6 +22,7 @@ import 'package:leviosa/ui/sign_in_page/sign_in_page.dart';
 import 'package:leviosa/ui/sign_to_text/sign_to_text_page.dart';
 import 'package:leviosa/ui/text_to_sign_page/text_to_sign_page.dart';
 import 'package:leviosa/ui/video_meeting_page/videocall_page.dart';
+import 'package:leviosa/widgets/file/pdf_viewer.dart';
 import 'package:leviosa/widgets/file/utube_player.dart';
 
 final appRouter = GoRouter(
@@ -88,6 +89,16 @@ final appRouter = GoRouter(
       builder: (context, state) {
         final args = state.extra as Map<String, dynamic>;
         return VideocallPage(callId: args["callId"]);
+      },
+    ),
+    GoRoute(
+      path: RouterConstants.pdfViewer,
+      name: RouterConstants.pdfViewer,
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>;
+        return PdfViewer(
+          url: args["file"],
+        );
       },
     ),
     GoRoute(

@@ -1,48 +1,88 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:leviosa/services/cloudinary_service.dart';
 
 class FileServices {
   static final ImagePicker picker = ImagePicker();
 
-  static Future<List<String?>> pickPdf({bool allowMultiple = true}) async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowMultiple: allowMultiple,
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
-    if (result == null) {
-      return [];
+  static Future pickPdf(BuildContext context) async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        allowMultiple: true,
+        type: FileType.custom,
+        allowedExtensions: ['pdf'],
+      );
+      if (result != null && result.files.single.path != null) {
+        String filename = result.files.single.path!.split("/").last;
+
+        return [
+          File(result.files.single.path!),
+          filename,
+          result.files.single.path!
+        ];
+      }
+
+      return [null, null];
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error picking file: $e')),
+      );
     }
-    return result.files.map((f) => f.path).toList();
+
+    // return result.files.map((f) => f.path).toList();
   }
 
-  static Future<List<String>> pickImage({
-    bool allowMultiple = true,
-    int imageQuality = 40,
-  }) async {
-    if (!allowMultiple) {
-      final xFile = await picker.pickImage(
-          source: ImageSource.gallery, imageQuality: imageQuality);
-      if (xFile == null) {
-        return [];
+  static Future pickImage(BuildContext context) async {
+    try {
+      // Pick an image from the specified source (camera or gallery)
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+      if (pickedFile != null) {
+        // Return the file path
+        return [
+          File(pickedFile.path),
+          pickedFile.path.split("/").last,
+          pickedFile.path
+        ];
+      } else {
+        // If no image was selected
+        return [null, null];
       }
-      return [xFile.path];
-    } else {
-      final xFiles = await picker.pickMultiImage(imageQuality: imageQuality);
-      List<String> images = [];
-      for (var x in xFiles) {
-        images.add(x.path);
-      }
-      return images;
+    } catch (e) {
+      // Handle errors
+      print("Error picking image: $e");
+      return null;
     }
   }
 
-  static Future<String?> pickVideos({
+  static Future pickVideos({
     Duration? maxDuration,
   }) async {
     final xFile = await picker.pickVideo(
         source: ImageSource.gallery, maxDuration: maxDuration);
+    if (xFile == null) {
+      return [null, null];
+    }
 
-    return xFile?.path;
+    return [File(xFile.path), xFile.path.split("/").last, xFile.path];
+  }
+
+////////////////////////////////////// Store cloudinery //////////////////////////////////////////
+  static Future storeCloudinery(attachment) async {
+    List<String> storedlst = [];
+    for (var i in attachment) {
+      if (i[0] != null) {
+        final link = await CloudinaryService.uploadFileDirect(i[2]);
+
+        if (link != null) {
+          storedlst.add("$link&#${link.split("~")[0]}");
+        }
+      }
+    }
+    return storedlst;
   }
 }

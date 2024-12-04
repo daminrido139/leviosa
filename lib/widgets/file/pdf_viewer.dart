@@ -1,10 +1,32 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-class PdfViewer extends StatelessWidget {
-  const PdfViewer({super.key});
+import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+
+class PdfViewer extends StatefulWidget {
+  const PdfViewer({super.key, required this.url});
+  final File url;
+
+  @override
+  State<PdfViewer> createState() => _PdfViewerState();
+}
+
+class _PdfViewerState extends State<PdfViewer> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    // _pdfViewerKey.currentState?.openBookmarkView();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: SfPdfViewer.file(widget.url),
+      // body: SfPdfViewer.network(
+      //   widget.url,
+      //   key: _pdfViewerKey,
+      // ),
+    );
   }
 }
