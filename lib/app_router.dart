@@ -52,7 +52,17 @@ final appRouter = GoRouter(
     GoRoute(
       path: RouterConstants.assignmentStudentDetailedView,
       name: RouterConstants.assignmentStudentDetailedView,
-      builder: (context, state) => const AssignmentStudentDetailedView(),
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>;
+        return AssignmentStudentDetailedView(
+          desc: args["desc"],
+          assignmentname: args["assignmentname"],
+          date: args["date"],
+          time: args["time"],
+          attachments: args["attachments"],
+          coursename: args["coursename"],
+        );
+      },
     ),
     GoRoute(
       path: RouterConstants.profilePage,

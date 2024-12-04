@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
+import 'package:leviosa/model/assignment_model.dart';
 import 'package:leviosa/router_constants.dart';
+import 'package:leviosa/services/assignment_services.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
@@ -19,12 +21,20 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
   late final TabController tabController;
   int currentIndex = 0;
   final GlobalKey<ScaffoldState> key = GlobalKey();
+  List<AssignmentModel> assignments = [];
 
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this);
-    tabController.addListener(onTabChange);
+    fetchassignments();
+    // tabController = TabController(length: 3, vsync: this);
+    // tabController.addListener(onTabChange);
+
     super.initState();
+  }
+
+  fetchassignments() async {
+    assignments = await AssignmentServices.fetchAssignment();
+    setState(() {});
   }
 
   @override
@@ -67,141 +77,36 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
           'Assignments',
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.note_add_outlined),
-          )
-        ],
       ),
       body: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          PreferredSize(
-            preferredSize: const Size(200.0, 200.0),
-            child: SizedBox(
-              child: TabBar(
-                splashFactory: NoSplash.splashFactory,
-                controller: tabController,
-                // padding: EdgeInsets.symmetric(horizontal: 28, vertical: 4),
-                indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                labelColor: Colors.black,
-                dividerColor: Colors.transparent,
-                tabs: [
-                  Tab(
-                    child: Container(
-                      height: 45,
-                      // width: 88,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: tabController.index == 0
-                            ? const Color.fromARGB(255, 233, 223, 190)
-                            : const Color.fromARGB(255, 236, 234, 234),
-                      ),
-                      child: const Center(
-                        child: LeviosaText(
-                          "Forthcoming",
-                        ),
-                      ),
-                    ),
-                    // text: "Forthcoming",
-                  ),
-                  Tab(
-                    child: Container(
-                      height: 45,
-                      // width: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: tabController.index == 1
-                            ? const Color.fromARGB(255, 233, 223, 190)
-                            : const Color.fromARGB(255, 236, 234, 234),
-                      ),
-                      child: const Center(
-                        child: LeviosaText(
-                          "Past due",
-                        ),
-                      ),
-                    ),
-                    // text: "Forthcoming",
-                  ),
-                  Tab(
-                    child: Container(
-                      height: 45,
-                      // width: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: tabController.index == 2
-                            ? const Color.fromARGB(255, 233, 223, 190)
-                            : const Color.fromARGB(255, 236, 234, 234),
-                      ),
-                      child: const Center(
-                        child: LeviosaText(
-                          "Completed",
-                        ),
-                      ),
-                    ),
-                    // text: "Forthcoming",
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: [
-                forthcoming(context),
-                pastdue(),
-                completed()
-                // MyPostTab(),
-                // MyReelsTab(),
-                // MyTagTab(),
-              ],
-            ),
-          )
-        ],
+        children: [forthcoming(context)],
       ),
     );
   }
 
   Widget forthcoming(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 20),
-        assignmentcard(
-            context,
-            "20 Sept",
-            "(two days)",
-            const Color.fromARGB(255, 243, 163, 97),
-            "Assignment -1 (Number)",
-            "OC"),
-        assignmentcard(
-            context,
-            "21 Sept",
-            "(three days)",
-            const Color.fromARGB(255, 243, 208, 102),
-            "Assignment -2 (Alphabets)",
-            "Mc"),
-        assignmentcard(
-            context,
-            "23 Sept",
-            "(four days)",
-            const Color.fromARGB(255, 188, 118, 235),
-            "Assignment -3 (Colors)",
-            "KI"),
-        assignmentcard(
-            context,
-            "24 Sept",
-            "(five days)",
-            const Color.fromARGB(255, 200, 247, 146),
-            "Assignment -4 (Words)",
-            "SC"),
-      ],
-    );
+    return Column(children: [
+      const SizedBox(height: 20),
+      ListView.builder(
+          itemCount: assignments.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return assignmentcard(
+                context,
+                assignments[index].dueDate,
+                "(few days)",
+                const Color.fromARGB(255, 243, 163, 97),
+                assignments[index].heading,
+                "OC",
+                assignments[index].heading,
+                assignments[index].courseName,
+                assignments[index].desc,
+                assignments[index].dueDate,
+                assignments[index].dueDate,
+                assignments[index].attachments);
+          }),
+    ]);
   }
 
   Widget pastdue() {
@@ -228,11 +133,18 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
     );
   }
 
-  Widget assignmentcard(
-      BuildContext context, subtext, txt, color, pretxt, htxt) {
+  Widget assignmentcard(BuildContext context, subtext, txt, color, pretxt, htxt,
+      assignmentname, coursename, desc, date, time, attachments) {
     return InkWell(
       onTap: () {
-        context.push(RouterConstants.assignmentStudentDetailedView);
+        context.push(RouterConstants.assignmentStudentDetailedView, extra: {
+          "assignmentname": assignmentname,
+          "coursename": coursename,
+          "desc": desc,
+          "date": date,
+          "time": time,
+          "attachments": attachments,
+        });
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

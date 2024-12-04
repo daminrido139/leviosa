@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:leviosa/model/assignment_model.dart';
@@ -30,5 +29,21 @@ class AssignmentServices {
                 dueDate: dueDate,
                 attachments: attachments)
             .toJson());
+  }
+
+  static Future<List<AssignmentModel>> fetchAssignment() async {
+    final email = FirebaseAuth.instance.currentUser!.email!;
+    final school = getSchool(email);
+    final snapshot = await _firestore
+        .collection('school')
+        .doc(school)
+        .collection('Assignment')
+        .get();
+
+    return snapshot.docs
+        .map((q) => AssignmentModel.fromJson(
+              q.data(),
+            ))
+        .toList();
   }
 }
