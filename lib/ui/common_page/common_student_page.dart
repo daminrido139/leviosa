@@ -4,6 +4,7 @@ import 'package:leviosa/ui/calendar_page/calendar_page.dart';
 import 'package:leviosa/ui/chat_page/chat_page.dart';
 import 'package:leviosa/ui/course_channel_page/course_channel_student_page.dart';
 import 'package:leviosa/ui/learning_page.dart/learning_page.dart';
+import 'package:leviosa/ui/test.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class CommonStudentPage extends StatefulWidget {
@@ -28,7 +29,8 @@ class _HomepageState extends State<CommonStudentPage> {
           ChatPage(),
           AssignmentStudentPage(),
           CourseChannelStudentPage(),
-          Learningpage()
+          Test()
+          // Learningpage()
         ],
       ),
       bottomNavigationBar: Container(
