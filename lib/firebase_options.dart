@@ -50,11 +50,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAb1W4dExfnwE2SirgEt0VGpLg4u7tonXg',
-    appId: '1:607595355808:android:e2b4de7206cfaefe02b3c5',
-    messagingSenderId: '607595355808',
-    projectId: 'leviosa-b7b76',
-    storageBucket: 'leviosa-b7b76.firebasestorage.app',
+    apiKey: 'AIzaSyBom_ND-L7XgKNcLQt1tE7PItLqiq-cNdA',
+    appId: '1:554324767425:android:e1ff5a63857b2ab28a1a40',
+    messagingSenderId: '554324767425',
+    projectId: 'shakabooo',
+    storageBucket: 'shakabooo.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(

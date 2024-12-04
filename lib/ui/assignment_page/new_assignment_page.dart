@@ -28,7 +28,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
   List<String> courseNameAndID = [];
   DateTime dueDateTime = DateTime.now().add(const Duration(days: 7));
   TimeOfDay dueTime = TimeOfDay.now();
-  List<dynamic> attachments = [];
+  List<String> attachments = [];
   bool isLoading = false;
 
   final TextEditingController assignmentController = TextEditingController();
@@ -62,8 +62,9 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     try {
       setState(() {});
       final pdfs = await FileServices.pickPdf(context);
-      attachments.add(pdfs);
-      setState(() {});
+      if (pdfs != null) {
+        attachments.add(pdfs);
+      }
     } catch (e) {
       isLoading = false;
       setState(() {});
@@ -78,8 +79,9 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     setState(() {});
     try {
       final imgs = await FileServices.pickImage(context);
-      attachments.add(imgs);
-      setState(() {});
+      if (imgs != null) {
+        attachments.add(imgs);
+      }
     } catch (e) {
       isLoading = false;
       setState(() {});
@@ -94,8 +96,9 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     setState(() {});
     try {
       final video = await FileServices.pickVideos();
-      attachments.add(video);
-      setState(() {});
+      if (video != null) {
+        attachments.add(video);
+      }
     } catch (e) {
       isLoading = false;
       setState(() {});
@@ -168,27 +171,19 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                               itemCount: attachments.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                if (attachments[index][0] != null) {
-                                  String type = attachments[index][1];
-                                  if (type.split(".").last == "jpg" ||
-                                      type.split(".").last == "jpeg" ||
-                                      type.split(".").last == "png") {
-                                    return imageView(attachments[index][0],
-                                        attachments[index][1], index);
-                                  }
-                                  if (type.split(".").last == "mp4") {
-                                    return videoView(attachments[index][0],
-                                        attachments[index][1], index);
-                                  }
-                                  if (type.split(".").last == "pdf") {
-                                    return pdfView(attachments[index][0],
-                                        context, attachments[index][1], index);
-                                  }
-                                  return videoView(attachments[index][0],
-                                      attachments[index][1], index);
+                                String type =
+                                    attachments[index].split('.').last;
+                                if (type == "jpg" ||
+                                    type == "jpeg" ||
+                                    type == "png") {
+                                  return imageView(attachments[index], index);
                                 }
-                                // return pdfView(attachments[index][0], context,
-                                //     attachments[index][1], index);
+                                if (type == "mp4") {
+                                  return videoView(attachments[index], index);
+                                }
+                                if (type == "pdf") {
+                                  return pdfView(attachments[index], index);
+                                }
                                 return const SizedBox.shrink();
                               }),
                           //
@@ -208,7 +203,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                       isLoading = true;
                       setState(() {});
                       List<String> finalattachement =
-                          await FileServices.storeCloudinery(attachments);
+                          await FileServices.storeAttachments(attachments);
 
                       AssignmentServices.createAssignment(
                         selectedCourse.split("-")[0],
@@ -270,7 +265,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                   value: items,
                   alignment: Alignment.center,
                   child: SizedBox(
-                    width: MediaQuery.sizeOf(context).width * 0.45,
+                    width: MediaQuery.sizeOf(context).width * 0.4,
                     child: Text(
                       items,
                       style: const TextStyle(
@@ -298,68 +293,77 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
   Widget dueDate() {
     return Row(
       children: [
-        const LeviosaText(
-          'Due Date: ',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(width: 5),
-        ///////////////////////////////
-        InkWell(
-          onTap: () async {
-            final dt = await showDatePicker(
-              context: context,
-              firstDate: DateTime.now(),
-              lastDate: DateTime.now().add(const Duration(days: 30)),
-            );
-            if (dt == null) {
-              return;
-            }
-            dueDateTime = dt;
-            setState(() {});
-          },
-          child: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.only(right: 2),
-            height: 40,
-            width: 80,
-            decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xFFB6B1B1)),
-              borderRadius: BorderRadius.circular(8),
+        Column(
+          children: [
+            const LeviosaText(
+              'Due Date: ',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
-            child: Text(CalendarServices.dateFromDatetime(dueDateTime)),
-          ),
-        ),
-        const Spacer(),
-        const LeviosaText(
-          'Due Time: ',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(width: 5),
-        ///////////////////////////////
-        InkWell(
-          onTap: () async {
-            final time = await showTimePicker(
-              context: context,
-              initialTime: const TimeOfDay(hour: 0, minute: 0),
-            );
-            if (time == null) {
-              return;
-            }
-            dueTime = time;
-            setState(() {});
-          },
-          child: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.only(right: 2),
-            height: 40,
-            width: 70,
-            decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xFFB6B1B1)),
-              borderRadius: BorderRadius.circular(8),
+            const SizedBox(width: 5),
+            ///////////////////////////////
+            InkWell(
+              onTap: () async {
+                final dt = await showDatePicker(
+                  context: context,
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime.now().add(const Duration(days: 30)),
+                );
+                if (dt == null) {
+                  return;
+                }
+                dueDateTime = dt;
+                setState(() {});
+              },
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.only(right: 2),
+                height: 40,
+                width: 80,
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0xFFB6B1B1)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(CalendarServices.dateFromDatetime(dueDateTime)),
+              ),
             ),
-            child: Text(
-                CalendarServices.time12FromDate(dueTime.hour, dueTime.minute)),
-          ),
+          ],
+        ),
+        ///////////////////////////////////////////
+        const SizedBox(width: 20),
+        Column(
+          children: [
+            const LeviosaText(
+              'Due Time: ',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(width: 5),
+            ///////////////////////////////
+            InkWell(
+              onTap: () async {
+                final time = await showTimePicker(
+                  context: context,
+                  initialTime: const TimeOfDay(hour: 0, minute: 0),
+                );
+                if (time == null) {
+                  return;
+                }
+                dueTime = time;
+                setState(() {});
+              },
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.only(right: 2),
+                height: 40,
+                width: 70,
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0xFFB6B1B1)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(CalendarServices.time12FromDate(
+                    dueTime.hour, dueTime.minute)),
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -501,13 +505,12 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     );
   }
 
-  Widget pdfView(File file, BuildContext context, String filename, int index) {
-    // String filename = url.split("/").last;
+  Widget pdfView(String path, int index) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: () {
-          context.push(RouterConstants.pdfViewer, extra: {"file": file});
+          context.push(RouterConstants.pdfViewer, extra: {"file": File(path)});
         },
         child: Container(
           width: double.infinity,
@@ -531,7 +534,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                   child: Image.asset("assets/file/pdflogo.png"),
                 ),
               ),
-              Text(filename),
+              Text(path.split('/').last),
               const Spacer(),
               IconButton(
                   onPressed: () {
@@ -549,7 +552,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     // implement a box, if it clicks, push a new page and display pdf using syncfusion_pdf_viewer package
   }
 
-  Widget imageView(File url, String filename, int index) {
+  Widget imageView(String path, int index) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
@@ -573,16 +576,15 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                 child: SizedBox(
                   height: 30,
                   width: 30,
-                  child: Image.file(url),
+                  child: Image.file(File(path)),
                 ),
               ),
-              Text(filename),
+              Text(path.split('/').last),
               const Spacer(),
               IconButton(
                   onPressed: () {
                     attachments.removeAt(index);
                     setState(() {});
-                    // in future, implement delete feature in cloudinary
                   },
                   icon: const Icon(Icons.close)),
             ],
@@ -592,7 +594,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     );
   }
 
-  Widget videoView(File url, String filename, int index) {
+  Widget videoView(String path, int index) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
@@ -619,7 +621,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                   child: Image.asset("assets/img/video.png"),
                 ),
               ),
-              Text(filename),
+              Text(path.split('/').last),
               const Spacer(),
               IconButton(
                   onPressed: () {

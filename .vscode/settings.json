@@ -1,5 +1,6 @@
 {
     "java.project.sourcePaths": [
         "lib/ui/course_channel_page"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
