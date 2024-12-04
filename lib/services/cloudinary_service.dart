@@ -42,11 +42,12 @@ class CloudinaryService {
     if (response.statusCode == 200) {
       final responseBody = await response.stream.bytesToString();
       final jsonResponse = json.decode(responseBody);
+      print(jsonResponse);
       final url = jsonResponse['secure_url'];
       if (url == null) {
         return null;
       }
-      return '$url~${path.split('.').last}';
+      return '$url~#${path.split('/').last}';
 
       // print('Upload successful! Response: $jsonResponse');
     }

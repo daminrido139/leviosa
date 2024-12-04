@@ -270,7 +270,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                   value: items,
                   alignment: Alignment.center,
                   child: SizedBox(
-                    width: MediaQuery.sizeOf(context).width * 0.45,
+                    width: MediaQuery.sizeOf(context).width * 0.4,
                     child: Text(
                       items,
                       style: const TextStyle(
@@ -298,68 +298,77 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
   Widget dueDate() {
     return Row(
       children: [
-        const LeviosaText(
-          'Due Date: ',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(width: 5),
-        ///////////////////////////////
-        InkWell(
-          onTap: () async {
-            final dt = await showDatePicker(
-              context: context,
-              firstDate: DateTime.now(),
-              lastDate: DateTime.now().add(const Duration(days: 30)),
-            );
-            if (dt == null) {
-              return;
-            }
-            dueDateTime = dt;
-            setState(() {});
-          },
-          child: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.only(right: 2),
-            height: 40,
-            width: 80,
-            decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xFFB6B1B1)),
-              borderRadius: BorderRadius.circular(8),
+        Column(
+          children: [
+            const LeviosaText(
+              'Due Date: ',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
-            child: Text(CalendarServices.dateFromDatetime(dueDateTime)),
-          ),
-        ),
-        const Spacer(),
-        const LeviosaText(
-          'Due Time: ',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(width: 5),
-        ///////////////////////////////
-        InkWell(
-          onTap: () async {
-            final time = await showTimePicker(
-              context: context,
-              initialTime: const TimeOfDay(hour: 0, minute: 0),
-            );
-            if (time == null) {
-              return;
-            }
-            dueTime = time;
-            setState(() {});
-          },
-          child: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.only(right: 2),
-            height: 40,
-            width: 70,
-            decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xFFB6B1B1)),
-              borderRadius: BorderRadius.circular(8),
+            const SizedBox(width: 5),
+            ///////////////////////////////
+            InkWell(
+              onTap: () async {
+                final dt = await showDatePicker(
+                  context: context,
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime.now().add(const Duration(days: 30)),
+                );
+                if (dt == null) {
+                  return;
+                }
+                dueDateTime = dt;
+                setState(() {});
+              },
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.only(right: 2),
+                height: 40,
+                width: 80,
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0xFFB6B1B1)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(CalendarServices.dateFromDatetime(dueDateTime)),
+              ),
             ),
-            child: Text(
-                CalendarServices.time12FromDate(dueTime.hour, dueTime.minute)),
-          ),
+          ],
+        ),
+        ///////////////////////////////////////////
+        const SizedBox(width: 20),
+        Column(
+          children: [
+            const LeviosaText(
+              'Due Time: ',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(width: 5),
+            ///////////////////////////////
+            InkWell(
+              onTap: () async {
+                final time = await showTimePicker(
+                  context: context,
+                  initialTime: const TimeOfDay(hour: 0, minute: 0),
+                );
+                if (time == null) {
+                  return;
+                }
+                dueTime = time;
+                setState(() {});
+              },
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.only(right: 2),
+                height: 40,
+                width: 70,
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0xFFB6B1B1)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(CalendarServices.time12FromDate(
+                    dueTime.hour, dueTime.minute)),
+              ),
+            ),
+          ],
         ),
       ],
     );

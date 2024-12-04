@@ -76,10 +76,10 @@ class FileServices {
     List<String> storedlst = [];
     for (var i in attachment) {
       if (i[0] != null) {
-        final link = await CloudinaryService.uploadFileDirect(i[2]);
+        final encodedLink = await CloudinaryService.uploadFileDirect(i[2]);
 
-        if (link != null) {
-          storedlst.add("$link&#${link.split("~")[0]}");
+        if (encodedLink != null) {
+          storedlst.add(encodedLink);
         }
       }
     }
