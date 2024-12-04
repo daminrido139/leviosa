@@ -13,13 +13,6 @@ class PdfViewer extends StatefulWidget {
 
 class _PdfViewerState extends State<PdfViewer> {
   @override
-  void initState() {
-    // TODO: implement initState
-    // _pdfViewerKey.currentState?.openBookmarkView();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SfPdfViewer.file(widget.url),

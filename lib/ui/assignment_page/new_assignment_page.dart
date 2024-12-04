@@ -28,7 +28,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
   List<String> courseNameAndID = [];
   DateTime dueDateTime = DateTime.now().add(const Duration(days: 7));
   TimeOfDay dueTime = TimeOfDay.now();
-  List<dynamic> attachments = [];
+  List<String> attachments = [];
   bool isLoading = false;
 
   final TextEditingController assignmentController = TextEditingController();
@@ -62,8 +62,9 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     try {
       setState(() {});
       final pdfs = await FileServices.pickPdf(context);
-      attachments.add(pdfs);
-      setState(() {});
+      if (pdfs != null) {
+        attachments.add(pdfs);
+      }
     } catch (e) {
       isLoading = false;
       setState(() {});
@@ -78,8 +79,9 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     setState(() {});
     try {
       final imgs = await FileServices.pickImage(context);
-      attachments.add(imgs);
-      setState(() {});
+      if (imgs != null) {
+        attachments.add(imgs);
+      }
     } catch (e) {
       isLoading = false;
       setState(() {});
@@ -94,8 +96,9 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     setState(() {});
     try {
       final video = await FileServices.pickVideos();
-      attachments.add(video);
-      setState(() {});
+      if (video != null) {
+        attachments.add(video);
+      }
     } catch (e) {
       isLoading = false;
       setState(() {});
@@ -168,27 +171,19 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                               itemCount: attachments.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                if (attachments[index][0] != null) {
-                                  String type = attachments[index][1];
-                                  if (type.split(".").last == "jpg" ||
-                                      type.split(".").last == "jpeg" ||
-                                      type.split(".").last == "png") {
-                                    return imageView(attachments[index][0],
-                                        attachments[index][1], index);
-                                  }
-                                  if (type.split(".").last == "mp4") {
-                                    return videoView(attachments[index][0],
-                                        attachments[index][1], index);
-                                  }
-                                  if (type.split(".").last == "pdf") {
-                                    return pdfView(attachments[index][0],
-                                        context, attachments[index][1], index);
-                                  }
-                                  return videoView(attachments[index][0],
-                                      attachments[index][1], index);
+                                String type =
+                                    attachments[index].split('.').last;
+                                if (type == "jpg" ||
+                                    type == "jpeg" ||
+                                    type == "png") {
+                                  return imageView(attachments[index], index);
                                 }
-                                // return pdfView(attachments[index][0], context,
-                                //     attachments[index][1], index);
+                                if (type == "mp4") {
+                                  return videoView(attachments[index], index);
+                                }
+                                if (type == "pdf") {
+                                  return pdfView(attachments[index], index);
+                                }
                                 return const SizedBox.shrink();
                               }),
                           //
@@ -208,7 +203,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                       isLoading = true;
                       setState(() {});
                       List<String> finalattachement =
-                          await FileServices.storeCloudinery(attachments);
+                          await FileServices.storeAttachments(attachments);
 
                       AssignmentServices.createAssignment(
                         selectedCourse.split("-")[0],
@@ -510,13 +505,12 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     );
   }
 
-  Widget pdfView(File file, BuildContext context, String filename, int index) {
-    // String filename = url.split("/").last;
+  Widget pdfView(String path, int index) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: () {
-          context.push(RouterConstants.pdfViewer, extra: {"file": file});
+          context.push(RouterConstants.pdfViewer, extra: {"file": File(path)});
         },
         child: Container(
           width: double.infinity,
@@ -540,7 +534,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                   child: Image.asset("assets/file/pdflogo.png"),
                 ),
               ),
-              Text(filename),
+              Text(path.split('/').last),
               const Spacer(),
               IconButton(
                   onPressed: () {
@@ -558,7 +552,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     // implement a box, if it clicks, push a new page and display pdf using syncfusion_pdf_viewer package
   }
 
-  Widget imageView(File url, String filename, int index) {
+  Widget imageView(String path, int index) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
@@ -582,16 +576,15 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                 child: SizedBox(
                   height: 30,
                   width: 30,
-                  child: Image.file(url),
+                  child: Image.file(File(path)),
                 ),
               ),
-              Text(filename),
+              Text(path.split('/').last),
               const Spacer(),
               IconButton(
                   onPressed: () {
                     attachments.removeAt(index);
                     setState(() {});
-                    // in future, implement delete feature in cloudinary
                   },
                   icon: const Icon(Icons.close)),
             ],
@@ -601,7 +594,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     );
   }
 
-  Widget videoView(File url, String filename, int index) {
+  Widget videoView(String path, int index) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
@@ -628,7 +621,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                   child: Image.asset("assets/img/video.png"),
                 ),
               ),
-              Text(filename),
+              Text(path.split('/').last),
               const Spacer(),
               IconButton(
                   onPressed: () {
