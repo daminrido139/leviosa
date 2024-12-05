@@ -91,7 +91,7 @@ class _ChatSearchPageState extends State<ChatSearchPage> {
                 //   return const SizedBox.shrink();
                 // }
                 final data = doc.data();
-                if (data['name'] == null) {
+                if (data['name'] == null || data['role'] == 'parent') {
                   return const SizedBox.shrink();
                 }
                 return NewChatBox(

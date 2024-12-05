@@ -33,7 +33,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
   }
 
   fetchassignments() async {
-    assignments = await AssignmentServices.fetchAssignment();
+    assignments = await AssignmentServices.fetchAssignmentStudent();
     setState(() {});
   }
 

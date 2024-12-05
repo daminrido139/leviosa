@@ -205,9 +205,9 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                       List<String> finalattachement =
                           await FileServices.storeAttachments(attachments);
 
-                      AssignmentServices.createAssignment(
-                        selectedCourse.split("-")[0],
+                      await AssignmentServices.createAssignment(
                         selectedCourse.split("-")[1],
+                        selectedCourse.split("-")[0],
                         assignmentController.text,
                         descriptionController.text,
                         "$dueTime&#$dueDateTime",
@@ -215,6 +215,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                       );
                       isLoading = false;
                       setState(() {});
+                      context.pop();
                     },
                     width: double.infinity,
                     radius: BorderRadius.zero,

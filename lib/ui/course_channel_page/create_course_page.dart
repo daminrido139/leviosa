@@ -196,8 +196,8 @@ class _CreateCoursePageState extends State<CreateCoursePage> {
                 try {
                   await CourseService.createCourse(
                     selectedStudents,
-                    courseNameController.text,
-                    courseCodeController.text,
+                    courseNameController.text.trim(),
+                    courseCodeController.text.trim(),
                   );
                 } catch (e) {
                   isLoading = false;
