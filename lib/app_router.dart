@@ -108,6 +108,7 @@ final appRouter = GoRouter(
         final args = state.extra as Map<String, dynamic>;
         return PdfViewer(
           url: args["file"],
+          isnetwork: args["isnetwork"],
         );
       },
     ),
