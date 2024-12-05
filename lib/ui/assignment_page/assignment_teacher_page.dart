@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
+import 'package:leviosa/model/assignment_model.dart';
 import 'package:leviosa/router_constants.dart';
+import 'package:leviosa/services/assignment_services.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
@@ -19,12 +21,19 @@ class _AssignmentTeacherPageState extends State<AssignmentTeacherPage>
   late final TabController tabController;
   int currentIndex = 0;
   final GlobalKey<ScaffoldState> key = GlobalKey();
+  List<AssignmentModel> assignments = [];
 
   @override
   void initState() {
+    fetchassignments();
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(onTabChange);
     super.initState();
+  }
+
+  fetchassignments() async {
+    assignments = await AssignmentServices.fetchAssignmentTeacher();
+    setState(() {});
   }
 
   @override

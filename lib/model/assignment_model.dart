@@ -29,7 +29,7 @@ class AssignmentModel {
       heading: json["heading"],
       desc: json["desc"],
       dueDate: json["due_date"],
-      attachments: (json["attachments"] as List<String>)
+      attachments: (json["attachments"] as List<dynamic>)
           .map((e) => e.toString())
           .toList(),
     );
