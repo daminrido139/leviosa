@@ -14,7 +14,8 @@ import 'package:leviosa/ui/common_page/common_teacher_page.dart';
 import 'package:leviosa/ui/course_channel_page/create_course_page.dart';
 import 'package:leviosa/ui/course_page/course_student_page.dart';
 import 'package:leviosa/ui/course_page/course_teacher_page.dart';
-import 'package:leviosa/ui/learning_page.dart/subjectstudents_page.dart';
+import 'package:leviosa/ui/learning_page.dart/learning_level_page.dart';
+import 'package:leviosa/ui/learning_page.dart/level_1/letters_practice_page.dart';
 import 'package:leviosa/ui/learning_page.dart/youtubeplayerpagestudent_page.dart';
 import 'package:leviosa/ui/profile_page/profile_page.dart';
 import 'package:leviosa/ui/settings_page/settingsstudent_page.dart';
@@ -46,9 +47,19 @@ final appRouter = GoRouter(
       builder: (context, state) => const SignInPage(),
     ),
     GoRoute(
-      path: RouterConstants.subjectPage,
-      name: RouterConstants.subjectPage,
-      builder: (context, state) => const Subjectspage(),
+      path: RouterConstants.lettersPracticePage,
+      name: RouterConstants.lettersPracticePage,
+      builder: (context, state) => const LettersPracticePage(),
+    ),
+    GoRoute(
+      path: RouterConstants.learningLevel,
+      name: RouterConstants.learningLevel,
+      builder: (context, state) {
+        final level = state.extra as int;
+        return LearningLevelPage(
+          level: level,
+        );
+      },
     ),
     GoRoute(
       path: RouterConstants.assignmentStudentDetailedView,

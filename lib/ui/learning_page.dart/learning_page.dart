@@ -111,7 +111,7 @@ class _LearningpageState extends State<Learningpage> {
                 left: 330,
                 child: InkWell(
                   onTap: () {
-                    context.push(RouterConstants.subjectPage);
+                    context.push(RouterConstants.learningLevel, extra: 1);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),
