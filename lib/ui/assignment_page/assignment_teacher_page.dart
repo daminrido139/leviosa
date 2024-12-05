@@ -18,7 +18,7 @@ class AssignmentTeacherPage extends StatefulWidget {
 
 class _AssignmentTeacherPageState extends State<AssignmentTeacherPage>
     with SingleTickerProviderStateMixin {
-  late final TabController tabController;
+  // late final TabController tabController;
   int currentIndex = 0;
   final GlobalKey<ScaffoldState> key = GlobalKey();
   List<AssignmentModel> assignments = [];
@@ -26,8 +26,9 @@ class _AssignmentTeacherPageState extends State<AssignmentTeacherPage>
   @override
   void initState() {
     fetchassignments();
-    tabController = TabController(length: 3, vsync: this);
-    tabController.addListener(onTabChange);
+    // tabController = TabController(length: 3, vsync: this);
+    // tabController.addListener(onTabChange);
+
     super.initState();
   }
 
@@ -38,201 +39,72 @@ class _AssignmentTeacherPageState extends State<AssignmentTeacherPage>
 
   @override
   void dispose() {
-    tabController.dispose();
+    // tabController.dispose();
     super.dispose();
   }
 
-  void onTabChange() {
-    if (tabController.index != currentIndex) {
-      setState(() {
-        currentIndex = tabController.index;
-      });
-    }
-  }
+  // void onTabChange() {
+  //   if (tabController.index != currentIndex) {
+  //     setState(() {
+  //       currentIndex = tabController.index;
+  //     });
+  //   }
+  // }
 
   int index = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: key,
-      drawer: const DrawerPage(),
-      appBar: AppBar(
-        leadingWidth: 60,
-        backgroundColor: Colors.white,
-        leading: InkWell(
-          onTap: () {
-            key.currentState!.openDrawer();
-          },
-          child: Row(
-            children: [
-              const SizedBox(
-                width: 15,
-              ),
-              DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
-            ],
-          ),
-        ),
-        title: const LeviosaText(
-          'Assignments',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          InkWell(
+        key: key,
+        drawer: const DrawerPage(),
+        appBar: AppBar(
+          leadingWidth: 60,
+          backgroundColor: Colors.white,
+          leading: InkWell(
             onTap: () {
-              context.push(RouterConstants.newAssignmentPage);
+              key.currentState!.openDrawer();
             },
-            child: Container(
-              height: 35,
-              width: 100,
-              margin: const EdgeInsets.all(10),
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                  gradient: LinearGradient(colors: [
-                    Color.fromARGB(255, 243, 227, 173),
-                    Color.fromRGBO(228, 212, 156, 1),
-                  ], begin: Alignment.topCenter, end: Alignment.bottomLeft),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.1),
-                      blurRadius: 5,
-                    )
-                  ]),
-              child: const Center(
-                  child: LeviosaText(
-                "+ Create",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-              )),
-            ),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          PreferredSize(
-            preferredSize: const Size(200.0, 200.0),
-            child: SizedBox(
-              child: TabBar(
-                splashFactory: NoSplash.splashFactory,
-                controller: tabController,
-                // padding: EdgeInsets.symmetric(horizontal: 28, vertical: 4),
-                indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                labelColor: Colors.black,
-                dividerColor: Colors.transparent,
-                tabs: [
-                  Tab(
-                    child: Container(
-                      height: 45,
-                      // width: 88,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: tabController.index == 0
-                            ? const Color.fromARGB(255, 233, 223, 190)
-                            : const Color.fromARGB(255, 236, 234, 234),
-                      ),
-                      child: const Center(
-                        child: LeviosaText(
-                          "Forthcoming",
-                        ),
-                      ),
-                    ),
-                    // text: "Forthcoming",
-                  ),
-                  Tab(
-                    child: Container(
-                      height: 45,
-                      // width: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: tabController.index == 1
-                            ? const Color.fromARGB(255, 233, 223, 190)
-                            : const Color.fromARGB(255, 236, 234, 234),
-                      ),
-                      child: const Center(
-                        child: LeviosaText(
-                          "Past due",
-                        ),
-                      ),
-                    ),
-                    // text: "Forthcoming",
-                  ),
-                  Tab(
-                    child: Container(
-                      height: 45,
-                      // width: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: tabController.index == 2
-                            ? const Color.fromARGB(255, 233, 223, 190)
-                            : const Color.fromARGB(255, 236, 234, 234),
-                      ),
-                      child: const Center(
-                        child: LeviosaText(
-                          "Completed",
-                        ),
-                      ),
-                    ),
-                    // text: "Forthcoming",
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: tabController,
+            child: Row(
               children: [
-                forthcoming(context),
-                pastdue(),
-                completed()
-                // MyPostTab(),
-                // MyReelsTab(),
-                // MyTagTab(),
+                const SizedBox(
+                  width: 15,
+                ),
+                DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
               ],
             ),
-          )
-        ],
-      ),
-    );
+          ),
+          title: const LeviosaText(
+            'Assignments',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: forthcoming(context));
   }
 
   Widget forthcoming(BuildContext context) {
-    return Column(
-      children: [
+    return SingleChildScrollView(
+      child: Column(children: [
         const SizedBox(height: 20),
-        assignmentcard(
-            context,
-            "20 Sept",
-            "(two days)",
-            const Color.fromARGB(255, 243, 163, 97),
-            "Assignment -1 (Number)",
-            "OC"),
-        assignmentcard(
-            context,
-            "21 Sept",
-            "(three days)",
-            const Color.fromARGB(255, 243, 208, 102),
-            "Assignment -2 (Alphabets)",
-            "Mc"),
-        assignmentcard(
-            context,
-            "23 Sept",
-            "(four days)",
-            const Color.fromARGB(255, 188, 118, 235),
-            "Assignment -3 (Colors)",
-            "KI"),
-        assignmentcard(
-            context,
-            "24 Sept",
-            "(five days)",
-            const Color.fromARGB(255, 200, 247, 146),
-            "Assignment -4 (Words)",
-            "SC"),
-      ],
+        ListView.builder(
+            itemCount: assignments.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return assignmentcard(
+                  context,
+                  assignments[index].dueDate.split("&#")[1],
+                  "(few days)",
+                  const Color.fromARGB(255, 243, 163, 97),
+                  assignments[index].heading,
+                  "OC",
+                  assignments[index].heading,
+                  assignments[index].courseName,
+                  assignments[index].desc,
+                  assignments[index].dueDate,
+                  assignments[index].dueDate,
+                  assignments[index].attachments);
+            }),
+      ]),
     );
   }
 
@@ -260,11 +132,18 @@ class _AssignmentTeacherPageState extends State<AssignmentTeacherPage>
     );
   }
 
-  Widget assignmentcard(
-      BuildContext context, subtext, txt, color, pretxt, htxt) {
+  Widget assignmentcard(BuildContext context, subtext, txt, color, pretxt, htxt,
+      assignmentname, coursename, desc, date, time, attachments) {
     return InkWell(
       onTap: () {
-        context.push(RouterConstants.assignmentStudentDetailedView);
+        context.push(RouterConstants.assignmentStudentDetailedView, extra: {
+          "assignmentname": assignmentname,
+          "coursename": coursename,
+          "desc": desc,
+          "date": date,
+          "time": time,
+          "attachments": attachments,
+        });
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
