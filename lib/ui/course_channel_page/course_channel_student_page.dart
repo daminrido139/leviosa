@@ -80,7 +80,7 @@ class _CourseChannelStudentPageState extends State<CourseChannelStudentPage> {
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );
