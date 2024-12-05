@@ -511,7 +511,8 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: () {
-          context.push(RouterConstants.pdfViewer, extra: {"file": File(path)});
+          context.push(RouterConstants.pdfViewer,
+              extra: {"file": File(path), "isnetwork": false});
         },
         child: Container(
           width: double.infinity,

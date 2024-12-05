@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
+import 'package:video_player/video_player.dart';
 
 class AssignmentStudentDetailedView extends StatefulWidget {
   const AssignmentStudentDetailedView(
@@ -16,7 +17,7 @@ class AssignmentStudentDetailedView extends StatefulWidget {
   final String time;
   final String desc;
 
-  final List attachments;
+  final List<String> attachments;
 
   @override
   State<AssignmentStudentDetailedView> createState() =>
@@ -37,10 +38,10 @@ class _AssignmentStudentDetailedViewState
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         ////////////////////////// Title//////////////
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: LeviosaText(
             widget.assignmentname,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -49,10 +50,17 @@ class _AssignmentStudentDetailedViewState
         //////////////////////////////////////////////
         /////////////////////time/////////////////////
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: LeviosaText(
-            widget.date + widget.time,
-            style: TextStyle(color: Colors.grey),
+            widget.time.split("&#")[1].split(" ")[0],
+            style: const TextStyle(color: Colors.grey),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: LeviosaText(
+            widget.time.split("&#")[1].split(" ")[1],
+            style: const TextStyle(color: Colors.grey),
           ),
         ),
 
@@ -82,11 +90,11 @@ class _AssignmentStudentDetailedViewState
         //////////////////////////////////////////////
         ////////////////////////description///////////
         Padding(
-          padding: EdgeInsets.only(left: 52, right: 8),
+          padding: const EdgeInsets.only(left: 52, right: 8),
           child: LeviosaText(
             maxLines: 500,
             widget.desc,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 17,
             ),
           ),
@@ -106,55 +114,140 @@ class _AssignmentStudentDetailedViewState
           child: ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: 5,
+              itemCount: widget.attachments.length,
               itemBuilder: (context, index) {
-                return referenMaterials();
+                return referenMaterials(
+                  widget.attachments[index],
+                );
               }),
         ),
         const SizedBox(
           height: 10,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
-          child: LeviosaText(
-            "Points",
-            style: TextStyle(color: Colors.grey),
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: LeviosaText("10 Possible Points"),
-        )
+
         //////////////////////////////////////////////
       ]),
-    );
-  }
-
-  Widget referenMaterials() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-      child: Container(
-        height: 45,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-            color: Colors.grey[300],
-            border: Border.all(),
-            borderRadius: BorderRadius.circular(4)),
-        child: Row(
+      bottomNavigationBar: SizedBox(
+        height: 60,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: Image.asset("assets/img/doclogo.png")),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
+              child: LeviosaText(
+                "Points",
+                style: TextStyle(color: Colors.grey),
+              ),
             ),
-            const Text("Odd 24-25-U18AUE0014-R12-OFF Road.doc"),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: LeviosaText("10 Possible Points"),
+            )
           ],
         ),
       ),
+    );
+  }
+
+  Widget referenMaterials(String attachements) {
+    return InkWell(
+      onTap: () {
+        if (attachements.split("#")[1].split(".")[1].contains("jpg") ||
+            attachements.split("#")[1].split(".")[1].contains("jepg") ||
+            attachements.split("#")[1].split(".")[1].contains("png")) {
+          showNetworkImageDialog(context, attachements);
+        } else if (attachements.split("#")[1].split(".")[1].contains("mp4")) {
+          //// video
+        } else {
+          /// pdf
+        }
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+            child: Container(
+              height: 45,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(4)),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: Image.asset("assets/img/doclogo.png")),
+                  ),
+                  Text(attachements.split("#")[1]),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void showNetworkImageDialog(BuildContext context, String imageUrl) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12.0),
+                  child: Image.network(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  (loadingProgress.expectedTotalBytes ?? 1)
+                              : null,
+                        ),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Icon(
+                        Icons.broken_image,
+                        size: 100,
+                        color: Colors.red,
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Close"),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

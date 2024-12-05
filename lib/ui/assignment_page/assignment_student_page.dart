@@ -18,7 +18,7 @@ class AssignmentStudentPage extends StatefulWidget {
 
 class _AssignmentStudentPageState extends State<AssignmentStudentPage>
     with SingleTickerProviderStateMixin {
-  late final TabController tabController;
+  // late final TabController tabController;
   int currentIndex = 0;
   final GlobalKey<ScaffoldState> key = GlobalKey();
   List<AssignmentModel> assignments = [];
@@ -39,17 +39,17 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
 
   @override
   void dispose() {
-    tabController.dispose();
+    // tabController.dispose();
     super.dispose();
   }
 
-  void onTabChange() {
-    if (tabController.index != currentIndex) {
-      setState(() {
-        currentIndex = tabController.index;
-      });
-    }
-  }
+  // void onTabChange() {
+  //   if (tabController.index != currentIndex) {
+  //     setState(() {
+  //       currentIndex = tabController.index;
+  //     });
+  //   }
+  // }
 
   int index = 0;
   @override
@@ -94,7 +94,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
           itemBuilder: (context, index) {
             return assignmentcard(
                 context,
-                assignments[index].dueDate,
+                assignments[index].dueDate.split("&#")[1],
                 "(few days)",
                 const Color.fromARGB(255, 243, 163, 97),
                 assignments[index].heading,

@@ -33,6 +33,7 @@ dependencies:
   signature: ^5.5.0
   syncfusion_flutter_pdfviewer: ^27.2.4
   translator: null
+  video_player: ^2.5.0
   youtube_player_iframe: ^5.1.5
   zego_uikit_prebuilt_call: ^4.15.12
   zego_uikit_prebuilt_live_streaming: ^3.12.8
