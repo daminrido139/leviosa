@@ -43,6 +43,7 @@ class AssignmentServices {
           .collection('school')
           .doc(school)
           .collection('Assignment')
+          // .get();
           .where(
             'course_code',
             isEqualTo: course.courseCode,

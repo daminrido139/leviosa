@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
-import 'package:video_player/video_player.dart';
 
 class AssignmentStudentDetailedView extends StatefulWidget {
   const AssignmentStudentDetailedView(
@@ -159,9 +160,12 @@ class _AssignmentStudentDetailedViewState
             attachements.split("#")[1].split(".")[1].contains("png")) {
           showNetworkImageDialog(context, attachements);
         } else if (attachements.split("#")[1].split(".")[1].contains("mp4")) {
-          //// video
+          context
+              .push(RouterConstants.videoViewer, extra: {'url': attachements});
         } else {
-          /// pdf
+          context.push(RouterConstants.pdfViewer, extra: {
+            "url": attachements,
+          });
         }
       },
       child: Column(
