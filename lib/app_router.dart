@@ -102,17 +102,7 @@ final appRouter = GoRouter(
         return VideocallPage(callId: args["callId"]);
       },
     ),
-    GoRoute(
-      path: RouterConstants.pdfViewer,
-      name: RouterConstants.pdfViewer,
-      builder: (context, state) {
-        final args = state.extra as Map<String, dynamic>;
-        return PdfViewer(
-          url: args["url"],
-          file: args["file"],
-        );
-      },
-    ),
+
     GoRoute(
       path: RouterConstants.pdfViewer,
       name: RouterConstants.pdfViewer,
