@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leviosa/constants.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/model/assignment_model.dart';
 import 'package:leviosa/router_constants.dart';
@@ -77,6 +78,25 @@ class _AssignmentTeacherPageState extends State<AssignmentTeacherPage>
             'Assignments',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
+          actions: [
+            InkWell(
+              onTap: () {
+                context.push(RouterConstants.newAssignmentPage);
+              },
+              child: Container(
+                  margin: const EdgeInsets.all(10),
+                  height: 60,
+                  width: 80,
+                  child: Center(
+                      child: Text(
+                    "+ Create",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  )),
+                  decoration: BoxDecoration(
+                      color: leviosaColor,
+                      borderRadius: BorderRadius.circular(5))),
+            )
+          ],
         ),
         body: forthcoming(context));
   }

@@ -127,12 +127,12 @@ class _AssignmentStudentDetailedViewState
 
         //////////////////////////////////////////////
       ]),
-      bottomNavigationBar: SizedBox(
+      bottomNavigationBar: const SizedBox(
         height: 60,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 10,
               ),
@@ -141,7 +141,7 @@ class _AssignmentStudentDetailedViewState
                 style: TextStyle(color: Colors.grey),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: LeviosaText("10 Possible Points"),
             )
