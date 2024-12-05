@@ -9,24 +9,24 @@ class VideoFileViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Example player"),
+      backgroundColor: Colors.black,
+      body: Center(
+        child: AspectRatio(
+            aspectRatio: 16 / 9,
+            child: url != null
+                ? BetterPlayer.network(
+                    url!,
+                    betterPlayerConfiguration: const BetterPlayerConfiguration(
+                      aspectRatio: 16 / 9,
+                    ),
+                  )
+                : BetterPlayer.file(
+                    filepath!,
+                    betterPlayerConfiguration: const BetterPlayerConfiguration(
+                      aspectRatio: 16 / 9,
+                    ),
+                  )),
       ),
-      body: AspectRatio(
-          aspectRatio: 16 / 9,
-          child: url != null
-              ? BetterPlayer.network(
-                  url!,
-                  betterPlayerConfiguration: const BetterPlayerConfiguration(
-                    aspectRatio: 16 / 9,
-                  ),
-                )
-              : BetterPlayer.file(
-                  filepath!,
-                  betterPlayerConfiguration: const BetterPlayerConfiguration(
-                    aspectRatio: 16 / 9,
-                  ),
-                )),
     );
   }
 }
