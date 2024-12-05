@@ -1,3 +1,5 @@
+// ignore_for_file: sort_child_properties_last
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -79,22 +81,30 @@ class _AssignmentTeacherPageState extends State<AssignmentTeacherPage>
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           actions: [
-            InkWell(
-              onTap: () {
-                context.push(RouterConstants.newAssignmentPage);
-              },
+            GestureDetector(
+              onTap: () => context.push(RouterConstants.newAssignmentPage),
               child: Container(
-                  margin: const EdgeInsets.all(10),
-                  height: 60,
-                  width: 80,
-                  child: Center(
-                      child: Text(
-                    "+ Create",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  )),
-                  decoration: BoxDecoration(
-                      color: leviosaColor,
-                      borderRadius: BorderRadius.circular(5))),
+                height: 35,
+                width: 100,
+                margin: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    gradient: LinearGradient(colors: [
+                      Color.fromARGB(255, 243, 227, 173),
+                      Color.fromRGBO(228, 212, 156, 1),
+                    ], begin: Alignment.topCenter, end: Alignment.bottomLeft),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(0, 0, 0, 0.1),
+                        blurRadius: 5,
+                      )
+                    ]),
+                child: const Center(
+                    child: LeviosaText(
+                  "+ Create",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                )),
+              ),
             )
           ],
         ),
