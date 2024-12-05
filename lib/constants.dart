@@ -44,6 +44,10 @@ class Utility {
 
 const Color leviosaColor = Color.fromARGB(255, 243, 227, 173);
 
+///////////////// music links ///////////////////////////
+const String kidsBgm =
+    'https://firebasestorage.googleapis.com/v0/b/shakabooo.appspot.com/o/music%2Fkids%2Ftravel-upbeat-happy-fun-background-music-for-videos-244587.mp3?alt=media&token=c7c3f07a-ba76-4329-940c-5841db1da8cc';
+
 ////////////////////////////// English to Gujarathi ////////////////////////////
 
 final gujarat = {"Chats": "ચેટ્સ"};

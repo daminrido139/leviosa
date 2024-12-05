@@ -15,11 +15,23 @@ class DrawingBoard extends StatefulWidget {
 
 class _DrawingBoardState extends State<DrawingBoard> {
   Color selectedColor = Colors.red;
-  double strokeWidth = 25;
+  double strokeWidth = 15;
   List<DrawingPoint?> currentPoints = [];
+  Widget? lastChild;
+
+  @override
+  void initState() {
+    lastChild = widget.child;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (lastChild != widget.child) {
+      lastChild = widget.child;
+      currentPoints = [];
+      setState(() {});
+    }
     return GestureDetector(
       onPanStart: (details) {
         setState(() {
@@ -55,15 +67,22 @@ class _DrawingBoardState extends State<DrawingBoard> {
         });
       },
       child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.center,
         children: [
-          if (widget.child != null) widget.child!,
+          const SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+          ),
+          if (widget.child != null)
+            SizedBox.square(dimension: 250, child: widget.child!),
           Positioned.fill(
             child: CustomPaint(
               painter: _DrawingPainter(currentPoints),
             ),
           ),
           Positioned(
-            bottom: 10,
+            bottom: 0,
             child: Row(
               children: [
                 Slider(
