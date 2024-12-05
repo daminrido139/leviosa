@@ -23,4 +23,5 @@ class RouterConstants {
   static const newAssignmentPage = "/new-assignment-page";
   static const utubePlayer = '/utube-player';
   static const pdfViewer = '/pdf-viewer';
+  static const videoViewer = '/video-viewer';
 }

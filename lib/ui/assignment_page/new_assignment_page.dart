@@ -206,8 +206,8 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                           await FileServices.storeAttachments(attachments);
 
                       await AssignmentServices.createAssignment(
-                        selectedCourse.split("-")[1],
-                        selectedCourse.split("-")[0],
+                        selectedCourse.split("-")[1].trim(),
+                        selectedCourse.split("-")[0].trim(),
                         assignmentController.text,
                         descriptionController.text,
                         "$dueTime&#$dueDateTime",
@@ -511,8 +511,9 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: () {
-          context.push(RouterConstants.pdfViewer,
-              extra: {"file": File(path), "isnetwork": false});
+          context.push(RouterConstants.pdfViewer, extra: {
+            "file": File(path),
+          });
         },
         child: Container(
           width: double.infinity,
@@ -600,7 +601,9 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          context.push(RouterConstants.videoViewer, extra: {'filepath': path});
+        },
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
