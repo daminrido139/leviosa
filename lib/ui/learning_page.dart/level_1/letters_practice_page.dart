@@ -15,7 +15,6 @@ class LettersPracticePage extends StatefulWidget {
 }
 
 class _LettersPracticePageState extends State<LettersPracticePage> {
-  final player = AudioPlayer();
   int currentPage = -1;
   List<Map<String, dynamic>> letters = [];
 
@@ -23,7 +22,6 @@ class _LettersPracticePageState extends State<LettersPracticePage> {
   void initState() {
     super.initState();
     fetchLetters();
-    player.play(UrlSource(kidsBgm));
   }
 
   Future<void> fetchLetters() async {
@@ -35,7 +33,6 @@ class _LettersPracticePageState extends State<LettersPracticePage> {
   @override
   void dispose() {
     super.dispose();
-    player.dispose();
   }
 
   @override
