@@ -25,7 +25,6 @@ import 'package:leviosa/ui/sign_to_text/sign_to_text_page.dart';
 import 'package:leviosa/ui/text_to_sign_page/text_to_sign_page.dart';
 import 'package:leviosa/ui/video_meeting_page/videocall_page.dart';
 import 'package:leviosa/widgets/file/pdf_viewer.dart';
-import 'package:leviosa/widgets/file/utube_player.dart';
 import 'package:leviosa/widgets/file/video_file_viewer.dart';
 
 final appRouter = GoRouter(
@@ -56,9 +55,10 @@ final appRouter = GoRouter(
       path: RouterConstants.learningLevel,
       name: RouterConstants.learningLevel,
       builder: (context, state) {
-        final level = state.extra as int;
+        final args = state.extra as Map<String, dynamic>;
         return LearningLevelPage(
-          level: level,
+          level: args['level'],
+          audioPlayer: args['audio_player'],
         );
       },
     ),
@@ -200,14 +200,14 @@ final appRouter = GoRouter(
         return CourseTeacherPage(course: courseModel);
       },
     ),
-    GoRoute(
-      path: RouterConstants.utubePlayer,
-      name: RouterConstants.utubePlayer,
-      builder: (context, state) {
-        final videoId = state.extra as String;
-        return UTubePlayer(videoId: videoId);
-      },
-    ),
+    // GoRoute(
+    //   path: RouterConstants.utubePlayer,
+    //   name: RouterConstants.utubePlayer,
+    //   builder: (context, state) {
+    //     final videoId = state.extra as String;
+    //     return UTubePlayer(videoId: videoId);
+    //   },
+    // ),
     GoRoute(
         path: RouterConstants.createCourse,
         name: RouterConstants.createCourse,

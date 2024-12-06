@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:leviosa/ui/learning_page.dart/writting_pad.dart';
+import 'package:leviosa/ui/canvas/drawing_board.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -119,7 +119,13 @@ class _YoutubePlayerScreenState extends State<YoutubePlayerScreen> {
                     : Transform.flip(
                         flipX: true, child: CameraPreview(cameraController!))),
           ),
-          Expanded(child: WritingPad(height: (height * 0.5))),
+          ColoredBox(
+            color: Colors.white,
+            child: SizedBox(
+              height: height * 0.5,
+              child: const DrawingBoard(),
+            ),
+          ),
         ];
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
