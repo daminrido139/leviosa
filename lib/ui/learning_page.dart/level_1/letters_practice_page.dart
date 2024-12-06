@@ -78,6 +78,7 @@ class _LettersPracticePageState extends State<LettersPracticePage> {
                       height: height * 0.3,
                       child: AdvancedNetworkImage(
                         imgUrl: letters[currentPage]['gif'],
+                        showLoading: true,
                       ),
                     ),
                     Expanded(

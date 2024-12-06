@@ -19,8 +19,39 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: LeviosaText('Level ${widget.level}'),
-        backgroundColor: const Color.fromARGB(255, 233, 223, 190),
+        title: LeviosaText(
+          'Level ${widget.level}',
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: leviosaColor,
+        actions: const [
+          Text(
+            "0  🪙",
+            style: TextStyle(
+              fontSize: 24,
+            ),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          Text(
+            "0  🔥",
+            style: TextStyle(
+              fontSize: 24,
+            ),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: leviosaColor,
+        child: const Icon(
+          Icons.arrow_right,
+          size: 40,
+        ),
       ),
       body: ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: 5),
@@ -72,7 +103,12 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
                       style: const TextStyle(
                           fontWeight: FontWeight.w500, fontSize: 22),
                     ),
-                    LeviosaText(subtittle)
+                    LeviosaText(
+                      subtittle,
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    )
                   ],
                 ),
               ],
@@ -82,7 +118,7 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
         /////////////////////////////////
         if (ind == selectedBox)
           SizedBox(
-            height: 50,
+            height: 60,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -96,7 +132,7 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
                   ),
                   child: Container(
                     height: 40,
-                    width: 80,
+                    width: 140,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
                         color: Colors.blue,
@@ -111,7 +147,7 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
                       context.push(RouterConstants.lettersPracticePage),
                   child: Container(
                     height: 40,
-                    width: 80,
+                    width: 140,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
                         color: leviosaColor,
