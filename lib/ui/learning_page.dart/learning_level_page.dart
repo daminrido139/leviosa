@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/constants.dart';
@@ -14,53 +15,76 @@ class LearningLevelPage extends StatefulWidget {
 }
 
 class _LearningLevelPageState extends State<LearningLevelPage> {
+  final player = AudioPlayer();
   int selectedBox = -1;
+
+  @override
+  void initState() {
+    player.play(UrlSource(kidsBgm));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    player.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: LeviosaText(
-          'Level ${widget.level}',
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: leviosaColor,
-        actions: const [
-          Text(
-            "0  🪙",
-            style: TextStyle(
-              fontSize: 24,
-            ),
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Text(
-            "0  🔥",
-            style: TextStyle(
-              fontSize: 24,
-            ),
-          ),
-          SizedBox(
-            width: 5,
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: leviosaColor,
-        child: const Icon(
-          Icons.arrow_right,
-          size: 40,
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/bg/kids_bg.webp'),
+          fit: BoxFit.cover,
         ),
       ),
-      body: ListView.builder(
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          shrinkWrap: true,
-          itemCount: Utility.level1.length,
-          itemBuilder: (context, ind) {
-            return customverticalcard(Utility.level1[ind][0],
-                Utility.level1[ind][1], Utility.level1[ind][2], context, ind);
-          }),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: LeviosaText(
+            'Level ${widget.level}',
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Colors.white.withOpacity(0.4),
+          actions: const [
+            Text(
+              "0  🪙",
+              style: TextStyle(
+                fontSize: 24,
+              ),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              "0  🔥",
+              style: TextStyle(
+                fontSize: 24,
+              ),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: leviosaColor,
+          child: const Icon(
+            Icons.arrow_right,
+            size: 40,
+          ),
+        ),
+        body: ListView.builder(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            shrinkWrap: true,
+            itemCount: Utility.level1.length,
+            itemBuilder: (context, ind) {
+              return customverticalcard(Utility.level1[ind][0],
+                  Utility.level1[ind][1], Utility.level1[ind][2], context, ind);
+            }),
+      ),
     );
   }
 
@@ -77,7 +101,7 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
             setState(() {});
           },
           child: Container(
-            color: Colors.grey.shade100,
+            color: Colors.white.withOpacity(0.9),
             child: Row(
               children: [
                 Padding(
@@ -105,7 +129,7 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
                     ),
                     LeviosaText(
                       subtittle,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                       ),
                     )
@@ -117,7 +141,8 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
         ),
         /////////////////////////////////
         if (ind == selectedBox)
-          SizedBox(
+          Container(
+            color: Colors.white.withOpacity(0.9),
             height: 60,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

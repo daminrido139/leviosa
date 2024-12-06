@@ -16,7 +16,8 @@ class LearningServices {
         vowels.add(doc);
       }
     }
-    vowels.sort((a, b) => a.id.compareTo(b.id));
+    vowels.sort((a, b) =>
+        int.parse(a.id.substring(1)).compareTo(int.parse(b.id.substring(1))));
     return vowels.map((v) => v.data() as Map<String, dynamic>).toList();
   }
 }
