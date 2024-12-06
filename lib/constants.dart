@@ -25,28 +25,19 @@ class Utility {
   static const List youtubeLevel1 = [
     "vnH2BmcSRMA",
     "ZXB_8AHG0PU",
+    "ZXB_8AHG0PU",
   ];
   static const List level1 = [
-    ["assets/img/learnimg3.webp", "NUMBERS", "(0-9)"],
-    ["assets/img/learnimage2.webp", "ALPHABETS", "(અ-ઔ)"],
+    ["assets/level_1/gujarati_numbers.webp", "Numbers", "(૦-૯)"],
+    ["assets/level_1/gujrati_vowels.jpg", "Vowels", "(અ-ઔ)"],
+    ["assets/level_1/gujarati_consonants.jpg", "Consonants", "(ક-જ્ઞ)"],
   ];
-  // static const List horizontallst = [
-  //   "assets/img/class1.jpeg",
-  //   "assets/img/class2.jpeg",
-  //   "assets/img/class3.jpeg",
-  //   "assets/img/class4.jpeg",
-  //   "assets/img/class5.jpeg",
-  //   "assets/img/class6.jpeg",
-  //   "assets/img/class7.jpeg",
-  //   "assets/img/class8.jpeg",
-  // ];
 }
 
 const Color leviosaColor = Color.fromARGB(255, 243, 227, 173);
 
 ///////////////// music links ///////////////////////////
-const String kidsBgm =
-    'https://firebasestorage.googleapis.com/v0/b/shakabooo.appspot.com/o/music%2Fkids%2Ftravel-upbeat-happy-fun-background-music-for-videos-244587.mp3?alt=media&token=c7c3f07a-ba76-4329-940c-5841db1da8cc';
+const String kidsBgm = 'music/kids_bgm.mp3';
 
 ////////////////////////////// English to Gujarathi ////////////////////////////
 

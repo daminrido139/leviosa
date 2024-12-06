@@ -6,29 +6,21 @@ import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class LearningLevelPage extends StatefulWidget {
+  final AudioPlayer audioPlayer;
   final int level;
 
-  const LearningLevelPage({super.key, required this.level});
+  const LearningLevelPage({
+    super.key,
+    required this.level,
+    required this.audioPlayer,
+  });
 
   @override
   State<LearningLevelPage> createState() => _LearningLevelPageState();
 }
 
 class _LearningLevelPageState extends State<LearningLevelPage> {
-  final player = AudioPlayer();
   int selectedBox = -1;
-
-  @override
-  void initState() {
-    player.play(UrlSource(kidsBgm));
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    player.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,14 +60,14 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: leviosaColor,
-          child: const Icon(
-            Icons.arrow_right,
-            size: 40,
-          ),
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {},
+        //   backgroundColor: leviosaColor,
+        //   child: const Icon(
+        //     Icons.arrow_right,
+        //     size: 40,
+        //   ),
+        // ),
         body: ListView.builder(
             padding: const EdgeInsets.symmetric(vertical: 20),
             shrinkWrap: true,
@@ -104,23 +96,27 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
             color: Colors.white.withOpacity(0.9),
             child: Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 0.5),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: const EdgeInsets.all(8.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                        height: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all()),
-                        child: Image.asset(imgurl)),
+                    child: Image.asset(
+                      height: 100,
+                      width: 100,
+                      imgurl,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 15,
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     LeviosaText(
                       tittle,
@@ -148,13 +144,16 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GestureDetector(
-                  onTap: () => context.push(
-                    RouterConstants.youtubePlayScreenPage,
-                    extra: {
-                      "youtubeurl": Utility.youtubeLevel1[ind],
-                      "title": tittle,
-                    },
-                  ),
+                  onTap: () async {
+                    await widget.audioPlayer.pause();
+                    context.push(
+                      RouterConstants.youtubePlayScreenPage,
+                      extra: {
+                        "youtubeurl": Utility.youtubeLevel1[ind],
+                        "title": tittle,
+                      },
+                    ).then((_) => widget.audioPlayer.resume());
+                  },
                   child: Container(
                     height: 40,
                     width: 140,
