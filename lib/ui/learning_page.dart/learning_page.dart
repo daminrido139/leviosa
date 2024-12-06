@@ -35,16 +35,19 @@ class _LearningpageState extends State<Learningpage> {
             child: Stack(children: [
               // Image.asset("assets/img/iceland.jpeg")
               Image.asset("assets/img/gamemap.png"),
-              const Positioned(
-                bottom: 405,
-                right: 350,
+              Positioned(
+                bottom: 400,
+                right: 355,
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.lock,
-                      size: 90,
+                    SizedBox(
+                        height: 70,
+                        width: 70,
+                        child: Image.asset("assets/img/lock.png")),
+                    const SizedBox(
+                      height: 5,
                     ),
-                    Text(
+                    const Text(
                       "Level 2",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -52,16 +55,19 @@ class _LearningpageState extends State<Learningpage> {
                   ],
                 ),
               ),
-              const Positioned(
-                bottom: 635,
+              Positioned(
+                bottom: 625,
                 left: 240,
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.lock,
-                      size: 90,
+                    SizedBox(
+                        height: 70,
+                        width: 70,
+                        child: Image.asset("assets/img/lock.png")),
+                    const SizedBox(
+                      height: 5,
                     ),
-                    Text(
+                    const Text(
                       "Level 3",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -69,16 +75,19 @@ class _LearningpageState extends State<Learningpage> {
                   ],
                 ),
               ),
-              const Positioned(
-                bottom: 950,
-                left: 475,
+              Positioned(
+                bottom: 970,
+                left: 625,
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.lock,
-                      size: 90,
+                    SizedBox(
+                        height: 70,
+                        width: 70,
+                        child: Image.asset("assets/img/lock.png")),
+                    const SizedBox(
+                      height: 5,
                     ),
-                    Text(
+                    const Text(
                       "Level 4",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -87,17 +96,20 @@ class _LearningpageState extends State<Learningpage> {
                 ),
               ),
               Positioned(
-                bottom: 1245,
-                left: 685,
+                bottom: 1395,
+                left: 575,
                 child: InkWell(
                   onTap: () {},
-                  child: const Column(
+                  child: Column(
                     children: [
-                      Icon(
-                        Icons.lock,
-                        size: 90,
+                      SizedBox(
+                          height: 70,
+                          width: 70,
+                          child: Image.asset("assets/img/lock.png")),
+                      const SizedBox(
+                        height: 5,
                       ),
-                      Text(
+                      const Text(
                         "Level 5",
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold),

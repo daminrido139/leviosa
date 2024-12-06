@@ -24,11 +24,11 @@ enum FileType {
 class Utility {
   static const List youtubeLevel1 = [
     "vnH2BmcSRMA",
-    "qcdivQfA41Y",
+    "ZXB_8AHG0PU",
   ];
   static const List level1 = [
-    ["assets/img/learnimg3.webp", "NUMBERS", "(0-1000)"],
-    ["assets/img/learnimage2.webp", "ALPHABETS", "(A-Z)"],
+    ["assets/img/learnimg3.webp", "NUMBERS", "(0-9)"],
+    ["assets/img/learnimage2.webp", "ALPHABETS", "(અ-ઔ)"],
   ];
   // static const List horizontallst = [
   //   "assets/img/class1.jpeg",
