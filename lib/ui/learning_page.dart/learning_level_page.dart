@@ -73,14 +73,26 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
             shrinkWrap: true,
             itemCount: Utility.level1.length,
             itemBuilder: (context, ind) {
-              return customverticalcard(Utility.level1[ind][0],
-                  Utility.level1[ind][1], Utility.level1[ind][2], context, ind);
+              return customverticalcard(
+                  Utility.level1[ind][0],
+                  Utility.level1[ind][1],
+                  Utility.level1[ind][2],
+                  context,
+                  ind,
+                  Utility.level1[ind][3]);
             }),
       ),
     );
   }
 
-  customverticalcard(imgurl, tittle, subtittle, BuildContext context, int ind) {
+  customverticalcard(
+    imgurl,
+    tittle,
+    subtittle,
+    BuildContext context,
+    int ind,
+    LetterType type,
+  ) {
     return Column(
       children: [
         GestureDetector(
@@ -167,8 +179,10 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () =>
-                      context.push(RouterConstants.lettersPracticePage),
+                  onTap: () => context.push(
+                    RouterConstants.lettersPracticePage,
+                    extra: type,
+                  ),
                   child: Container(
                     height: 40,
                     width: 140,

@@ -21,6 +21,12 @@ enum FileType {
   pdf,
 }
 
+enum LetterType {
+  number,
+  vowels,
+  consonants,
+}
+
 class Utility {
   static const List youtubeLevel1 = [
     "vnH2BmcSRMA",
@@ -28,9 +34,24 @@ class Utility {
     "ZXB_8AHG0PU",
   ];
   static const List level1 = [
-    ["assets/level_1/gujarati_numbers.webp", "Numbers", "(૦-૯)"],
-    ["assets/level_1/gujrati_vowels.jpg", "Vowels", "(અ-ઔ)"],
-    ["assets/level_1/gujarati_consonants.jpg", "Consonants", "(ક-જ્ઞ)"],
+    [
+      "assets/level_1/gujarati_numbers.webp",
+      "Numbers",
+      "(૦-૯)",
+      LetterType.number,
+    ],
+    [
+      "assets/level_1/gujrati_vowels.jpg",
+      "Vowels",
+      "(અ-ઔ)",
+      LetterType.vowels,
+    ],
+    [
+      "assets/level_1/gujarati_consonants.jpg",
+      "Consonants",
+      "(ક-જ્ઞ)",
+      LetterType.consonants,
+    ],
   ];
 }
 
