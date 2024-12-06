@@ -7,7 +7,8 @@ import 'package:leviosa/widgets/common/adv_network_image.dart';
 import 'package:leviosa/widgets/common/loader.dart';
 
 class LettersPracticePage extends StatefulWidget {
-  const LettersPracticePage({super.key});
+  final LetterType type;
+  const LettersPracticePage({super.key, required this.type});
 
   @override
   State<LettersPracticePage> createState() => _LettersPracticePageState();
@@ -24,7 +25,13 @@ class _LettersPracticePageState extends State<LettersPracticePage> {
   }
 
   Future<void> fetchLetters() async {
-    letters = await LearningServices.fetchLetters();
+    if (widget.type == LetterType.vowels) {
+      letters = await LearningServices.fetchLetters();
+    } else if (widget.type == LetterType.consonants) {
+      letters = await LearningServices.fetchLetters(fetchConsonants: true);
+    } else {
+      letters = await LearningServices.fetchNumbers();
+    }
     currentPage = 0;
     setState(() {});
   }

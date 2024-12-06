@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:leviosa/constants.dart';
 import 'package:leviosa/model/course_model.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/auth_service.dart';
@@ -49,7 +50,10 @@ final appRouter = GoRouter(
     GoRoute(
       path: RouterConstants.lettersPracticePage,
       name: RouterConstants.lettersPracticePage,
-      builder: (context, state) => const LettersPracticePage(),
+      builder: (context, state) {
+        final type = state.extra as LetterType;
+        return LettersPracticePage(type: type);
+      },
     ),
     GoRoute(
       path: RouterConstants.learningLevel,
