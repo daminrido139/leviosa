@@ -25,4 +25,5 @@ class RouterConstants {
   static const pdfViewer = '/pdf-viewer';
   static const videoViewer = '/video-viewer';
   static const lettersPracticePage = '/letters-practice-page';
+  static const learningPage = '/learning-page';
 }

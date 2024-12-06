@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/ui/assignment_page/assignment_student_page.dart';
 import 'package:leviosa/ui/calendar_page/calendar_page.dart';
 import 'package:leviosa/ui/chat_page/chat_page.dart';
 import 'package:leviosa/ui/course_channel_page/course_channel_student_page.dart';
-import 'package:leviosa/ui/learning_page.dart/learning_page.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class CommonStudentPage extends StatefulWidget {
@@ -29,7 +30,6 @@ class _HomepageState extends State<CommonStudentPage> {
           AssignmentStudentPage(),
           CourseChannelStudentPage(),
           // Test()
-          Learningpage()
         ],
       ),
       bottomNavigationBar: Container(
@@ -126,8 +126,7 @@ class _HomepageState extends State<CommonStudentPage> {
             ),
             InkWell(
               onTap: () {
-                selectedPage = 4;
-                setState(() {});
+                context.push(RouterConstants.learningPage);
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

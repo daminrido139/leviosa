@@ -21,7 +21,27 @@ class Learningpage extends StatefulWidget {
 
 class _LearningpageState extends State<Learningpage> {
   final GlobalKey<ScaffoldState> key = GlobalKey();
-  final TransformationController _controller = TransformationController();
+  late final TransformationController transformationController;
+
+  @override
+  void initState() {
+    transformationController = TransformationController();
+    startAnimate();
+    super.initState();
+  }
+
+  void startAnimate() async {
+    double x = 0.0;
+    double y = 0.0;
+    while (x > -200.0) {
+      x -= 2.50;
+      y -= 10.0;
+      await Future.delayed(const Duration(milliseconds: 10));
+      setState(() {
+        transformationController.value = Matrix4.identity()..translate(x, y);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +51,8 @@ class _LearningpageState extends State<Learningpage> {
             minScale: 0.4,
             constrained: false,
             maxScale: 10.0,
-            transformationController: _controller,
+            transformationController: transformationController,
             child: Stack(children: [
-              // Image.asset("assets/img/iceland.jpeg")
               Image.asset("assets/img/gamemap.png"),
               Positioned(
                 bottom: 400,
@@ -135,7 +154,16 @@ class _LearningpageState extends State<Learningpage> {
                   ),
                 ),
               )
-            ]))
+            ])),
+        Positioned(
+            top: 40,
+            left: 20,
+            child: IconButton(
+              onPressed: () => context.pop(),
+              icon: const Icon(Icons.arrow_back),
+              color: Colors.black,
+              iconSize: 36,
+            ))
       ],
     );
   }
