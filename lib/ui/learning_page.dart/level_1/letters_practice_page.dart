@@ -140,8 +140,8 @@ class _LettersPracticePageState extends State<LettersPracticePage> {
                                   if (currentPage < letters.length - 1) {
                                     currentPage += 1;
                                     setState(() {});
-                                  }
-                                  if (currentPage == letters.length - 1) {
+                                  } else if (currentPage ==
+                                      letters.length - 1) {
                                     context.pop();
                                   }
                                 },
