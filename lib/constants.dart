@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leviosa/router_constants.dart';
 
 enum UserRole {
   student,
@@ -53,9 +54,35 @@ class Utility {
       LetterType.consonants,
     ],
   ];
+  static const List level2 = [
+    [
+      "assets/level_2/add.png",
+      "Addition",
+      "વધુમાં",
+      RouterConstants.mathsAdditionPage,
+    ],
+    [
+      "assets/level_2/minus.png",
+      "Subtraction",
+      "બાદબાકી",
+      RouterConstants.mathsSubtractionPage,
+    ],
+    [
+      "assets/level_2/multiply.png",
+      "Multiplication",
+      "ગુણાકાર",
+      RouterConstants.mathsAdditionPage,
+    ],
+    [
+      "assets/level_2/divide.png",
+      "Division",
+      "ડિવિઝન",
+      RouterConstants.mathsAdditionPage,
+    ],
+  ];
 }
 
-const Color leviosaColor = Color.fromARGB(255, 243, 227, 173);
+const Color leviosaColor = Color.fromRGBO(243, 227, 173, 1);
 
 ///////////////// music links ///////////////////////////
 const String kidsBgm = 'music/kids_bgm.mp3';

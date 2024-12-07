@@ -52,6 +52,7 @@ flutter:
     - assets/file/
     - assets/bg/
     - assets/level_1/
+    - assets/level_2/
     - assets/music/
 
 icons_launcher:

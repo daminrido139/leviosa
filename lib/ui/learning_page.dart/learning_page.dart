@@ -71,21 +71,24 @@ class _LearningpageState extends State<Learningpage> {
                 Positioned(
                   bottom: 400,
                   right: 355,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                          height: 70,
-                          width: 70,
-                          child: Image.asset("assets/img/lock.png")),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Text(
-                        "Level 2",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                      )
-                    ],
+                  child: InkWell(
+                    onTap: () => context.push(RouterConstants.level2Page),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                            height: 70,
+                            width: 70,
+                            child: Image.asset("assets/img/lock.png")),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        const Text(
+                          "Level 2",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 Positioned(
@@ -157,7 +160,7 @@ class _LearningpageState extends State<Learningpage> {
                   child: InkWell(
                     onTap: () {
                       context.push(
-                        RouterConstants.learningLevel,
+                        RouterConstants.level1Page,
                         extra: {
                           'level': 1,
                           'audio_player': player,

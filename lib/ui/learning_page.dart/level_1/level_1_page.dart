@@ -5,21 +5,21 @@ import 'package:leviosa/constants.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
-class LearningLevelPage extends StatefulWidget {
+class Level1Page extends StatefulWidget {
   final AudioPlayer audioPlayer;
   final int level;
 
-  const LearningLevelPage({
+  const Level1Page({
     super.key,
     required this.level,
     required this.audioPlayer,
   });
 
   @override
-  State<LearningLevelPage> createState() => _LearningLevelPageState();
+  State<Level1Page> createState() => _Level1PageState();
 }
 
-class _LearningLevelPageState extends State<LearningLevelPage> {
+class _Level1PageState extends State<Level1Page> {
   int selectedBox = -1;
 
   @override
@@ -85,7 +85,7 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
     );
   }
 
-  customverticalcard(
+  Widget customverticalcard(
     imgurl,
     tittle,
     subtittle,
@@ -105,7 +105,7 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
             setState(() {});
           },
           child: Container(
-            color: Colors.white.withOpacity(0.9),
+            color: Colors.white.withOpacity(0.75),
             child: Row(
               children: [
                 Container(
@@ -150,7 +150,7 @@ class _LearningLevelPageState extends State<LearningLevelPage> {
         /////////////////////////////////
         if (ind == selectedBox)
           Container(
-            color: Colors.white.withOpacity(0.9),
+            color: Colors.white.withOpacity(0.75),
             height: 60,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

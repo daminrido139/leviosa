@@ -37,6 +37,74 @@ String getSchool(String email) {
   return email.split('@')[1].split('.')[0];
 }
 
+String getGujaratiNumber(String n) {
+  const List<String> nums = ["૦", "૧", "૨", "૩", "૪", "૫", "૬", "૭", "૮", "૯"];
+  return List<String>.generate(
+      n.length, (i) => nums[int.parse(n[i])].toString()).join();
+}
+
+List<Widget> generateShapes(
+  int count,
+  double size, [
+  Color color = Colors.black,
+]) {
+  List<Widget> shapes = [
+    Container(
+      height: size * 1.1,
+      width: size * 1.1,
+      decoration: ShapeDecoration(
+        shape: const StarBorder.polygon(sides: 5),
+        color: color,
+      ),
+    ),
+    Container(
+      height: size,
+      width: size,
+      decoration: ShapeDecoration(
+        shape: const Border(),
+        color: color,
+      ),
+    ),
+    Container(
+      height: size * 1.2,
+      width: size * 1.2,
+      decoration: ShapeDecoration(
+        shape: const StarBorder(),
+        color: color,
+      ),
+    ),
+    Container(
+      height: size * 1.2,
+      width: size * 1.2,
+      decoration: ShapeDecoration(
+        shape: const StarBorder.polygon(sides: 3),
+        color: color,
+      ),
+    ),
+    Container(
+      height: size * 1.1,
+      width: size * 1.1,
+      decoration: ShapeDecoration(
+        shape: const StarBorder.polygon(sides: 4),
+        color: color,
+      ),
+    ),
+    Container(
+      height: size,
+      width: size,
+      decoration: ShapeDecoration(
+        shape: const CircleBorder(),
+        color: color,
+      ),
+    ),
+  ];
+  return List<Widget>.generate(
+    count,
+    (i) => shapes[i % shapes.length],
+    growable: false,
+  );
+}
+
 showSnackBar(String content, BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/constants.dart';
+import 'package:leviosa/services/common_services.dart';
 import 'package:leviosa/services/learning_services.dart';
 import 'package:leviosa/ui/canvas/drawing_board.dart';
 import 'package:leviosa/widgets/common/adv_network_image.dart';
@@ -84,6 +85,19 @@ class _LettersPracticePageState extends State<LettersPracticePage> {
                         showLoading: true,
                       ),
                     ),
+                    if (widget.type == LetterType.number)
+                      SizedBox(
+                        height: height * 0.1,
+                        child: Wrap(
+                          spacing: 6,
+                          runAlignment: WrapAlignment.center,
+                          children: generateShapes(
+                            currentPage + 1,
+                            30,
+                            Colors.red,
+                          ),
+                        ),
+                      ),
                     Expanded(
                         child: DrawingBoard(
                       child: AdvancedNetworkImage(
