@@ -29,4 +29,7 @@ class RouterConstants {
   static const learningPage = '/learning-page';
   static const mathsAdditionPage = '/maths-addition-page';
   static const mathsSubtractionPage = '/maths-subtraction-page';
+  static const mathsMultiplyPage = '/maths-multiply-page';
+  static const mathsDivisionPage = '/maths-division-page';
+  static const mathsTablePage = '/maths-table-page';
 }

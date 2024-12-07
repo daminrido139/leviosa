@@ -71,13 +71,19 @@ class Utility {
       "assets/level_2/multiply.png",
       "Multiplication",
       "ગુણાકાર",
-      RouterConstants.mathsAdditionPage,
+      RouterConstants.mathsMultiplyPage,
+    ],
+    [
+      "assets/level_2/calculator.png",
+      "Math Tables",
+      "ગણિત",
+      RouterConstants.mathsTablePage,
     ],
     [
       "assets/level_2/divide.png",
       "Division",
       "ડિવિઝન",
-      RouterConstants.mathsAdditionPage,
+      RouterConstants.mathsDivisionPage,
     ],
   ];
 }

@@ -75,17 +75,15 @@ class _MathsSubtractionPageState extends State<MathsSubtractionPage> {
               ),
             ],
           ),
-          const Text(
-            "=",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 72,
-              fontWeight: FontWeight.w900,
+          const Spacer(),
+          Container(
+            decoration: ShapeDecoration(
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(color: leviosaColor, width: 4),
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
-          ),
-          SizedBox(height: height * 0.02),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Wrap(
               spacing: 8,
               runSpacing: 8,

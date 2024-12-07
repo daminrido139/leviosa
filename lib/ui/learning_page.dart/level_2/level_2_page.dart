@@ -25,6 +25,7 @@ class _Level2PageState extends State<Level2Page> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          scrolledUnderElevation: 0,
           title: const LeviosaText(
             'Level 2',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),

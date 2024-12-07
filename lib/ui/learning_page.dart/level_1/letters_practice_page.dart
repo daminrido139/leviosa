@@ -99,10 +99,65 @@ class _LettersPracticePageState extends State<LettersPracticePage> {
                         ),
                       ),
                     Expanded(
-                        child: DrawingBoard(
-                      child: AdvancedNetworkImage(
-                        imgUrl: letters[currentPage]['img'],
-                      ),
+                        child: Stack(
+                      children: [
+                        DrawingBoard(
+                          child: AdvancedNetworkImage(
+                            imgUrl: letters[currentPage]['img'],
+                          ),
+                        ),
+                        if (letters[currentPage]["objImg"] != null)
+                          Positioned(
+                              top: 10,
+                              right: 10,
+                              child: InkWell(
+                                child: SizedBox.square(
+                                    dimension: 64,
+                                    child:
+                                        Image.asset("assets/img/teacher.png")),
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => Dialog(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: Stack(
+                                                children: [
+                                                  Image.network(
+                                                    letters[currentPage]
+                                                        ["objImg"],
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                  Positioned(
+                                                    left: 0,
+                                                    right: 0,
+                                                    bottom: 5,
+                                                    child: Text(
+                                                      letters[currentPage]
+                                                              ["word"] ??
+                                                          "",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: const TextStyle(
+                                                        fontSize: 48,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        backgroundColor:
+                                                            Colors.white70,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ));
+                                },
+                              )),
+                      ],
                     )),
                     SizedBox(
                         height: height * 0.16,
