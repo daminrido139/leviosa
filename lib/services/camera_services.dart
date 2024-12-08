@@ -11,8 +11,8 @@ class CameraServices {
       Uint8List image, BuildContext context) async {
     String result = '';
     //////////////////////////////////////////////
-    // final Uri url = Uri.parse('http://192.168.213.41:10000/upload');
-    final Uri url = Uri.parse(signifyServer);
+    final Uri url = Uri.parse('http://192.168.213.41:10000/upload');
+    // final Uri url = Uri.parse(leviosaServer);
     try {
       final response = await http.post(
         url,

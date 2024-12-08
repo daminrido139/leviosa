@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/router_constants.dart';
 
+const String leviosaServer = '';
+
 enum UserRole {
   student,
   teacher,
