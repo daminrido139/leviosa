@@ -71,9 +71,7 @@ class _ChatPageState extends State<ChatPage> {
             width: 20,
           ),
           InkWell(
-            onTap: () {
-              context.push(RouterConstants.signToText);
-            },
+            onTap: () => context.push(RouterConstants.signToText),
             child: const CircleAvatar(
               radius: 18,
               backgroundImage: AssetImage("assets/img/videocall1.webp"),
