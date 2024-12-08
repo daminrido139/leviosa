@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:leviosa/services/camera_services.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class SignToTextPage extends StatefulWidget {
   const SignToTextPage({super.key});
@@ -10,29 +14,21 @@ class SignToTextPage extends StatefulWidget {
 }
 
 class _SignToTextPageState extends State<SignToTextPage> {
-  String label = "Listening for a Indian Sign...";
-  String confidence = "";
+  String label = "";
   CameraController? cameraController;
   List<CameraDescription>? _availableCameras;
   bool switchingCamera = false;
   double screenWidth = 0;
   double screenHeight = 0;
-  String timeTaken = '';
   bool isRecording = false;
   bool flash = true;
+  /////////////////////////////////////////
+  bool realtimeMode = true;
+  bool predicting = false;
+  /////////////////////////////////////
   final List<CameraImage> recordFrames = [];
-  List<String> lst = [
-    "Zero",
-    "one",
-    "Two",
-    "Three",
-    "Four",
-    "Five",
-    "Six",
-    "Seven",
-    "Eight",
-    "Nine"
-  ];
+  FlutterTts flutterTts = FlutterTts();
+  Timer? realtimeTimer;
 
   void initCamera() async {
     _availableCameras = await availableCameras();
@@ -53,17 +49,24 @@ class _SignToTextPageState extends State<SignToTextPage> {
   }
 
   Future talkToMe(String text) async {
-    // Create a tts object
-    FlutterTts flutterTts = FlutterTts();
-
-    // Set properties
-    flutterTts.setLanguage("en-US");
-    flutterTts.setVoice({"name": "Karen", "locale": "en-AU"});
-    flutterTts.setSpeechRate(0.6);
-    flutterTts.setPitch(1); // 0.5 - 1.5
-
-    // Speak
+    if (text.isEmpty) {
+      return;
+    }
     flutterTts.speak(text);
+  }
+
+  Future<void> predictRealtime() async {
+    if ((!realtimeMode) || predicting) {
+      return;
+    }
+    predicting = true;
+    final image = await cameraController?.takePicture();
+    if (image != null) {
+      label = await CameraServices.predictGesture(
+          (await image.readAsBytes()), context);
+    }
+    setState(() {});
+    predicting = false;
   }
 
   Future<void> toggleFlashlight() async {
@@ -110,11 +113,23 @@ class _SignToTextPageState extends State<SignToTextPage> {
   void initState() {
     initCamera();
     super.initState();
+    /////////////////////
+    flutterTts.setLanguage("en-US");
+    flutterTts.setVoice({"name": "Karen", "locale": "en-AU"});
+    flutterTts.setSpeechRate(0.6);
+    flutterTts.setPitch(1);
+    /////////////////////
+
+    Future.delayed(const Duration(seconds: 3)).then(
+      (_) => realtimeTimer = Timer.periodic(
+          const Duration(milliseconds: 100), (t) => predictRealtime()),
+    );
   }
 
   @override
   void dispose() {
     cameraController?.dispose();
+    realtimeTimer?.cancel();
     super.dispose();
   }
 
@@ -123,75 +138,103 @@ class _SignToTextPageState extends State<SignToTextPage> {
     screenHeight = MediaQuery.sizeOf(context).height;
     screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sign To Text'),
-        backgroundColor: const Color.fromARGB(255, 233, 223, 190),
-      ),
       backgroundColor:
           isRecording ? Colors.white : const Color.fromARGB(255, 233, 223, 190),
       body: Column(
         children: [
           _cameraPreview(),
-          const SizedBox(
-            height: 15,
+          ////////////////////////////////////////
+
+          ///////////////////////////////////////
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                OutlinedButton(
+                    style:
+                        OutlinedButton.styleFrom(backgroundColor: Colors.white),
+                    onPressed: () => talkToMe(label),
+                    child: const Icon(
+                      Icons.volume_up_outlined,
+                      color: Colors.black,
+                    )),
+                /////////////////////////////
+                translationMode(),
+              ],
+            ),
           ),
-          isRecording == true
-              ? Center(
-                  child: SizedBox(
-                      height: screenHeight * 0.2,
-                      child: Image.asset("assets/img/bot.gif")),
-                )
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: GestureDetector(
-                        onTap: () => talkToMe(label),
-                        child: Container(
-                          padding: const EdgeInsets.all(6),
-                          margin: const EdgeInsets.only(right: 10),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color.fromARGB(255, 233, 223, 190)),
-                          child: const Icon(Icons.volume_up),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                      height: screenHeight * 0.18,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 15),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                          border: Border.all(color: Colors.grey.shade300),
-                          borderRadius: BorderRadius.circular(5)),
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
-                      child: SingleChildScrollView(
-                        child: SizedBox(
-                          child: Text(
-                            label,
-                            style: const TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.w500),
-                          ),
+
+          //////////////////////////////////
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(5)),
+              child: realtimeMode
+                  ? Center(
+                      child: Text(
+                        label,
+                        style: const TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
                         ),
                       ),
                     )
-                  ],
-                ),
+                  : SingleChildScrollView(
+                      child: SizedBox(
+                        child: Text(
+                          label,
+                          style: const TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ),
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget translationMode() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14, top: 12),
+      height: 34,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: const Color(0xfff5f5f5)),
+      child: Row(
+        children: [
+          //////////// Realtime //////////
+          gradientSelectionBtn('Realtime', true),
+          /////////////////////////////
+
+          gradientSelectionBtn('Sentence', false),
+        ],
+      ),
+    );
+  }
+
+  Widget gradientSelectionBtn(String label, bool realtime) {
+    return MaterialButton(
+      color: realtimeMode == realtime ? Colors.green.shade600 : Colors.white,
+      minWidth: 95,
+      height: 50,
+      onPressed: () {
+        realtimeMode = realtime;
+        setState(() {});
+      },
+      child: LeviosaText(
+        label,
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+          color: realtimeMode != realtime ? Colors.black : Colors.white,
+        ),
       ),
     );
   }
@@ -199,7 +242,7 @@ class _SignToTextPageState extends State<SignToTextPage> {
   Widget _cameraPreview() {
     return (cameraController == null || switchingCamera)
         ? Container(
-            height: screenHeight * 0.6,
+            height: screenHeight * 0.65,
             alignment: Alignment.center,
             color: Colors.black,
             child: CircularProgressIndicator(
@@ -210,7 +253,7 @@ class _SignToTextPageState extends State<SignToTextPage> {
             child: Stack(
               children: [
                 SizedOverflowBox(
-                  size: Size(screenWidth, screenHeight * 0.6),
+                  size: Size(screenWidth, screenHeight * 0.65),
                   child: Transform.flip(
                     flipX: (cameraController!.description.lensDirection ==
                             CameraLensDirection.front)
@@ -219,39 +262,35 @@ class _SignToTextPageState extends State<SignToTextPage> {
                     child: CameraPreview(cameraController!),
                   ),
                 ),
-                Positioned(
-                  bottom: 15,
-                  left: 0,
-                  right: 0,
-                  child: GestureDetector(
-                    onTap: () async {
-                      if (isRecording) return;
-                      recordFrames.clear();
-                      setState(() {
-                        isRecording = true;
-                      });
-                      await Future.delayed(const Duration(seconds: 2));
-                      try {
-                        // label = await compute(CameraServices.predictGesture, [
-                        //   recordFrames,
-                        //   cameraController!.description.lensDirection
-                        // ]);
-                        /////////////////////////// only for video submission //////////
-                        await Future.delayed(
-                            const Duration(milliseconds: 1500));
-                        label = "How are you?";
-                      } catch (e) {
-                        label = "Turn on Internet Connection";
-                      }
-                      isRecording = false;
-                      setState(() {});
-                      talkToMe(label);
-                    },
-                    child: (isRecording)
-                        ? const _StopRecordIcon(Duration(seconds: 2))
-                        : const _StartRecordIcon(),
+                if (!realtimeMode)
+                  Positioned(
+                    bottom: 15,
+                    left: 0,
+                    right: 0,
+                    child: GestureDetector(
+                      onTap: () async {
+                        if (isRecording) return;
+                        recordFrames.clear();
+                        setState(() {
+                          isRecording = true;
+                        });
+                        await Future.delayed(const Duration(seconds: 2));
+                        try {
+                          await Future.delayed(
+                              const Duration(milliseconds: 1500));
+                          label = "How are you?";
+                        } catch (e) {
+                          label = "Turn on Internet Connection";
+                        }
+                        isRecording = false;
+                        setState(() {});
+                        talkToMe(label);
+                      },
+                      child: (isRecording)
+                          ? const _StopRecordIcon(Duration(seconds: 2))
+                          : const _StartRecordIcon(),
+                    ),
                   ),
-                ),
                 Positioned(
                   bottom: 10,
                   right: 50,

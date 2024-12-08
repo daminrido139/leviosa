@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const String signifyServer = 'https://signify-server-4.onrender.com';
+
 enum UserRole {
   student,
   teacher,
@@ -56,6 +58,7 @@ class Utility {
 }
 
 const Color leviosaColor = Color.fromARGB(255, 243, 227, 173);
+const Color secondaryColor = Color.fromARGB(255, 12, 28, 82);
 
 ///////////////// music links ///////////////////////////
 const String kidsBgm = 'music/kids_bgm.mp3';
