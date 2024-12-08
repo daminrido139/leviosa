@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-const String signifyServer = 'https://signify-server-4.onrender.com';
-
 enum UserRole {
   student,
   teacher,
