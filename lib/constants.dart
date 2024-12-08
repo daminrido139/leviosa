@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/router_constants.dart';
 
-const String leviosaServer = '';
+//const String leviosaServer = 'https://signify-server.onrender.com';
 
 enum UserRole {
   student,
