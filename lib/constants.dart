@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leviosa/router_constants.dart';
 
 enum UserRole {
   student,
@@ -51,6 +52,38 @@ class Utility {
       "Consonants",
       "(ક-જ્ઞ)",
       LetterType.consonants,
+    ],
+  ];
+  static const List level2 = [
+    [
+      "assets/level_2/add.png",
+      "Addition",
+      "વધુમાં",
+      RouterConstants.mathsAdditionPage,
+    ],
+    [
+      "assets/level_2/minus.png",
+      "Subtraction",
+      "બાદબાકી",
+      RouterConstants.mathsSubtractionPage,
+    ],
+    [
+      "assets/level_2/multiply.png",
+      "Multiplication",
+      "ગુણાકાર",
+      RouterConstants.mathsMultiplyPage,
+    ],
+    [
+      "assets/level_2/calculator.png",
+      "Math Tables",
+      "ગણિત",
+      RouterConstants.mathsTablePage,
+    ],
+    [
+      "assets/level_2/divide.png",
+      "Division",
+      "ડિવિઝન",
+      RouterConstants.mathsDivisionPage,
     ],
   ];
 }

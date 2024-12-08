@@ -15,9 +15,15 @@ import 'package:leviosa/ui/common_page/common_teacher_page.dart';
 import 'package:leviosa/ui/course_channel_page/create_course_page.dart';
 import 'package:leviosa/ui/course_page/course_student_page.dart';
 import 'package:leviosa/ui/course_page/course_teacher_page.dart';
-import 'package:leviosa/ui/learning_page.dart/learning_level_page.dart';
+import 'package:leviosa/ui/learning_page.dart/level_1/level_1_page.dart';
 import 'package:leviosa/ui/learning_page.dart/learning_page.dart';
 import 'package:leviosa/ui/learning_page.dart/level_1/letters_practice_page.dart';
+import 'package:leviosa/ui/learning_page.dart/level_2/level_2_page.dart';
+import 'package:leviosa/ui/learning_page.dart/level_2/math_table.dart';
+import 'package:leviosa/ui/learning_page.dart/level_2/maths_addition_page.dart';
+import 'package:leviosa/ui/learning_page.dart/level_2/maths_division_page.dart';
+import 'package:leviosa/ui/learning_page.dart/level_2/maths_multiply_page.dart';
+import 'package:leviosa/ui/learning_page.dart/level_2/maths_subtraction_page.dart';
 import 'package:leviosa/ui/learning_page.dart/youtubeplayerpagestudent_page.dart';
 import 'package:leviosa/ui/profile_page/profile_page.dart';
 import 'package:leviosa/ui/settings_page/settingsstudent_page.dart';
@@ -56,15 +62,45 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: RouterConstants.learningLevel,
-      name: RouterConstants.learningLevel,
+      path: RouterConstants.level1Page,
+      name: RouterConstants.level1Page,
       builder: (context, state) {
         final args = state.extra as Map<String, dynamic>;
-        return LearningLevelPage(
+        return Level1Page(
           level: args['level'],
           audioPlayer: args['audio_player'],
         );
       },
+    ),
+    GoRoute(
+      path: RouterConstants.level2Page,
+      name: RouterConstants.level2Page,
+      builder: (context, state) => const Level2Page(),
+    ),
+    GoRoute(
+      path: RouterConstants.mathsAdditionPage,
+      name: RouterConstants.mathsAdditionPage,
+      builder: (context, state) => const MathsAdditionPage(),
+    ),
+    GoRoute(
+      path: RouterConstants.mathsSubtractionPage,
+      name: RouterConstants.mathsSubtractionPage,
+      builder: (context, state) => const MathsSubtractionPage(),
+    ),
+    GoRoute(
+      path: RouterConstants.mathsMultiplyPage,
+      name: RouterConstants.mathsMultiplyPage,
+      builder: (context, state) => const MathsMultiplyPage(),
+    ),
+    GoRoute(
+      path: RouterConstants.mathsDivisionPage,
+      name: RouterConstants.mathsDivisionPage,
+      builder: (context, state) => const MathsDivisionPage(),
+    ),
+    GoRoute(
+      path: RouterConstants.mathsTablePage,
+      name: RouterConstants.mathsTablePage,
+      builder: (context, state) => const MathTable(),
     ),
     GoRoute(
       path: RouterConstants.assignmentStudentDetailedView,

@@ -5,7 +5,8 @@ class RouterConstants {
   static const commonParentPageRoute = "/common-Parent-Page";
   static const callPage = "/call-page";
   static const appEntry = "/app-entry";
-  static const learningLevel = "/learning-level";
+  static const level1Page = "/level-1-page";
+  static const level2Page = "/level-2-page";
   static const youtubePlayScreenPage = "/youtube-play-screen-page";
   static const chatSearchPage = "/chat-search-page";
   static const settingsPageStudents = "/settingsPageStudents";
@@ -26,4 +27,9 @@ class RouterConstants {
   static const videoViewer = '/video-viewer';
   static const lettersPracticePage = '/letters-practice-page';
   static const learningPage = '/learning-page';
+  static const mathsAdditionPage = '/maths-addition-page';
+  static const mathsSubtractionPage = '/maths-subtraction-page';
+  static const mathsMultiplyPage = '/maths-multiply-page';
+  static const mathsDivisionPage = '/maths-division-page';
+  static const mathsTablePage = '/maths-table-page';
 }

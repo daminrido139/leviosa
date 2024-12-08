@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/constants.dart';
+import 'package:leviosa/services/common_services.dart';
 import 'package:leviosa/services/learning_services.dart';
 import 'package:leviosa/ui/canvas/drawing_board.dart';
 import 'package:leviosa/widgets/common/adv_network_image.dart';
@@ -84,11 +85,79 @@ class _LettersPracticePageState extends State<LettersPracticePage> {
                         showLoading: true,
                       ),
                     ),
-                    Expanded(
-                        child: DrawingBoard(
-                      child: AdvancedNetworkImage(
-                        imgUrl: letters[currentPage]['img'],
+                    if (widget.type == LetterType.number)
+                      SizedBox(
+                        height: height * 0.1,
+                        child: Wrap(
+                          spacing: 6,
+                          runAlignment: WrapAlignment.center,
+                          children: generateShapes(
+                            currentPage + 1,
+                            30,
+                            Colors.red,
+                          ),
+                        ),
                       ),
+                    Expanded(
+                        child: Stack(
+                      children: [
+                        DrawingBoard(
+                          child: AdvancedNetworkImage(
+                            imgUrl: letters[currentPage]['img'],
+                          ),
+                        ),
+                        if (letters[currentPage]["objImg"] != null)
+                          Positioned(
+                              top: 10,
+                              right: 10,
+                              child: InkWell(
+                                child: SizedBox.square(
+                                    dimension: 64,
+                                    child:
+                                        Image.asset("assets/img/teacher.png")),
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => Dialog(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: Stack(
+                                                children: [
+                                                  Image.network(
+                                                    letters[currentPage]
+                                                        ["objImg"],
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                  Positioned(
+                                                    left: 0,
+                                                    right: 0,
+                                                    bottom: 5,
+                                                    child: Text(
+                                                      letters[currentPage]
+                                                              ["word"] ??
+                                                          "",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: const TextStyle(
+                                                        fontSize: 48,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        backgroundColor:
+                                                            Colors.white70,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ));
+                                },
+                              )),
+                      ],
                     )),
                     SizedBox(
                         height: height * 0.16,
