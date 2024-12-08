@@ -6,6 +6,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 //import 'package:leviosa/services/camera_services.dart';
 import 'package:leviosa/services/channel_services.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
+import 'package:image/image.dart' as img;
 
 class SignToTextPage extends StatefulWidget {
   const SignToTextPage({super.key});
@@ -61,10 +62,19 @@ class _SignToTextPageState extends State<SignToTextPage> {
       return;
     }
     predicting = true;
-    final image = await cameraController?.takePicture();
-    if (image != null) {
-      label = await ChannelServices.predictGesture((await image.readAsBytes()));
-      //label = await CameraServices.predictGesture(image.path, context);
+    try {
+      final image = await cameraController?.takePicture();
+      if (image != null) {
+        final imgData = await image.readAsBytes();
+        final img.Image capturedImage = img.decodeImage(imgData)!;
+        final img.Image orientedImage = img.bakeOrientation(capturedImage);
+        label =
+            await ChannelServices.predictGesture(img.encodeJpg(orientedImage));
+        //label = await CameraServices.predictGesture(image.path, context);
+      }
+    } catch (e) {
+      predicting = false;
+      return;
     }
     setState(() {});
     predicting = false;
@@ -121,10 +131,8 @@ class _SignToTextPageState extends State<SignToTextPage> {
     flutterTts.setPitch(1);
     /////////////////////
 
-    Future.delayed(const Duration(seconds: 3)).then(
-      (_) => realtimeTimer = Timer.periodic(
-          const Duration(milliseconds: 100), (t) => predictRealtime()),
-    );
+    realtimeTimer = Timer.periodic(
+        const Duration(milliseconds: 100), (t) => predictRealtime());
   }
 
   @override
