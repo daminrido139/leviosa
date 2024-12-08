@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/router_constants.dart';
 
+const String leviosaServer = '';
+
 enum UserRole {
   student,
   teacher,
@@ -88,7 +90,8 @@ class Utility {
   ];
 }
 
-const Color leviosaColor = Color.fromRGBO(243, 227, 173, 1);
+const Color leviosaColor = Color.fromARGB(255, 243, 227, 173);
+const Color secondaryColor = Color.fromARGB(255, 12, 28, 82);
 
 ///////////////// music links ///////////////////////////
 const String kidsBgm = 'music/kids_bgm.mp3';
