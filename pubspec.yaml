@@ -28,6 +28,7 @@ dependencies:
   google_fonts: ^6.2.1
   google_generative_ai: ^0.4.6
   http: ^1.2.1
+  image: ^4.3.0
   image_picker: ^1.1.2
   intl: ^0.19.0
   o3d: null
