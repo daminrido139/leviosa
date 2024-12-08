@@ -3,7 +3,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:leviosa/constants.dart';
 import 'package:leviosa/services/common_services.dart';
 
 class CameraServices {
@@ -11,7 +10,8 @@ class CameraServices {
       Uint8List image, BuildContext context) async {
     String result = '';
     //////////////////////////////////////////////
-    final Uri url = Uri.parse('http://192.168.213.41:10000/upload');
+    /// kabilan ip http://192.168.61.1 ///////////
+    final Uri url = Uri.parse('http://192.168.61.1:10000/upload');
     // final Uri url = Uri.parse(leviosaServer);
     try {
       final response = await http.post(
