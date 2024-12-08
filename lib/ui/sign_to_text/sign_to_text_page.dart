@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:leviosa/services/camera_services.dart';
+//import 'package:leviosa/services/camera_services.dart';
+import 'package:leviosa/services/channel_services.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class SignToTextPage extends StatefulWidget {
@@ -62,8 +63,8 @@ class _SignToTextPageState extends State<SignToTextPage> {
     predicting = true;
     final image = await cameraController?.takePicture();
     if (image != null) {
-      label = await CameraServices.predictGesture(
-          (await image.readAsBytes()), context);
+      label = await ChannelServices.predictGesture((await image.readAsBytes()));
+      //label = await CameraServices.predictGesture(image.path, context);
     }
     setState(() {});
     predicting = false;
