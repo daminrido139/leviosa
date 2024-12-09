@@ -15,7 +15,7 @@ class CommonParentPage extends StatefulWidget {
 }
 
 class _CommonParentPageState extends State<CommonParentPage> {
-  int selectedPage = 0;
+  int selectedPage = 1;
 
   @override
   Widget build(BuildContext context) {

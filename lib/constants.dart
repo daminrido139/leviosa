@@ -90,7 +90,7 @@ class Utility {
   ];
 }
 
-const Color leviosaColor = Color.fromARGB(255, 243, 227, 173);
+const Color leviosaColor = Color.fromRGBO(243, 227, 173, 1);
 const Color secondaryColor = Color.fromARGB(255, 12, 28, 82);
 
 ///////////////// music links ///////////////////////////

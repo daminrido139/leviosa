@@ -28,10 +28,10 @@ class _LearningpageState extends State<Learningpage> {
 
   @override
   void initState() {
-    // player.play(AssetSource(kidsBgm));
-    // player.onPlayerComplete.listen((event) {
-    //   player.play(AssetSource(kidsBgm)); // Replay the audio
-    // });
+    player.play(AssetSource(kidsBgm));
+    player.onPlayerComplete.listen((event) {
+      player.play(AssetSource(kidsBgm)); // Replay the audio
+    });
     transformationController = TransformationController();
     startAnimate();
     super.initState();
