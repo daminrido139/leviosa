@@ -3,7 +3,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leviosa/constants.dart';
 import 'package:leviosa/router_constants.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:go_router/go_router.dart';
@@ -25,6 +24,7 @@ class _LearningpageState extends State<Learningpage> {
   final GlobalKey<ScaffoldState> key = GlobalKey();
   late final TransformationController transformationController;
   final player = AudioPlayer();
+  bool isMoved = false;
 
   @override
   void initState() {
@@ -68,6 +68,52 @@ class _LearningpageState extends State<Learningpage> {
               transformationController: transformationController,
               child: Stack(children: [
                 Image.asset("assets/img/gamemap.png"),
+                // AnimatedPositioned(
+                //     bottom: isMoved == false ? 240 : 400,
+                //     // right: isMoved == false ? 355 : null,
+                //     right: isMoved == false ? null : 355,
+                //     duration: const Duration(seconds: 5),
+                //     child: InkWell(
+                //       onTap: () {
+                //         isMoved = true;
+                //         setState(() {});
+                //       },
+                //       child: Column(
+                //         children: [
+                //           SizedBox(
+                //               height: 70,
+                //               width: 70,
+                //               child: Image.asset("assets/img/key.png")),
+                //           const SizedBox(
+                //             height: 5,
+                //           ),
+                //           const Text(
+                //             "Level 2",
+                //             style: TextStyle(
+                //                 fontSize: 22, fontWeight: FontWeight.bold),
+                //           )
+                //         ],
+                //       ),
+                //     )),
+                Positioned(
+                  bottom: isMoved == false ? 240 : 400,
+                  // right: isMoved == false ? 355 : null,
+                  right: isMoved == false ? null : 350,
+                  child: Container(
+                    height: 120,
+                    width: 120,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.red),
+                    child: const Center(
+                        child: Text(
+                      "2",
+                      style: TextStyle(
+                          fontSize: 64,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    )),
+                  ),
+                ),
                 Positioned(
                   bottom: 400,
                   right: 355,
@@ -159,6 +205,9 @@ class _LearningpageState extends State<Learningpage> {
                   left: 330,
                   child: InkWell(
                     onTap: () {
+                      // setState(() {
+                      //   isMoved = true;
+                      // });
                       context.push(
                         RouterConstants.level1Page,
                         extra: {

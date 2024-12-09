@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -143,6 +145,14 @@ class _Level1PageState extends State<Level1Page> {
                     )
                   ],
                 ),
+                const Spacer(),
+                const Icon(
+                  Icons.lock_outlined,
+                  size: 34,
+                ),
+                const SizedBox(
+                  width: 16,
+                )
               ],
             ),
           ),
