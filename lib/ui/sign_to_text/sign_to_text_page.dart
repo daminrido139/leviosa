@@ -24,6 +24,8 @@ class _SignToTextPageState extends State<SignToTextPage> {
   double screenHeight = 0;
   bool isRecording = false;
   bool flash = true;
+  bool isMute = false;
+  String lastPredictedWord = '';
   /////////////////////////////////////////
   bool realtimeMode = true;
   bool predicting = false;
@@ -51,7 +53,7 @@ class _SignToTextPageState extends State<SignToTextPage> {
   }
 
   Future talkToMe(String text) async {
-    if (text.isEmpty) {
+    if (text.isEmpty || isMute) {
       return;
     }
     flutterTts.speak(text);
@@ -70,7 +72,10 @@ class _SignToTextPageState extends State<SignToTextPage> {
         final img.Image orientedImage = img.bakeOrientation(capturedImage);
         label =
             await ChannelServices.predictGesture(img.encodeJpg(orientedImage));
-        //label = await CameraServices.predictGesture(image.path, context);
+        if (label.isNotEmpty && label != lastPredictedWord) {
+          talkToMe(label);
+        }
+        lastPredictedWord = label;
       }
     } catch (e) {
       predicting = false;
@@ -163,9 +168,14 @@ class _SignToTextPageState extends State<SignToTextPage> {
                 OutlinedButton(
                     style:
                         OutlinedButton.styleFrom(backgroundColor: Colors.white),
-                    onPressed: () => talkToMe(label),
-                    child: const Icon(
-                      Icons.volume_up_outlined,
+                    onPressed: () {
+                      isMute = !isMute;
+                      setState(() {});
+                    },
+                    child: Icon(
+                      isMute
+                          ? Icons.volume_off_outlined
+                          : Icons.volume_up_outlined,
                       color: Colors.black,
                     )),
                 /////////////////////////////

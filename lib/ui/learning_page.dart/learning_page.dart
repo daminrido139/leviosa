@@ -3,6 +3,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leviosa/constants.dart';
 import 'package:leviosa/router_constants.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:go_router/go_router.dart';
@@ -28,10 +29,10 @@ class _LearningpageState extends State<Learningpage> {
 
   @override
   void initState() {
-    // player.play(AssetSource(kidsBgm));
-    // player.onPlayerComplete.listen((event) {
-    //   player.play(AssetSource(kidsBgm)); // Replay the audio
-    // });
+    player.play(AssetSource(kidsBgm));
+    player.onPlayerComplete.listen((event) {
+      player.play(AssetSource(kidsBgm)); // Replay the audio
+    });
     transformationController = TransformationController();
     startAnimate();
     super.initState();

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/auth_service.dart';
+import 'package:leviosa/services/common_services.dart';
 import 'package:leviosa/widgets/common/leviosa_button.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
+import 'package:leviosa/widgets/common/loader.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -18,6 +20,7 @@ class _LoginpageState extends State<SignInPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool hidePassword = true;
+  bool isLoading = false;
 
   @override
   void dispose() {
@@ -27,6 +30,8 @@ class _LoginpageState extends State<SignInPage> {
   }
 
   void _onLogin() async {
+    isLoading = true;
+    setState(() {});
     try {
       final email = emailController.text.trim();
       final password = passwordController.text.trim();
@@ -36,14 +41,10 @@ class _LoginpageState extends State<SignInPage> {
       await AuthService.signInWithEmailAndPassword(email, password);
       context.go(RouterConstants.appEntry);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: LeviosaText(
-            e.toString(),
-          ),
-        ),
-      );
+      showSnackBar(e.toString().split(' ').sublist(1).join(' '), context);
     }
+    isLoading = false;
+    setState(() {});
   }
 
   @override
@@ -88,13 +89,15 @@ class _LoginpageState extends State<SignInPage> {
                   LeviosaButton(
                     onTap: _onLogin,
                     width: 200,
-                    child: const LeviosaText(
-                      "Login",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      ),
-                    ),
+                    child: isLoading
+                        ? const Loader()
+                        : const LeviosaText(
+                            "Login",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
+                          ),
                   )
                 ],
               ),
@@ -109,9 +112,12 @@ class _LoginpageState extends State<SignInPage> {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: TextField(
+          cursorColor: Colors.black,
           controller: emailController,
           decoration: InputDecoration(
             labelText: "Email",
+            labelStyle: const TextStyle(
+                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: const BorderSide(color: Colors.black),
@@ -128,9 +134,12 @@ class _LoginpageState extends State<SignInPage> {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: TextField(
+          cursorColor: Colors.black,
           controller: passwordController,
           obscureText: hidePassword,
           decoration: InputDecoration(
+            labelStyle: const TextStyle(
+                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20),
             labelText: "Password",
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),

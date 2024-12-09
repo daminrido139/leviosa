@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:leviosa/constants.dart';
 import 'package:leviosa/model/image_generation_models.dart';
 import 'package:leviosa/widgets/common/gradient_text.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
@@ -76,7 +77,6 @@ class _LeviosaChatBotState extends State<LeviosaChatBot> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 233, 223, 190),
       appBar: AppBar(
         backgroundColor: Colors.black,
         leading: const BackButton(
@@ -105,43 +105,60 @@ class _LeviosaChatBotState extends State<LeviosaChatBot> {
           )
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView.builder(
-              reverse: true,
-              padding: const EdgeInsets.all(8.0),
-              itemCount: _messages.length,
-              itemBuilder: (context, index) {
-                bool isUserMessage = _messages[index]['sender'] == 'user';
-                bool ismsg = _messages[index]['image'];
-                return ismsg == false
-                    ? _buildChatBubble(_messages[index]['text']!, isUserMessage)
-                    : customimagegen(_messages[index]["u18lst"]);
-              },
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/img/chat-bg.jpeg"),
+                fit: BoxFit.cover)),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      reverse: true,
+                      padding: const EdgeInsets.all(8.0),
+                      itemCount: _messages.length,
+                      itemBuilder: (context, index) {
+                        bool isUserMessage =
+                            _messages[index]['sender'] == 'user';
+                        bool ismsg = _messages[index]['image'];
+                        return ismsg == false
+                            ? _buildChatBubble(
+                                _messages[index]['text']!, isUserMessage)
+                            : customimagegen(_messages[index]["u18lst"]);
+                      },
+                    ),
+                    isloading == true
+                        ? Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.white, width: 2),
+                                borderRadius: BorderRadius.circular(
+                                  12.0,
+                                )),
+                            child: Image.asset(
+                                "assets/img/Ellipsis@1x-1.0s-200px-200px.gif"))
+                        : const SizedBox(),
+                    isloadingimg == true
+                        ? SizedBox(
+                            height: 320,
+                            width: 320,
+                            child: Image.asset(
+                                "assets/img/Spinner@1x-1.0s-200px-200px (1).gif"))
+                        : const SizedBox(),
+                  ],
+                ),
+              ),
             ),
-          ),
-          isloading == true
-              ? Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 2),
-                      borderRadius: BorderRadius.circular(
-                        12.0,
-                      )),
-                  child: Image.asset(
-                      "assets/img/Ellipsis@1x-1.0s-200px-200px.gif"))
-              : const SizedBox(),
-          isloadingimg == true
-              ? SizedBox(
-                  height: 320,
-                  width: 320,
-                  child: Image.asset(
-                      "assets/img/Spinner@1x-1.0s-200px-200px (1).gif"))
-              : const SizedBox(),
-          _buildMessageInput(),
-        ],
+            _buildMessageInput(),
+          ],
+        ),
       ),
     );
   }
@@ -174,6 +191,8 @@ class _LeviosaChatBotState extends State<LeviosaChatBot> {
         children: <Widget>[
           Expanded(
             child: TextField(
+              minLines: 1,
+              maxLines: 5,
               controller: _controller,
               decoration: InputDecoration(
                 hintText: 'Type a message...',
@@ -182,34 +201,42 @@ class _LeviosaChatBotState extends State<LeviosaChatBot> {
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
-                  borderSide: BorderSide.none,
+                  borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+                ),
+                suffixIcon: Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: ismsgortxt == false
+                      ? IconButton(
+                          onPressed: () {
+                            ismsgortxt = !ismsgortxt;
+                            setState(() {});
+                          },
+                          icon: const Icon(Icons.image))
+                      : IconButton(
+                          onPressed: () {
+                            ismsgortxt = !ismsgortxt;
+                            setState(() {});
+                          },
+                          icon: const Icon(Icons.text_fields_outlined)),
                 ),
               ),
             ),
           ),
           const SizedBox(width: 10),
-          ismsgortxt == false
-              ? IconButton(
-                  onPressed: () {
-                    ismsgortxt = !ismsgortxt;
-                    setState(() {});
-                  },
-                  icon: const Icon(Icons.image))
-              : IconButton(
-                  onPressed: () {
-                    ismsgortxt = !ismsgortxt;
-                    setState(() {});
-                  },
-                  icon: const Icon(Icons.text_fields_outlined)),
-          const SizedBox(
-            width: 5,
-          ),
-          IconButton(
-            icon: Icon(Icons.send, color: Colors.amber[600]),
-            onPressed: ismsgortxt == false
+          InkWell(
+            onTap: ismsgortxt == false
                 ? () => _sendMessage()
                 : () => sentimagge(context),
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  color: leviosaColor,
+                  shape: BoxShape.circle),
+              child: const Icon(Icons.send, color: Colors.black),
+            ),
           ),
+          const SizedBox(width: 5),
         ],
       ),
     );
