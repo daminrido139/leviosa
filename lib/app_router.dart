@@ -26,6 +26,7 @@ import 'package:leviosa/ui/learning_page.dart/level_2/maths_multiply_page.dart';
 import 'package:leviosa/ui/learning_page.dart/level_2/maths_subtraction_page.dart';
 import 'package:leviosa/ui/learning_page.dart/youtubeplayerpagestudent_page.dart';
 import 'package:leviosa/ui/profile_page/profile_page.dart';
+import 'package:leviosa/ui/profile_page/report_view.dart';
 import 'package:leviosa/ui/settings_page/settingsstudent_page.dart';
 import 'package:leviosa/ui/sign_in_page/sign_in_page.dart';
 import 'package:leviosa/ui/sign_to_text/sign_to_text_page.dart';
@@ -186,6 +187,13 @@ final appRouter = GoRouter(
       name: RouterConstants.commonTeacherPageRoute,
       builder: (context, state) {
         return const CommonTeacherPage();
+      },
+    ),
+    GoRoute(
+      path: RouterConstants.reportView,
+      name: RouterConstants.reportView,
+      builder: (context, state) {
+        return const ReportView();
       },
     ),
     GoRoute(

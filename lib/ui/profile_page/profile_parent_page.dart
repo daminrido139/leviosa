@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/widgets/common/chart.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
+import 'package:leviosa/widgets/common/dynamic_cv_preview.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class ProfileParentPage extends StatelessWidget {
@@ -17,6 +20,7 @@ class ProfileParentPage extends StatelessWidget {
               height: 40,
             ),
             Center(child: customcontainer(context)),
+            const DynamicCvPreview(),
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: LearningsChart(),

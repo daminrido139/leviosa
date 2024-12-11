@@ -32,4 +32,5 @@ class RouterConstants {
   static const mathsMultiplyPage = '/maths-multiply-page';
   static const mathsDivisionPage = '/maths-division-page';
   static const mathsTablePage = '/maths-table-page';
+  static const reportView = '/report-view';
 }
