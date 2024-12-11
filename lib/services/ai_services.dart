@@ -46,7 +46,7 @@ class AiServices {
       if (int.tryParse(w) != null) {
         w = '_$w';
       }
-      print(w + "🥰");
+
       if (modelsInDb.containsKey(w)) {
         if (modelsInDb[w] != null) {
           formattedWordsUrl.add(modelsInDb[w]!);
@@ -61,7 +61,6 @@ class AiServices {
         }
       }
     }
-    print(formattedWordsUrl);
     //////////////////////////////////////////////
     List<Uint8List> videos = [];
     for (String url in formattedWordsUrl) {
@@ -71,6 +70,7 @@ class AiServices {
       }
     }
     final mergedVideo = await mergeVideos(videos);
+
     return mergedVideo;
   }
 }

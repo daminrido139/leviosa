@@ -25,11 +25,11 @@ class _AvatarVideoPlayerState extends State<AvatarVideoPlayer> {
     )..initialize().then((_) {
         setState(() {});
         _controller.play();
+        if (widget.speed != null) {
+          _controller.setPlaybackSpeed(widget.speed!);
+        }
+        _controller.setLooping(widget.loop!);
       });
-    if (widget.speed != null) {
-      _controller.setPlaybackSpeed(widget.speed!);
-    }
-    _controller.setLooping(widget.loop!);
   }
 
   @override
