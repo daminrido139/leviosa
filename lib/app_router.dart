@@ -9,12 +9,14 @@ import 'package:leviosa/ui/assignment_page/assignment_student_detailed_view.dart
 import 'package:leviosa/ui/assignment_page/new_assignment_page.dart';
 import 'package:leviosa/ui/chat_page/chat_room.dart';
 import 'package:leviosa/ui/chat_page/chat_search_page.dart';
+import 'package:leviosa/ui/common_page/common_hr_page.dart';
 import 'package:leviosa/ui/common_page/common_parent_page.dart';
 import 'package:leviosa/ui/common_page/common_student_page.dart';
 import 'package:leviosa/ui/common_page/common_teacher_page.dart';
 import 'package:leviosa/ui/course_channel_page/create_course_page.dart';
 import 'package:leviosa/ui/course_page/course_student_page.dart';
 import 'package:leviosa/ui/course_page/course_teacher_page.dart';
+import 'package:leviosa/ui/job/job_post.dart';
 import 'package:leviosa/ui/learning_page.dart/level_1/level_1_page.dart';
 import 'package:leviosa/ui/learning_page.dart/learning_page.dart';
 import 'package:leviosa/ui/learning_page.dart/level_1/letters_practice_page.dart';
@@ -49,6 +51,16 @@ final appRouter = GoRouter(
   },
   initialLocation: RouterConstants.signInPage,
   routes: [
+    GoRoute(
+      path: RouterConstants.commonHrPageRoute,
+      name: RouterConstants.commonHrPageRoute,
+      builder: (context, state) => const CommonHrPage(),
+    ),
+    GoRoute(
+      path: RouterConstants.jobPostPage,
+      name: RouterConstants.jobPostPage,
+      builder: (context, state) => const JobPost(),
+    ),
     GoRoute(
       path: RouterConstants.signInPage,
       name: RouterConstants.signInPage,
