@@ -69,6 +69,8 @@ class _LettersPracticePageState extends State<LettersPracticePage> {
                           width: width * 0.9,
                           height: height * 0.9,
                           showClose: true,
+                          loop: true,
+                          directTranslate: true,
                         ),
                       )),
               child: Container(

@@ -53,6 +53,7 @@ class _T2signBoxState extends State<T2signBox> {
       avatarVideoPath =
           await AiServices.generateAvatar(formattedSentence, modelsInDb);
     }
+
     setState(() {});
   }
 
