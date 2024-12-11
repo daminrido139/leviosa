@@ -9,6 +9,8 @@ class RouterConstants {
   static const appEntry = "/app-entry";
   static const level1Page = "/level-1-page";
   static const level2Page = "/level-2-page";
+  static const level3Page = "/level-3-page";
+  static const sentence2TextLevelPage = '/sentence-to-text-level-page';
   static const youtubePlayScreenPage = "/youtube-play-screen-page";
   static const chatSearchPage = "/chat-search-page";
   static const settingsPageStudents = "/settingsPageStudents";

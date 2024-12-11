@@ -89,6 +89,14 @@ class Utility {
       RouterConstants.mathsDivisionPage,
     ],
   ];
+  static const List level3 = [
+    [
+      "assets/level_1/gujarati_consonants.jpg",
+      "Basic words",
+      "મૂળભૂત શબ્દો",
+      RouterConstants.sentence2TextLevelPage,
+    ],
+  ];
 }
 
 const Color leviosaColor = Color.fromRGBO(243, 227, 173, 1);
@@ -166,6 +174,12 @@ Rules
 Example sentence:
 input: He is drinking water
 output: He water drink
+
+input: 1
+output: 1
+
+input: I eat 2 apples
+output: I 2 apple eat
 
 Note: the output only contains alphabets, numbers and space, it should not contain any other punctuations or special characters
 ''';

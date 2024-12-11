@@ -40,10 +40,9 @@ class AiServices {
     final words = sentence.split(' ');
     List<String> formattedWordsUrl = [];
     //////////////////////////////////////////
-    print(modelsInDb.toString());
     for (String w in words) {
       w = w.trim().toLowerCase();
-      print('😊 $w');
+
       if (modelsInDb.containsKey(w)) {
         if (modelsInDb[w] != null) {
           formattedWordsUrl.add(modelsInDb[w]!);

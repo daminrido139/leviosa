@@ -26,6 +26,8 @@ import 'package:leviosa/ui/learning_page.dart/level_2/maths_addition_page.dart';
 import 'package:leviosa/ui/learning_page.dart/level_2/maths_division_page.dart';
 import 'package:leviosa/ui/learning_page.dart/level_2/maths_multiply_page.dart';
 import 'package:leviosa/ui/learning_page.dart/level_2/maths_subtraction_page.dart';
+import 'package:leviosa/ui/learning_page.dart/level_3/level_3_page.dart';
+import 'package:leviosa/ui/learning_page.dart/level_3/sentence_2_text_level_page.dart';
 import 'package:leviosa/ui/learning_page.dart/youtubeplayerpagestudent_page.dart';
 import 'package:leviosa/ui/profile_page/profile_page.dart';
 import 'package:leviosa/ui/profile_page/report_view.dart';
@@ -96,9 +98,24 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: RouterConstants.level3Page,
+      name: RouterConstants.level3Page,
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>;
+        return Level3Page(
+          gameModel: args['game_model'],
+        );
+      },
+    ),
+    GoRoute(
       path: RouterConstants.mathsAdditionPage,
       name: RouterConstants.mathsAdditionPage,
       builder: (context, state) => const MathsAdditionPage(),
+    ),
+    GoRoute(
+      path: RouterConstants.sentence2TextLevelPage,
+      name: RouterConstants.sentence2TextLevelPage,
+      builder: (context, state) => const Sentence2TextLevelPage(),
     ),
     GoRoute(
       path: RouterConstants.mathsSubtractionPage,

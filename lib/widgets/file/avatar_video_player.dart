@@ -5,7 +5,10 @@ import 'package:video_player/video_player.dart';
 
 class AvatarVideoPlayer extends StatefulWidget {
   final String filePath;
-  const AvatarVideoPlayer({super.key, required this.filePath});
+  final double? speed;
+  final bool? loop;
+  const AvatarVideoPlayer(
+      {super.key, required this.filePath, this.speed, this.loop = false});
 
   @override
   State<AvatarVideoPlayer> createState() => _AvatarVideoPlayerState();
@@ -23,6 +26,10 @@ class _AvatarVideoPlayerState extends State<AvatarVideoPlayer> {
         setState(() {});
         _controller.play();
       });
+    if (widget.speed != null) {
+      _controller.setPlaybackSpeed(widget.speed!);
+    }
+    _controller.setLooping(widget.loop!);
   }
 
   @override
