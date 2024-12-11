@@ -68,15 +68,20 @@ final appRouter = GoRouter(
       builder: (context, state) {
         final args = state.extra as Map<String, dynamic>;
         return Level1Page(
-          level: args['level'],
           audioPlayer: args['audio_player'],
+          gameModel: args['game_model'],
         );
       },
     ),
     GoRoute(
       path: RouterConstants.level2Page,
       name: RouterConstants.level2Page,
-      builder: (context, state) => const Level2Page(),
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>;
+        return Level2Page(
+          gameModel: args['game_model'],
+        );
+      },
     ),
     GoRoute(
       path: RouterConstants.mathsAdditionPage,

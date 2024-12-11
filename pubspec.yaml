@@ -31,7 +31,6 @@ dependencies:
   image: ^4.3.0
   image_picker: ^1.1.2
   intl: ^0.19.0
-  o3d: null
   syncfusion_flutter_pdfviewer: ^27.2.4
   translator: null
   youtube_player_iframe: ^5.1.5

@@ -4,17 +4,19 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/constants.dart';
+import 'package:leviosa/model/game_model.dart';
 import 'package:leviosa/router_constants.dart';
+import 'package:leviosa/services/common_services.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class Level1Page extends StatefulWidget {
   final AudioPlayer audioPlayer;
-  final int level;
+  final GameModel gameModel;
 
   const Level1Page({
     super.key,
-    required this.level,
     required this.audioPlayer,
+    required this.gameModel,
   });
 
   @override
@@ -22,7 +24,15 @@ class Level1Page extends StatefulWidget {
 }
 
 class _Level1PageState extends State<Level1Page> {
+  static const int currentLevel = 1;
   int selectedBox = -1;
+  int currentLesson = 1;
+
+  @override
+  void initState() {
+    currentLesson = widget.gameModel.lesson;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +46,9 @@ class _Level1PageState extends State<Level1Page> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: LeviosaText(
-            'Level ${widget.level}',
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          title: const LeviosaText(
+            'Level 1',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           backgroundColor: Colors.white.withOpacity(0.4),
           actions: const [
@@ -62,14 +72,6 @@ class _Level1PageState extends State<Level1Page> {
             ),
           ],
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {},
-        //   backgroundColor: leviosaColor,
-        //   child: const Icon(
-        //     Icons.arrow_right,
-        //     size: 40,
-        //   ),
-        // ),
         body: ListView.builder(
             padding: const EdgeInsets.symmetric(vertical: 20),
             shrinkWrap: true,
@@ -146,10 +148,13 @@ class _Level1PageState extends State<Level1Page> {
                   ],
                 ),
                 const Spacer(),
-                const Icon(
-                  Icons.lock_outlined,
-                  size: 34,
-                ),
+                ///////////////////////////////////////// lesson lock check
+                if (currentLevel > widget.gameModel.level &&
+                    ind + 1 > currentLesson)
+                  const Icon(
+                    Icons.lock_outlined,
+                    size: 34,
+                  ),
                 const SizedBox(
                   width: 16,
                 )
@@ -189,10 +194,22 @@ class _Level1PageState extends State<Level1Page> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => context.push(
-                    RouterConstants.lettersPracticePage,
-                    extra: type,
-                  ),
+                  onTap: (currentLevel > widget.gameModel.level &&
+                          ind + 1 > currentLesson)
+                      ? () => showSnackBar(
+                          'Lesson locked! Complete the previous lesson',
+                          context)
+                      : () async {
+                          bool completed = (await context.push(
+                                RouterConstants.lettersPracticePage,
+                                extra: type,
+                              )) ??
+                              false;
+                          if (completed) {
+                            currentLesson += 1;
+                            setState(() {});
+                          }
+                        },
                   child: Container(
                     height: 40,
                     width: 140,

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:leviosa/constants.dart';
-import 'package:leviosa/widgets/common/leviosa_text.dart';
-import 'package:o3d/o3d.dart';
 
 class TextToSignPage extends StatefulWidget {
   const TextToSignPage({super.key});
@@ -13,14 +10,10 @@ class TextToSignPage extends StatefulWidget {
 class _TextToSignPageState extends State<TextToSignPage> {
   String data = "";
   bool isFocus = false;
-  String boymodel =
-      "https://models.readyplayer.me/6748607ae3da61b7a2f35b3c.glb";
-  String girlmodel =
-      "https://models.readyplayer.me/67485621c15ac947bc1527c0.glb";
+
   bool isConverting = false;
   final _controller = TextEditingController();
   final _focus = FocusNode();
-  bool isboy = true;
 
   @override
   void initState() {
@@ -53,16 +46,6 @@ class _TextToSignPageState extends State<TextToSignPage> {
       SizedBox(
         height: height * 0.7,
         width: MediaQuery.of(context).size.width,
-        child: isboy == true
-            ? O3D(
-                key: const Key("Boy"),
-                backgroundColor: leviosaColor,
-                src: boymodel)
-            : O3D(
-                key: const Key("Girl"),
-                src: girlmodel,
-                backgroundColor: leviosaColor,
-              ),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
@@ -99,52 +82,6 @@ class _TextToSignPageState extends State<TextToSignPage> {
                     },
                     icon: const Icon(Icons.send)))),
       ),
-      Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        InkWell(
-          onTap: () {
-            setState(() {
-              isboy = true;
-            });
-          },
-          child: Column(
-            children: [
-              SizedBox(
-                  height: height * 0.15,
-                  width: MediaQuery.of(context).size.width / 2,
-                  child: Image.asset(
-                    "assets/img/boymodel.jpeg",
-                    fit: BoxFit.contain,
-                  )),
-              const LeviosaText(
-                "Levio",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-        ),
-        InkWell(
-          onTap: () {
-            setState(() {
-              isboy = false;
-            });
-          },
-          child: Column(
-            children: [
-              SizedBox(
-                  height: height * 0.15,
-                  width: MediaQuery.of(context).size.width / 2,
-                  child: Image.asset(
-                    "assets/img/girlmodel.jpeg",
-                    fit: BoxFit.contain,
-                  )),
-              const LeviosaText(
-                "Livia",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-        )
-      ])
     ])
 
         // body: Column(
