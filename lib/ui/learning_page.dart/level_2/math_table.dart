@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:leviosa/constants.dart';
 import 'package:leviosa/services/common_services.dart';
 
 class MathTable extends StatelessWidget {
@@ -9,11 +8,7 @@ class MathTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: leviosaColor,
-        scrolledUnderElevation: 0,
-        title: const Text(
-          "Math Tables",
-        ),
+        backgroundColor: Colors.white,
       ),
       body: SizedBox(
         width: double.infinity,

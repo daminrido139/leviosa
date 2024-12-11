@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:leviosa/constants.dart';
 import 'package:leviosa/services/ai_services.dart';
 import 'package:leviosa/services/common_services.dart';
+import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:leviosa/widgets/file/avatar_video_player.dart';
 
 class TextToSignPage extends StatefulWidget {
@@ -11,11 +14,15 @@ class TextToSignPage extends StatefulWidget {
 }
 
 class _TextToSignPageState extends State<TextToSignPage> {
+  List<double> speed = [1, 0.75, 0.5];
+  int currentSpeed = 0;
   final _controller = TextEditingController();
   Map<String, String> modelsInDb = {};
   String? avatarVideoPath;
   String lastWords = '';
   bool loading = false;
+  FocusNode focusNode = FocusNode();
+  final FlutterTts tts = FlutterTts();
 
   @override
   void initState() {
@@ -29,6 +36,7 @@ class _TextToSignPageState extends State<TextToSignPage> {
 
   @override
   void dispose() {
+    focusNode.dispose();
     _controller.dispose();
     super.dispose();
   }
@@ -38,6 +46,7 @@ class _TextToSignPageState extends State<TextToSignPage> {
     final height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       body: Stack(
+        alignment: Alignment.center,
         children: [
           Column(
             children: [
@@ -54,6 +63,7 @@ class _TextToSignPageState extends State<TextToSignPage> {
                           : AvatarVideoPlayer(
                               filePath: avatarVideoPath!,
                               key: UniqueKey(),
+                              speed: speed[currentSpeed],
                             ),
                     ),
                   ),
@@ -62,6 +72,47 @@ class _TextToSignPageState extends State<TextToSignPage> {
               inputField(),
             ],
           ),
+          ///////////////////////////////////////////////
+          if (!focusNode.hasFocus)
+            Positioned(
+              bottom: 120,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  LeviosaText(
+                    lastWords,
+                    style: const TextStyle(
+                        fontSize: 48, fontWeight: FontWeight.w500),
+                    forceLanguage: Language.gujarati,
+                  ),
+                  Text(
+                    lastWords,
+                    style: const TextStyle(fontSize: 24),
+                  ),
+                ],
+              ),
+            ),
+          /////////////////////////////////////////////
+          Positioned(
+            bottom: 100,
+            right: 40,
+            child: FloatingActionButton(
+              backgroundColor: leviosaColor,
+              onPressed: () {
+                if (currentSpeed + 1 == speed.length) {
+                  currentSpeed = 0;
+                } else {
+                  currentSpeed += 1;
+                }
+                setState(() {});
+              },
+              child: Text(
+                speed[currentSpeed].toString(),
+                style:
+                    const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -71,7 +122,13 @@ class _TextToSignPageState extends State<TextToSignPage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
+        onTap: () => setState(() {}),
         controller: _controller,
+        focusNode: focusNode,
+        onTapOutside: (event) {
+          focusNode.unfocus();
+          setState(() {});
+        },
         decoration: InputDecoration(
           hintText: "Enter the text",
           border: const OutlineInputBorder(
@@ -99,6 +156,7 @@ class _TextToSignPageState extends State<TextToSignPage> {
                 //showSnackBar(formattedSentence, context);
                 avatarVideoPath = await AiServices.generateAvatar(
                     formattedSentence, modelsInDb);
+                tts.speak(lastWords);
               } catch (e) {
                 showSnackBar('Error', context);
               }

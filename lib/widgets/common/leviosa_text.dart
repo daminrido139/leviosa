@@ -11,6 +11,7 @@ class LeviosaText extends StatefulWidget {
   final int? maxLines;
   final TextAlign? textAlign;
   final bool? softWrap;
+  final Language? forceLanguage;
   const LeviosaText(
     this.text, {
     super.key,
@@ -19,6 +20,7 @@ class LeviosaText extends StatefulWidget {
     this.maxLines = 10,
     this.textAlign,
     this.softWrap,
+    this.forceLanguage,
   });
 
   @override
@@ -30,17 +32,17 @@ class _LeviosaTextState extends State<LeviosaText> {
   Language usedLanguage = Language.english;
 
   Future<void> setLanguage(Language language) async {
-    if (usedLanguage == language) {
+    if (widget.forceLanguage == null && usedLanguage == language) {
       return;
     }
     usedLanguage = language;
-    if (language == Language.english) {
+    if (widget.forceLanguage == null && language == Language.english) {
       translatedText = null;
       return;
     }
     translatedText = await LanguageTranslation.translate(
       widget.text,
-      language,
+      widget.forceLanguage ?? language,
     );
     setState(() {});
   }

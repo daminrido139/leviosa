@@ -25,7 +25,9 @@ class _MathsDivisionPageState extends State<MathsDivisionPage> {
     int curRightOperand = operands[currentPage * 2 + 1];
 
     return Scaffold(
-      appBar: _appBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+      ),
       body: Column(
         children: [
           SizedBox(height: height * 0.1),
@@ -122,31 +124,6 @@ class _MathsDivisionPageState extends State<MathsDivisionPage> {
       ),
     );
   }
-
-  PreferredSizeWidget? _appBar() => AppBar(
-        backgroundColor: leviosaColor,
-        title: const Text('Division'),
-        actions: const [
-          Text(
-            "0  🪙",
-            style: TextStyle(
-              fontSize: 24,
-            ),
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Text(
-            "0  🔥",
-            style: TextStyle(
-              fontSize: 24,
-            ),
-          ),
-          SizedBox(
-            width: 5,
-          ),
-        ],
-      );
 
   Widget bottomBar() => SizedBox(
       height: height * 0.16,

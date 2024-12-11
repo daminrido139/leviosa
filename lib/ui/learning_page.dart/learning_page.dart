@@ -31,6 +31,7 @@ class _LearningpageState extends State<Learningpage> {
   List<String> levelRoutes = [
     RouterConstants.level1Page,
     RouterConstants.level2Page,
+    RouterConstants.level3Page,
   ];
 
   @override
