@@ -242,8 +242,8 @@ class _AssignmentStudentDetailedViewState
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
+                  onPressed: () => () async {
+                    context.pop();
                   },
                   child: const Text("Close"),
                 ),

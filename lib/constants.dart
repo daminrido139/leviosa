@@ -7,6 +7,7 @@ enum UserRole {
   student,
   teacher,
   parent,
+  hr,
   none,
 }
 

@@ -3,9 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:leviosa/router_constants.dart';
 
-class DynamicCvPreview extends StatelessWidget {
+class DynamicCvPreview extends StatefulWidget {
   const DynamicCvPreview({super.key});
 
+  @override
+  State<DynamicCvPreview> createState() => _DynamicCvPreviewState();
+}
+
+class _DynamicCvPreviewState extends State<DynamicCvPreview> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -46,6 +51,7 @@ class DynamicCvPreview extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 10),
                 Row(
                   children: [
                     Text.rich(
@@ -72,8 +78,6 @@ class DynamicCvPreview extends StatelessWidget {
                     ),
                     const SizedBox(width: 2),
                     Image.asset("assets/img/growth-up.png"),
-                    const Spacer(),
-                    const _TopPercent(),
                   ],
                 ),
                 const SizedBox(height: 13),
@@ -127,26 +131,26 @@ class DynamicCvPreview extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 13),
+                const SizedBox(height: 10),
               ],
             ),
           ),
           Positioned(
-            right: 25,
-            bottom: 15,
+            right: 30,
+            bottom: 35,
             child: SizedBox(
-                height: 75,
-                width: 75,
+                height: 90,
+                width: 90,
                 child: Image.asset("assets/img/diamond.png")),
           ),
           Positioned(
-            right: 45,
-            bottom: 20,
+            right: 40,
+            bottom: 35,
             child: Text(
               'LEVEL 100',
               style: GoogleFonts.inter(
                 color: const Color(0xFF3B3B3B),
-                fontSize: 8,
+                fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),

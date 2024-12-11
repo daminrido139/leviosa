@@ -38,25 +38,25 @@ class AssignmentServices {
     final email = FirebaseAuth.instance.currentUser!.email!;
     final school = getSchool(email);
     List<AssignmentModel> assignments = [];
-    for (CourseModel course in courses) {
-      final snapshot = await _firestore
-          .collection('school')
-          .doc(school)
-          .collection('Assignment')
-          // .get();
-          .where(
-            'course_code',
-            isEqualTo: course.courseCode,
-          )
-          .get(const GetOptions(source: Source.server));
+    // for (CourseModel course in courses) {
+    final snapshot = await _firestore
+        .collection('school')
+        .doc(school)
+        .collection('Assignment')
+        .get();
+    // .where(
+    //   'course_code',
+    //   isEqualTo: course.courseCode,
+    // )
+    // .get(const GetOptions(source: Source.server));
 
-      final data = snapshot.docs
-          .map((q) => AssignmentModel.fromJson(
-                q.data(),
-              ))
-          .toList();
-      assignments.addAll(data);
-    }
+    final data = snapshot.docs
+        .map((q) => AssignmentModel.fromJson(
+              q.data(),
+            ))
+        .toList();
+    assignments.addAll(data);
+    // }
     return assignments;
   }
 
@@ -65,23 +65,23 @@ class AssignmentServices {
     final email = FirebaseAuth.instance.currentUser!.email!;
     final school = getSchool(email);
     List<AssignmentModel> assignments = [];
-    for (CourseModel course in courses) {
-      final snapshot = await _firestore
-          .collection('school')
-          .doc(school)
-          .collection('Assignment')
-          .where(
-            'course_code',
-            isEqualTo: course.courseCode,
-          )
-          .get();
+    // for (CourseModel course in courses) {
+    final snapshot = await _firestore
+        .collection('school')
+        .doc(school)
+        .collection('Assignment')
+        // .where(
+        //   'course_code',
+        //   isEqualTo: course.courseCode,
+        // )
+        .get();
 
-      assignments.addAll(snapshot.docs
-          .map((q) => AssignmentModel.fromJson(
-                q.data(),
-              ))
-          .toList());
-    }
+    assignments.addAll(snapshot.docs
+        .map((q) => AssignmentModel.fromJson(
+              q.data(),
+            ))
+        .toList());
+    // }
     return assignments;
   }
 }
