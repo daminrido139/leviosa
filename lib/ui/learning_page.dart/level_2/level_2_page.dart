@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/constants.dart';
+import 'package:leviosa/model/game_model.dart';
+import 'package:leviosa/services/common_services.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
 class Level2Page extends StatefulWidget {
+  final GameModel gameModel;
   const Level2Page({
     super.key,
+    required this.gameModel,
   });
 
   @override
@@ -13,6 +17,15 @@ class Level2Page extends StatefulWidget {
 }
 
 class _Level2PageState extends State<Level2Page> {
+  static const int currentLevel = 2;
+  int currentLesson = 1;
+
+  @override
+  void initState() {
+    currentLesson = widget.gameModel.lesson;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
@@ -62,6 +75,7 @@ class _Level2PageState extends State<Level2Page> {
                 Utility.level2[ind][1],
                 Utility.level2[ind][2],
                 Utility.level2[ind][3],
+                ind,
               );
             }),
       ),
@@ -73,9 +87,13 @@ class _Level2PageState extends State<Level2Page> {
     String tittle,
     String subtittle,
     String push,
+    int ind,
   ) {
     return GestureDetector(
-      onTap: () => context.push(push),
+      onTap: (currentLevel > widget.gameModel.level && ind + 1 > currentLesson)
+          ? () => showSnackBar(
+              'Lesson locked! Complete the previous lesson', context)
+          : () => context.push(push),
       child: Container(
         margin: const EdgeInsets.only(bottom: 20),
         color: Colors.white.withOpacity(0.75),
@@ -116,6 +134,16 @@ class _Level2PageState extends State<Level2Page> {
                 )
               ],
             ),
+            const Spacer(),
+            if (currentLevel > widget.gameModel.level &&
+                ind + 1 > currentLesson)
+              const Icon(
+                Icons.lock_outlined,
+                size: 34,
+              ),
+            const SizedBox(
+              width: 16,
+            )
           ],
         ),
       ),

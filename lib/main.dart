@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leviosa/app_router.dart';
+import 'package:leviosa/cubit/game_cubit.dart';
 import 'package:leviosa/cubit/theme_cubit.dart';
 import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/firebase_options.dart';
@@ -36,6 +37,7 @@ class _MainAppState extends State<MainApp> {
       providers: [
         BlocProvider(create: (context) => UserCubit()),
         BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(create: (context) => GameCubit()),
       ],
       child: MaterialApp.router(
         routerConfig: appRouter,
