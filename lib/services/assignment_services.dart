@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:leviosa/model/assignment_model.dart';
-import 'package:leviosa/model/course_model.dart';
 import 'package:leviosa/services/common_services.dart';
-import 'package:leviosa/services/course_service.dart';
 
 class AssignmentServices {
   static final _firestore = FirebaseFirestore.instance;
@@ -34,7 +32,7 @@ class AssignmentServices {
   }
 
   static Future<List<AssignmentModel>> fetchAssignmentStudent() async {
-    final courses = await CourseService.fetchMyLearningCourses();
+    // final courses = await CourseService.fetchMyLearningCourses();
     final email = FirebaseAuth.instance.currentUser!.email!;
     final school = getSchool(email);
     List<AssignmentModel> assignments = [];
@@ -61,7 +59,7 @@ class AssignmentServices {
   }
 
   static Future<List<AssignmentModel>> fetchAssignmentTeacher() async {
-    final courses = await CourseService.fetchMyTeachingCourses();
+    // final courses = await CourseService.fetchMyTeachingCourses();
     final email = FirebaseAuth.instance.currentUser!.email!;
     final school = getSchool(email);
     List<AssignmentModel> assignments = [];

@@ -43,6 +43,10 @@ class AiServices {
     for (String w in words) {
       w = w.trim().toLowerCase();
 
+      if (int.tryParse(w) != null) {
+        w = '_$w';
+      }
+      print(w + "🥰");
       if (modelsInDb.containsKey(w)) {
         if (modelsInDb[w] != null) {
           formattedWordsUrl.add(modelsInDb[w]!);
