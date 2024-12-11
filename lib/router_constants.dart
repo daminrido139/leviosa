@@ -3,6 +3,8 @@ class RouterConstants {
   static const commonStudentPageRoute = "/common-student-page";
   static const commonTeacherPageRoute = "/common-teacher-page";
   static const commonParentPageRoute = "/common-Parent-Page";
+  static const commonHrPageRoute = "/common-Hr-Page";
+
   static const callPage = "/call-page";
   static const appEntry = "/app-entry";
   static const level1Page = "/level-1-page";
@@ -33,4 +35,5 @@ class RouterConstants {
   static const mathsDivisionPage = '/maths-division-page';
   static const mathsTablePage = '/maths-table-page';
   static const reportView = '/report-view';
+  static const jobPostPage = '/job-post-page';
 }

@@ -5,20 +5,18 @@ import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/model/assignment_model.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/assignment_services.dart';
-import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
+import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
-class AssignmentStudentPage extends StatefulWidget {
-  const AssignmentStudentPage({super.key});
+class JobPost extends StatefulWidget {
+  const JobPost({super.key});
 
   @override
-  State<AssignmentStudentPage> createState() => _AssignmentStudentPageState();
+  State<JobPost> createState() => _JobPostState();
 }
 
-class _AssignmentStudentPageState extends State<AssignmentStudentPage>
-    with SingleTickerProviderStateMixin {
-  // late final TabController tabController;
+class _JobPostState extends State<JobPost> {
   int currentIndex = 0;
   final GlobalKey<ScaffoldState> key = GlobalKey();
   List<AssignmentModel> assignments = [];
@@ -33,7 +31,7 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
   }
 
   fetchassignments() async {
-    assignments = await AssignmentServices.fetchAssignmentStudent();
+    assignments = await AssignmentServices.fetchAssignmentTeacher();
     setState(() {});
   }
 
@@ -55,58 +53,87 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: key,
-      drawer: const DrawerPage(),
-      appBar: AppBar(
-        leadingWidth: 60,
-        backgroundColor: Colors.white,
-        leading: InkWell(
-          onTap: () {
-            key.currentState!.openDrawer();
-          },
-          child: Row(
-            children: [
-              const SizedBox(
-                width: 15,
-              ),
-              DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
-            ],
+        key: key,
+        drawer: const DrawerPage(),
+        appBar: AppBar(
+          leadingWidth: 60,
+          backgroundColor: Colors.white,
+          leading: InkWell(
+            onTap: () {
+              key.currentState!.openDrawer();
+            },
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 15,
+                ),
+                DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
+              ],
+            ),
           ),
+          title: const LeviosaText(
+            'Job Post',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+          actions: [
+            GestureDetector(
+              onTap: () =>
+                  context.push(RouterConstants.newAssignmentPage).then((_) {
+                return fetchassignments();
+              }),
+              child: Container(
+                height: 35,
+                width: 100,
+                margin: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    gradient: LinearGradient(colors: [
+                      Color.fromARGB(255, 243, 227, 173),
+                      Color.fromRGBO(228, 212, 156, 1),
+                    ], begin: Alignment.topCenter, end: Alignment.bottomLeft),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(0, 0, 0, 0.1),
+                        blurRadius: 5,
+                      )
+                    ]),
+                child: const Center(
+                    child: LeviosaText(
+                  "+ Create",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                )),
+              ),
+            )
+          ],
         ),
-        title: const LeviosaText(
-          'Assignments',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: Column(
-        children: [forthcoming(context)],
-      ),
-    );
+        body: forthcoming(context));
   }
 
   Widget forthcoming(BuildContext context) {
-    return Column(children: [
-      const SizedBox(height: 20),
-      ListView.builder(
-          itemCount: assignments.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            return assignmentcard(
-                context,
-                assignments[index].dueDate.split("&#")[1],
-                "(few days)",
-                const Color.fromARGB(255, 243, 163, 97),
-                assignments[index].heading,
-                "Ms",
-                assignments[index].heading,
-                assignments[index].courseName,
-                assignments[index].desc,
-                assignments[index].dueDate,
-                assignments[index].dueDate,
-                assignments[index].attachments);
-          }),
-    ]);
+    return SingleChildScrollView(
+      child: Column(children: [
+        const SizedBox(height: 20),
+        ListView.builder(
+            itemCount: assignments.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return assignmentcard(
+                  context,
+                  assignments[index].dueDate.split("&#")[1],
+                  "(few days)",
+                  const Color.fromARGB(255, 243, 163, 97),
+                  assignments[index].heading,
+                  "OC",
+                  assignments[index].heading,
+                  assignments[index].courseName,
+                  assignments[index].desc,
+                  assignments[index].dueDate,
+                  assignments[index].dueDate,
+                  assignments[index].attachments);
+            }),
+      ]),
+    );
   }
 
   Widget pastdue() {

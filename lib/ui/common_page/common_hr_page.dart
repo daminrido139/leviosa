@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:leviosa/router_constants.dart';
+import 'package:leviosa/constants.dart';
 import 'package:leviosa/ui/calendar_page/calendar_page.dart';
 import 'package:leviosa/ui/chat_page/chat_page.dart';
-import 'package:leviosa/ui/course_channel_page/course_channel_student_page.dart';
-import 'package:leviosa/ui/job/job_search.dart';
+import 'package:leviosa/ui/job/job_post.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
-class CommonStudentPage extends StatefulWidget {
-  const CommonStudentPage({
-    super.key,
-  });
+class CommonHrPage extends StatefulWidget {
+  const CommonHrPage({super.key});
 
   @override
-  State<CommonStudentPage> createState() => _HomepageState();
+  State<CommonHrPage> createState() => _CommonHrPageState();
 }
 
-class _HomepageState extends State<CommonStudentPage> {
+class _CommonHrPageState extends State<CommonHrPage> {
   int selectedPage = 1;
 
   @override
@@ -24,17 +20,11 @@ class _HomepageState extends State<CommonStudentPage> {
     return Scaffold(
       body: IndexedStack(
         index: selectedPage,
-        children: const [
-          CalendarPage(),
-          ChatPage(),
-          JobSearch(),
-          CourseChannelStudentPage(),
-        ],
+        children: const [CalendarPage(), ChatPage(), JobPost()],
       ),
       bottomNavigationBar: Container(
         height: 60,
-        decoration:
-            const BoxDecoration(color: Color.fromARGB(255, 243, 227, 173)),
+        decoration: const BoxDecoration(color: leviosaColor),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -97,46 +87,6 @@ class _HomepageState extends State<CommonStudentPage> {
                     "JOB",
                     style: TextStyle(
                         fontWeight: selectedPage == 2
-                            ? FontWeight.bold
-                            : FontWeight.normal),
-                  )
-                ],
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                selectedPage = 3;
-                setState(() {});
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                      selectedPage == 3 ? Icons.school : Icons.school_outlined),
-                  LeviosaText(
-                    "Course",
-                    style: TextStyle(
-                        fontWeight: selectedPage == 3
-                            ? FontWeight.bold
-                            : FontWeight.normal),
-                  )
-                ],
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                context.push(RouterConstants.learningPage);
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    selectedPage == 4 ? Icons.book : Icons.book_outlined,
-                  ),
-                  LeviosaText(
-                    "Learning",
-                    style: TextStyle(
-                        fontWeight: selectedPage == 4
                             ? FontWeight.bold
                             : FontWeight.normal),
                   )

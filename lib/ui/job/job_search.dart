@@ -5,22 +5,20 @@ import 'package:leviosa/cubit/user_cubit.dart';
 import 'package:leviosa/model/assignment_model.dart';
 import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/services/assignment_services.dart';
-import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/ui/drawer_page/drawer_page.dart';
+import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 
-class AssignmentStudentPage extends StatefulWidget {
-  const AssignmentStudentPage({super.key});
+class JobSearch extends StatefulWidget {
+  const JobSearch({super.key});
 
   @override
-  State<AssignmentStudentPage> createState() => _AssignmentStudentPageState();
+  State<JobSearch> createState() => _JobSearchState();
 }
 
-class _AssignmentStudentPageState extends State<AssignmentStudentPage>
-    with SingleTickerProviderStateMixin {
-  // late final TabController tabController;
-  int currentIndex = 0;
+class _JobSearchState extends State<JobSearch> {
   final GlobalKey<ScaffoldState> key = GlobalKey();
+  final TextEditingController searchController = TextEditingController();
   List<AssignmentModel> assignments = [];
 
   @override
@@ -35,53 +33,6 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
   fetchassignments() async {
     assignments = await AssignmentServices.fetchAssignmentStudent();
     setState(() {});
-  }
-
-  @override
-  void dispose() {
-    // tabController.dispose();
-    super.dispose();
-  }
-
-  // void onTabChange() {
-  //   if (tabController.index != currentIndex) {
-  //     setState(() {
-  //       currentIndex = tabController.index;
-  //     });
-  //   }
-  // }
-
-  int index = 0;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: key,
-      drawer: const DrawerPage(),
-      appBar: AppBar(
-        leadingWidth: 60,
-        backgroundColor: Colors.white,
-        leading: InkWell(
-          onTap: () {
-            key.currentState!.openDrawer();
-          },
-          child: Row(
-            children: [
-              const SizedBox(
-                width: 15,
-              ),
-              DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
-            ],
-          ),
-        ),
-        title: const LeviosaText(
-          'Assignments',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: Column(
-        children: [forthcoming(context)],
-      ),
-    );
   }
 
   Widget forthcoming(BuildContext context) {
@@ -107,6 +58,64 @@ class _AssignmentStudentPageState extends State<AssignmentStudentPage>
                 assignments[index].attachments);
           }),
     ]);
+  }
+
+  @override
+  void dispose() {
+    // tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: key,
+      drawer: const DrawerPage(),
+      appBar: AppBar(
+        leadingWidth: 60,
+        backgroundColor: Colors.white,
+        leading: InkWell(
+          onTap: () {
+            key.currentState!.openDrawer();
+          },
+          child: Row(
+            children: [
+              const SizedBox(
+                width: 15,
+              ),
+              DefaultDp(name: context.read<UserCubit>().state.name, size: 40),
+            ],
+          ),
+        ),
+        title: const LeviosaText(
+          'Job Search',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: Column(
+        children: [searchBox(), forthcoming(context)],
+      ),
+    );
+  }
+
+  Widget searchBox() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: TextField(
+        // canRequestFocus: false,
+        decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: Colors.black),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(color: Colors.black),
+            ),
+            prefixIcon: const Icon(Icons.search),
+            hintText: "Search"),
+      ),
+    );
   }
 
   Widget pastdue() {

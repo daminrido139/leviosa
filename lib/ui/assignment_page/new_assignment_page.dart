@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leviosa/constants.dart';
@@ -112,7 +111,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
     return Scaffold(
       appBar: AppBar(
         title: const LeviosaText(
-          'Create Assignment',
+          'Create Job Post',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.white,
@@ -132,7 +131,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          selectCourse(),
+                          // selectCourse(),
                           ////////////////////////////////
                           const SizedBox(height: 8),
                           //////////////////////////////
@@ -222,7 +221,7 @@ class _NewAssignmentPageState extends State<NewAssignmentPage> {
                     child: isLoading
                         ? const Loader()
                         : const LeviosaText(
-                            'Create Assignment',
+                            'Create Job Post',
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w500,

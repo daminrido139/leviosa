@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:leviosa/router_constants.dart';
 import 'package:leviosa/widgets/common/chart.dart';
 import 'package:leviosa/widgets/common/default_dp.dart';
 import 'package:leviosa/widgets/common/dynamic_cv_preview.dart';
