@@ -1,9 +1,15 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leviosa/constants.dart';
 import 'package:leviosa/cubit/theme_cubit.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
 
 bool isLightMode(BuildContext context) {
   return context.watch<ThemeCubit>().isLightTheme();
@@ -129,4 +135,47 @@ showSnackBar(String content, BuildContext context) {
       duration: const Duration(milliseconds: 2000),
     ),
   );
+}
+
+Future<String> saveUint8ListToFile(Uint8List uint8list, String fileName) async {
+  final directory = await getTemporaryDirectory();
+  final filePath = '${directory.path}/$fileName';
+  final file = File(filePath);
+  await file.writeAsBytes(uint8list);
+  return filePath;
+}
+
+Future<String?> mergeVideos(List<Uint8List> videoList) async {
+  final tempDir = await getTemporaryDirectory();
+  final filePaths = <String>[];
+  for (int i = 0; i < videoList.length; i++) {
+    final path = await saveUint8ListToFile(videoList[i], 'video_$i.mp4');
+    filePaths.add(path);
+  }
+
+  final listFilePath = '${tempDir.path}/file_list.txt';
+  final listFile = File(listFilePath);
+  final listContent = filePaths.map((path) => "file '$path'").join('\n');
+  await listFile.writeAsString(listContent);
+
+  final outputPath = '${tempDir.path}/merged_video.mp4';
+  final file = File(outputPath);
+  if (await file.exists()) await file.delete();
+  final command = '-f concat -safe 0 -i $listFilePath -c copy $outputPath';
+  await FFmpegKit.execute(command);
+
+  return outputPath;
+}
+
+Future<Uint8List?> downloadFileAsUint8List(String fileUrl) async {
+  try {
+    final response = await http.get(Uri.parse(fileUrl));
+
+    if (response.statusCode == 200) {
+      return response.bodyBytes;
+    }
+  } catch (e) {
+    return null;
+  }
+  return null;
 }
