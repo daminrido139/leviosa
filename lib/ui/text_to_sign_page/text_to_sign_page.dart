@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:leviosa/services/ai_services.dart';
+import 'package:leviosa/services/common_services.dart';
+import 'package:leviosa/widgets/file/avatar_video_player.dart';
 
 class TextToSignPage extends StatefulWidget {
   const TextToSignPage({super.key});
@@ -8,175 +11,104 @@ class TextToSignPage extends StatefulWidget {
 }
 
 class _TextToSignPageState extends State<TextToSignPage> {
-  String data = "";
-  bool isFocus = false;
-
-  bool isConverting = false;
   final _controller = TextEditingController();
-  final _focus = FocusNode();
+  Map<String, String> modelsInDb = {};
+  String? avatarVideoPath;
+  String lastWords = '';
+  bool loading = false;
 
   @override
   void initState() {
     super.initState();
-    _focus.addListener(checkFocus);
+    initialize();
+  }
+
+  Future<void> initialize() async {
+    modelsInDb = await AiServices.fetch3DModels();
   }
 
   @override
   void dispose() {
     _controller.dispose();
-    _focus.dispose();
     super.dispose();
-  }
-
-  void checkFocus() async {
-    if (!_focus.hasFocus) {
-      await Future.delayed(const Duration(milliseconds: 450));
-      isFocus = _focus.hasFocus;
-    } else {
-      isFocus = _focus.hasFocus;
-    }
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
     return Scaffold(
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      SizedBox(
-        height: height * 0.7,
-        width: MediaQuery.of(context).size.width,
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: SizedBox(
+                    height: height * 0.9,
+                    child: InteractiveViewer(
+                      child: (avatarVideoPath == null || loading)
+                          ? Image.asset(
+                              'assets/img/avatar.png',
+                              fit: BoxFit.cover,
+                            )
+                          : AvatarVideoPlayer(
+                              filePath: avatarVideoPath!,
+                              key: UniqueKey(),
+                            ),
+                    ),
+                  ),
+                ),
+              ),
+              inputField(),
+            ],
+          ),
+        ],
       ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TextField(
-            focusNode: _focus,
-            controller: _controller,
-            decoration: InputDecoration(
-                hintText: "Enter the text",
-                border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    borderSide: BorderSide(color: Colors.black)),
-                focusedBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    borderSide: BorderSide(
-                        color: Color.fromARGB(255, 233, 223, 190), width: 3)),
-                enabledBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    borderSide: BorderSide(color: Colors.black)),
-                prefixIcon: const Icon(Icons.text_fields_outlined),
-                suffixIcon: IconButton(
-                    onPressed: () async {
-                      _focus.unfocus();
-                      if (isConverting) {
-                        return;
-                      }
-                      isConverting = true;
-                      await Future.delayed(const Duration(milliseconds: 1500));
-                      data = 'excited';
-                      setState(() {});
-                      await Future.delayed(const Duration(seconds: 8));
-                      data = '';
-                      isConverting = false;
-                      setState(() {});
-                    },
-                    icon: const Icon(Icons.send)))),
+    );
+  }
+
+  Widget inputField() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        controller: _controller,
+        decoration: InputDecoration(
+          hintText: "Enter the text",
+          border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderSide: BorderSide(color: Colors.black)),
+          focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderSide: BorderSide(
+                  color: Color.fromARGB(255, 233, 223, 190), width: 3)),
+          enabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderSide: BorderSide(color: Colors.black)),
+          prefixIcon: const Icon(Icons.text_fields_outlined),
+          suffixIcon: IconButton(
+            onPressed: () async {
+              loading = true;
+              lastWords = _controller.text;
+              setState(() {});
+              _controller.clear();
+              FocusScope.of(context).unfocus();
+              try {
+                final formattedSentence =
+                    await AiServices.formatSentence(lastWords);
+                setState(() {});
+                //showSnackBar(formattedSentence, context);
+                avatarVideoPath = await AiServices.generateAvatar(
+                    formattedSentence, modelsInDb);
+              } catch (e) {
+                showSnackBar('Error', context);
+              }
+              loading = false;
+              setState(() {});
+            },
+            icon: const Icon(Icons.send),
+          ),
+        ),
       ),
-    ])
-
-        // body: Column(
-        //   children: [
-
-        // Expanded(
-        //   child: Container(
-        //     color: Colors.black,
-        //     child: Cube(
-        //       onSceneCreated: (Scene scene) {
-        //         scene.world.add(Object(fileName: 'assets/img/MaleLow.obj'));
-        //         scene.camera.zoom = 20;
-        //       },
-        //     ),
-        //   ),
-        // ),
-        // SizedBox(
-        //     height: 300,
-        //     width: MediaQuery.of(context).size.width,
-        //     child: data.isEmpty
-        //         ? Image.asset(
-        //             "assets/ISL_Gifs/stll.png",
-        //             fit: BoxFit.cover,
-        //             errorBuilder: (context, error, stackTrace) {
-        //               return const Center(
-        //                 child: LeviosaText(
-        //                   "Sry No Image Found....",
-        //                   style: TextStyle(
-        //                     fontSize: 24,
-        //                   ),
-        //                 ),
-        //               );
-        //             },
-        //           )
-        //         : Image.asset(
-        //             "assets/ISL_Gifs/excited.gif",
-        //             fit: BoxFit.cover,
-        //             errorBuilder: (context, error, stackTrace) {
-        //               return const Center(
-        //                 child: LeviosaText(
-        //                   "Sry No Image Found....",
-        //                   style: TextStyle(
-        //                     fontSize: 24,
-        //                   ),
-        //                 ),
-        //               );
-        //             },
-        //           )),
-        // const Spacer(),
-        // if (!isFocus)
-        //   Image.asset(
-        //     "assets/img/voice.png",
-        //     errorBuilder: (context, error, stackTrace) =>
-        //         const SizedBox.shrink(),
-        //   ),
-        // const Spacer(),
-        // Padding(
-        //   padding: const EdgeInsets.all(8.0),
-        //   child: TextField(
-        //       focusNode: _focus,
-        //       controller: _controller,
-        //       decoration: InputDecoration(
-        //           hintText: "Enter the text",
-        //           border: const OutlineInputBorder(
-        //               borderRadius: BorderRadius.all(Radius.circular(10)),
-        //               borderSide: BorderSide(color: Colors.black)),
-        //           focusedBorder: const OutlineInputBorder(
-        //               borderRadius: BorderRadius.all(Radius.circular(10)),
-        //               borderSide: BorderSide(
-        //                   color: Color.fromARGB(255, 233, 223, 190),
-        //                   width: 3)),
-        //           enabledBorder: const OutlineInputBorder(
-        //               borderRadius: BorderRadius.all(Radius.circular(10)),
-        //               borderSide: BorderSide(color: Colors.black)),
-        //           prefixIcon: const Icon(Icons.text_fields_outlined),
-        //           suffixIcon: IconButton(
-        //               onPressed: () async {
-        //                 _focus.unfocus();
-        //                 if (isConverting) {
-        //                   return;
-        //                 }
-        //                 isConverting = true;
-        //                 await Future.delayed(
-        //                     const Duration(milliseconds: 1500));
-        //                 data = 'excited';
-        //                 setState(() {});
-        //                 await Future.delayed(const Duration(seconds: 8));
-        //                 data = '';
-        //                 isConverting = false;
-        //                 setState(() {});
-        //               },
-        //               icon: const Icon(Icons.send)))),
-        // ),
-        // ]
-        // )
-        );
+    );
   }
 }

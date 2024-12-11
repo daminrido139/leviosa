@@ -1,10 +1,12 @@
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:leviosa/constants.dart';
-import 'package:leviosa/model/image_generation_models.dart';
 import 'package:leviosa/widgets/common/gradient_text.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
-import 'package:provider/provider.dart';
 
 class LeviosaChatBot extends StatefulWidget {
   const LeviosaChatBot({super.key});
@@ -252,12 +254,10 @@ class _LeviosaChatBotState extends State<LeviosaChatBot> {
     if (text != "") {
       _messages.insert(0, {'text': text, 'sender': 'user', 'image': false});
 
-      await Provider.of<HomeProvider>(context, listen: false)
-          .textToImage(text, context);
-      _messages.insert(0, {
-        "image": true,
-        "u18lst": Provider.of<HomeProvider>(context, listen: false).imageData!
-      });
+      final img = await textToImage(text, context);
+      if (img != null) {
+        _messages.insert(0, {"image": true, "u18lst": img});
+      }
       setState(() {
         isloadingimg = false;
       });
@@ -297,5 +297,44 @@ class _LeviosaChatBotState extends State<LeviosaChatBot> {
                 borderRadius: BorderRadius.circular(
                   12.0,
                 )));
+  }
+
+  Future<Uint8List?> textToImage(String prompt, BuildContext context) async {
+    String engineId = "stable-diffusion-v1-6";
+    String apiHost = 'https://api.stability.ai';
+    String apiKey = 'sk-Urz8ZXKojoIdZJXaOZmARnpCjQuqXm9GEcMwK7kZwkKRdJoE';
+    debugPrint(prompt);
+    final response = await http.post(
+        Uri.parse('$apiHost/v1/generation/$engineId/text-to-image'),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "image/png",
+          "Authorization": "Bearer $apiKey"
+        },
+        body: jsonEncode({
+          "text_prompts": [
+            {
+              "text": prompt,
+              "weight": 1,
+            }
+          ],
+          "cfg_scale": 7,
+          "height": 1024,
+          "width": 1024,
+          "samples": 1,
+          "steps": 30,
+        }));
+
+    if (response.statusCode == 200) {
+      try {
+        debugPrint(response.statusCode.toString());
+        return response.bodyBytes;
+      } on Exception {
+        debugPrint("failed to generate image");
+      }
+    } else {
+      debugPrint("failed to generate image");
+    }
+    return null;
   }
 }

@@ -151,3 +151,20 @@ class VerticalItem {
 
   const VerticalItem(this.imagePath, this.title, this.subtitle);
 }
+
+/////////// prompt /////////////////
+const String text2signPrompt = '''
+we are translating sentence to Indian sign language. I have animated 3D models for alphabets and some words.
+if i give you a sentence, change the format according to the ISL rules and return each word with a single space.
+
+Rules
+  the verb should go to the last
+  every word should be in simple present tense
+  should eliminate all the connecting words such as is, was, have, been, etc..
+
+Example sentence:
+input: He is drinking water
+output: He water drink
+
+Note: the output only contains alphabets, numbers and space, it should not contain any other punctuations or special characters
+''';

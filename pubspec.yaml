@@ -31,8 +31,10 @@ dependencies:
   image: ^4.3.0
   image_picker: ^1.1.2
   intl: ^0.19.0
+  path_provider: ^2.1.5
   syncfusion_flutter_pdfviewer: ^27.2.4
   translator: null
+  video_player: ^2.9.2
   youtube_player_iframe: ^5.1.5
   zego_uikit_prebuilt_call: ^4.15.12
   zego_uikit_prebuilt_live_streaming: ^3.12.8
