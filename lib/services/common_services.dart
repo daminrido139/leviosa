@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -153,14 +154,12 @@ Future<String?> mergeVideos(List<Uint8List> videoList) async {
     filePaths.add(path);
   }
 
-  final listFilePath = '${tempDir.path}/file_list.txt';
+  final listFilePath = '${tempDir.path}/${generateRandomFilename()}.txt';
   final listFile = File(listFilePath);
   final listContent = filePaths.map((path) => "file '$path'").join('\n');
   await listFile.writeAsString(listContent);
 
-  final outputPath = '${tempDir.path}/merged_video.mp4';
-  final file = File(outputPath);
-  if (await file.exists()) await file.delete();
+  final outputPath = '${tempDir.path}/${generateRandomFilename()}.mp4';
   final command = '-f concat -safe 0 -i $listFilePath -c copy $outputPath';
   await FFmpegKit.execute(command);
 
@@ -178,4 +177,13 @@ Future<Uint8List?> downloadFileAsUint8List(String fileUrl) async {
     return null;
   }
   return null;
+}
+
+String generateRandomFilename() {
+  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  final rnd = Random();
+  final randomString = String.fromCharCodes(Iterable.generate(
+      10, (_) => chars.codeUnitAt(rnd.nextInt(chars.length))));
+
+  return randomString;
 }
