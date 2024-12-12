@@ -36,7 +36,6 @@ dependencies:
   screenshot: ^3.0.0
   speech_to_text: ^7.0.0
   syncfusion_flutter_pdfviewer: ^27.2.4
-  translator: null
   video_player: ^2.9.2
   youtube_player_iframe: ^5.1.5
   zego_uikit_prebuilt_call: ^4.15.12

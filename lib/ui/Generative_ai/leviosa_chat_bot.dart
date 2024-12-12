@@ -85,7 +85,7 @@ class _LeviosaChatBotState extends State<LeviosaChatBot> {
           color: Colors.white,
         ),
         title: const GradientText(
-          "Leviosa ChatBot",
+          "લેવિયોસા ચેટબોટ",
           style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           gradient: LinearGradient(
               colors: [Color.fromRGBO(228, 212, 156, 1), Color(0xffad9c00)]),
@@ -197,7 +197,7 @@ class _LeviosaChatBotState extends State<LeviosaChatBot> {
               maxLines: 5,
               controller: _controller,
               decoration: InputDecoration(
-                hintText: 'Type a message...',
+                hintText: 'એક સંદેશ ટાઈપ કરો...',
                 hintStyle: const TextStyle(color: Colors.grey),
                 filled: true,
                 fillColor: Colors.white,

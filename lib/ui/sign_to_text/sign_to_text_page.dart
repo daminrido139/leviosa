@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:leviosa/constants.dart';
 //import 'package:leviosa/services/camera_services.dart';
 import 'package:leviosa/services/channel_services.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
@@ -72,9 +73,10 @@ class _SignToTextPageState extends State<SignToTextPage> {
         final img.Image orientedImage = img.bakeOrientation(capturedImage);
         label =
             await ChannelServices.predictGesture(img.encodeJpg(orientedImage));
-        if (label.isNotEmpty && label != lastPredictedWord) {
-          talkToMe(label);
-        }
+        label = convertToGujarati(label);
+        // if (label.isNotEmpty && label != lastPredictedWord) {
+        //   talkToMe(label);
+        // }
         lastPredictedWord = label;
       }
     } catch (e) {
@@ -230,10 +232,10 @@ class _SignToTextPageState extends State<SignToTextPage> {
       child: Row(
         children: [
           //////////// Realtime //////////
-          gradientSelectionBtn('Realtime', true),
+          gradientSelectionBtn('રિયલટાઇમ', true),
           /////////////////////////////
 
-          gradientSelectionBtn('Sentence', false),
+          gradientSelectionBtn('વિચારણા', false),
         ],
       ),
     );
@@ -303,7 +305,7 @@ class _SignToTextPageState extends State<SignToTextPage> {
                         }
                         isRecording = false;
                         setState(() {});
-                        talkToMe(label);
+                        //talkToMe(label);
                       },
                       child: (isRecording)
                           ? const _StopRecordIcon(Duration(seconds: 2))

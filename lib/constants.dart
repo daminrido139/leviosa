@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leviosa/router_constants.dart';
+import 'package:leviosa/services/common_services.dart';
 
 //const String leviosaServer = 'https://signify-server.onrender.com';
 
@@ -197,4 +198,66 @@ class QuizConsts {
     ["સાચો જવાબ પસંદ કરો", "0", "1", "2", "3", "2"],
     ["સાચો જવાબ પસંદ કરો", "0", "1", "2", "3", "2"],
   ];
+}
+
+const String translationPrompt = '''
+I am developing an app targeting Gujaratians.
+You are a translator. If i input a english letter, number, word or sentence, you have to provide an accuurate translation of it in Gujarati
+
+Example:
+
+input: 1
+output: ૧
+
+input: morning
+output: સવાર
+
+input: good morning
+output: સુપ્રભાત
+
+''';
+
+const List<String> alphabets = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
+
+const Map<String, String> english2Gujarati = {
+  'good': 'સારું',
+  'morning': 'સુપ્રભાત',
+};
+
+String convertToGujarati(String text) {
+  text = text.trim();
+  if (int.tryParse(text) != null) {
+    return getGujaratiNumber(text);
+  }
+  if (english2Gujarati[text] != null) {
+    return english2Gujarati[text]!;
+  }
+  return '';
 }
