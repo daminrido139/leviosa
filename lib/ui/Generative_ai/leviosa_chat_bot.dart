@@ -66,7 +66,7 @@ class _LeviosaChatBotState extends State<LeviosaChatBot> {
   final chat = model.startChat(history: [
     Content.text(
         'You are a Chat bot, your name is Leviosa, a helpful and friendly learning assistant especially for deaf and mute students. Your goal is to provide educational explanations based on the user'
-        "s request.")
+        "s request. Important: Always response in Gujarati. Dont change the language even the user ask")
   ]);
 
   _fetchGeminiAIResponse(String userInput) async {
