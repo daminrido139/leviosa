@@ -4,7 +4,7 @@ class RouterConstants {
   static const commonTeacherPageRoute = "/common-teacher-page";
   static const commonParentPageRoute = "/common-Parent-Page";
   static const commonHrPageRoute = "/common-Hr-Page";
-
+  static const avatarAiPage = '/avatar-ai';
   static const callPage = "/call-page";
   static const appEntry = "/app-entry";
   static const level1Page = "/level-1-page";
