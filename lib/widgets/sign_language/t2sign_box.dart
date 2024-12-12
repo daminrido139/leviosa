@@ -15,6 +15,8 @@ class T2signBox extends StatefulWidget {
   final bool? showLocalLanguage;
   final bool? directTranslate;
   final bool? loop;
+  final bool? showOnlySign;
+  final double? labelSize;
   const T2signBox(
       {super.key,
       this.modelsInDb,
@@ -24,7 +26,9 @@ class T2signBox extends StatefulWidget {
       this.showClose = false,
       this.showLocalLanguage = false,
       this.directTranslate = false,
-      this.loop});
+      this.loop,
+      this.showOnlySign = false,
+      this.labelSize});
 
   @override
   State<T2signBox> createState() => _T2signBoxState();
@@ -34,7 +38,7 @@ class _T2signBoxState extends State<T2signBox> {
   Map<String, String> modelsInDb = {};
   String? avatarVideoPath;
   List<double> speed = [1, 0.75, 0.5];
-  int currentSpeed = 1;
+  int currentSpeed = 0;
 
   @override
   void initState() {
@@ -57,89 +61,100 @@ class _T2signBoxState extends State<T2signBox> {
     setState(() {});
   }
 
+  Widget player() {
+    return SizedBox(
+      width: widget.width,
+      height: widget.height,
+      child: InteractiveViewer(
+        child: (avatarVideoPath == null)
+            ? Image.asset(
+                'assets/img/avatar.png',
+                fit: BoxFit.cover,
+              )
+            : AvatarVideoPlayer(
+                filePath: avatarVideoPath!,
+                key: UniqueKey(),
+                speed: speed[currentSpeed],
+                loop: widget.loop,
+              ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final normalSentence =
         '${widget.sentence[0].toUpperCase()}${widget.sentence.substring(1)}'
             .replaceAll('_', ' ');
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        SizedBox(
-          width: widget.width,
-          height: widget.height,
-          child: InteractiveViewer(
-            child: (avatarVideoPath == null)
-                ? Image.asset(
-                    'assets/img/avatar.png',
-                    fit: BoxFit.cover,
-                  )
-                : AvatarVideoPlayer(
-                    filePath: avatarVideoPath!,
-                    key: UniqueKey(),
-                    speed: speed[currentSpeed],
-                    loop: widget.loop,
+    return widget.showOnlySign!
+        ? player()
+        : Stack(
+            alignment: Alignment.center,
+            children: [
+              player(),
+              ///////////////////////
+              (widget.showLocalLanguage!)
+                  ? Positioned(
+                      bottom: 10,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          LeviosaText(
+                            normalSentence,
+                            style: const TextStyle(
+                                fontSize: 48, fontWeight: FontWeight.w500),
+                            forceLanguage: Language.gujarati,
+                          ),
+                          Text(
+                            normalSentence,
+                            style: const TextStyle(fontSize: 24),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Positioned(
+                      bottom: 50,
+                      child: Text(
+                        widget.sentence,
+                        style: TextStyle(
+                            fontSize: widget.labelSize ?? 48,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+              /////////////////////////////////
+              Positioned(
+                bottom: 150,
+                right: 10,
+                child: ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: secondaryColor),
+                  onPressed: () {
+                    if (currentSpeed + 1 == speed.length) {
+                      currentSpeed = 0;
+                    } else {
+                      currentSpeed += 1;
+                    }
+                    setState(() {});
+                  },
+                  child: Text(
+                    speed[currentSpeed].toString(),
+                    style: const TextStyle(
+                        color: leviosaColor,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700),
                   ),
-          ),
-        ),
-        ///////////////////////
-        (widget.showLocalLanguage!)
-            ? Positioned(
-                bottom: 10,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    LeviosaText(
-                      normalSentence,
-                      style: const TextStyle(
-                          fontSize: 48, fontWeight: FontWeight.w500),
-                      forceLanguage: Language.gujarati,
-                    ),
-                    Text(
-                      normalSentence,
-                      style: const TextStyle(fontSize: 24),
-                    ),
-                  ],
-                ),
-              )
-            : Positioned(
-                bottom: 50,
-                child: Text(
-                  widget.sentence,
-                  style: const TextStyle(
-                      fontSize: 48, fontWeight: FontWeight.w500),
                 ),
               ),
-        /////////////////////////////////
-        Positioned(
-          bottom: 150,
-          right: 10,
-          child: FloatingActionButton(
-            backgroundColor: leviosaColor,
-            onPressed: () {
-              if (currentSpeed + 1 == speed.length) {
-                currentSpeed = 0;
-              } else {
-                currentSpeed += 1;
-              }
-              setState(() {});
-            },
-            child: Text(
-              speed[currentSpeed].toString(),
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-            ),
-          ),
-        ),
-        if (widget.showClose!)
-          Positioned(
-            right: 25,
-            top: 25,
-            child: IconButton(
-                iconSize: 40,
-                onPressed: () => context.pop(),
-                icon: const Icon(Icons.close)),
-          ),
-      ],
-    );
+              if (widget.showClose!)
+                Positioned(
+                  right: 25,
+                  top: 25,
+                  child: IconButton(
+                      iconSize: 40,
+                      onPressed: () => context.pop(),
+                      icon: const Icon(Icons.close)),
+                ),
+            ],
+          );
   }
 }
