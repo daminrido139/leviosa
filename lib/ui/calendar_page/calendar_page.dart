@@ -35,7 +35,8 @@ class _CalendarPageState extends State<CalendarPage> {
 
   /////////// Day Span Vars ////////////////////////
 
-  String displayDate = DateFormat('MMMM d, yyyy').format(DateTime.now());
+  // String displayDate = DateFormat('MMMM d, yyyy').format(DateTime.now());
+  String displayDate = 'ડિસેમ્બર 12, 2024';
 
   //////////////////////////////////////////////////
 
@@ -81,7 +82,7 @@ class _CalendarPageState extends State<CalendarPage> {
         title: Row(
           children: [
             const LeviosaText(
-              "Calender",
+              "કૅલેન્ડર",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -151,21 +152,21 @@ class _CalendarPageState extends State<CalendarPage> {
         children: [
           //////////// Day //////////
           const Spacer(),
-          gradientSelectionBtn('Day', 0, width),
+          gradientSelectionBtn('દિવસ', 0, width),
           const Spacer(),
           segmentLine(),
           /////////////////////////////
 
           //////////// Week //////////////
           const Spacer(),
-          gradientSelectionBtn('Week', 1, width),
+          gradientSelectionBtn('હફ્તો', 1, width),
           const Spacer(),
           segmentLine(),
 
           ///////////// Month /////////////////
 
           const Spacer(),
-          gradientSelectionBtn('Month', 2, width),
+          gradientSelectionBtn('માસ', 2, width),
           const Spacer(),
           /////////////////////////////////////
         ],
@@ -380,10 +381,12 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   void changeDate(DateTime date, int _) {
-    final dateTime = DateFormat('MMMM d, yyyy').format(date);
-    if (dateTime != displayDate) {
-      displayDate = dateTime;
-      setState(() {});
-    }
+    displayDate = 'ડિસેમ્બર 12, 2024';
+    setState(() {});
+    // final dateTime = DateFormat('MMMM d, yyyy').format(date);
+    // if (dateTime != displayDate) {
+    //   displayDate = dateTime;
+    //   setState(() {});
+    // }
   }
 }

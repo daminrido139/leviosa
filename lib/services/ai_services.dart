@@ -37,7 +37,10 @@ class AiServices {
     if (sentence.isEmpty) {
       return null;
     }
-    final words = sentence.split(' ');
+    List<String> words = sentence.trim().split(' ');
+    if (!alphabets.contains(sentence[0].toUpperCase())) {
+      words = [sentence.replaceAll(' ', '_')];
+    }
     List<String> formattedWordsUrl = [];
     //////////////////////////////////////////
     for (String w in words) {

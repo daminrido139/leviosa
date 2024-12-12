@@ -31,22 +31,24 @@ class _DrawerPageState extends State<DrawerPage> {
               height: 15,
             ),
             Text(
-              context.read<UserCubit>().state.name,
+              'ડડેમિન રિશો',
+              // context.read<UserCubit>().state.name,
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             LeviosaText(
-              context.read<UserCubit>().state.role.toString().split(".")[1],
-              style: const TextStyle(
+              'વિદ્યાર્થી',
+              //context.read<UserCubit>().state.role.toString().split(".")[1],
+              style: TextStyle(
                   fontSize: 20,
                   // fontWeight: FontWeight.w500,
-                  color: Colors.grey),
+                  color: Colors.grey.shade700),
             ),
-            customlisttile("Profile", Icons.person_outline, () {
+            customlisttile("રૂપરેખા", Icons.person_outline, () {
               context.push(RouterConstants.profilePage);
             }),
-            customlisttile("Notification", Icons.notifications_outlined, () {}),
+            customlisttile("સૂચના", Icons.notifications_outlined, () {}),
             customlisttile(
-                "Language",
+                "ભાષા",
                 Icons.language_outlined,
                 () => showDialog(
                     context: context,
@@ -57,11 +59,11 @@ class _DrawerPageState extends State<DrawerPage> {
                                   BorderRadius.all(Radius.circular(8))),
                           child: LanguagePickerDialog(),
                         ))),
-            customlisttile("Settings", Icons.settings_outlined, () {
+            customlisttile("સેટિંગ્સ", Icons.settings_outlined, () {
               context.push(RouterConstants.settingsPageStudents);
             }),
-            customlisttile("Terms and Condition", Icons.security, () {}),
-            customlisttile("Privacy Polics", Icons.privacy_tip_outlined, () {}),
+            customlisttile("શરતો અને નિબંધીયો", Icons.security, () {}),
+            customlisttile("ગોપનીયતા નીતિ", Icons.privacy_tip_outlined, () {}),
           ],
         ),
       ),
