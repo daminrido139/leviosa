@@ -45,7 +45,8 @@ class DefaultDp extends StatelessWidget {
               color: genColor(name),
             ),
             child: Text(
-              name.isEmpty ? '' : name[0].toUpperCase(),
+              'ડે',
+              //name.isEmpty ? '' : name[0].toUpperCase(),
               style: const TextStyle(
                   color: Colors.black,
                   fontSize: 24,

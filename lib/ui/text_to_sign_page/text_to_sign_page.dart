@@ -75,7 +75,7 @@ class _TextToSignPageState extends State<TextToSignPage> {
           ///////////////////////////////////////////////
           if (!focusNode.hasFocus)
             Positioned(
-              bottom: 120,
+              bottom: 160,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -85,10 +85,11 @@ class _TextToSignPageState extends State<TextToSignPage> {
                         fontSize: 48, fontWeight: FontWeight.w500),
                     forceLanguage: Language.gujarati,
                   ),
-                  Text(
-                    lastWords,
-                    style: const TextStyle(fontSize: 24),
-                  ),
+
+                  // Text(
+                  //   lastWords,
+                  //   style: const TextStyle(fontSize: 24),
+                  // ),
                 ],
               ),
             ),
@@ -107,7 +108,7 @@ class _TextToSignPageState extends State<TextToSignPage> {
                 setState(() {});
               },
               child: Text(
-                speed[currentSpeed].toString(),
+                translateNumbersInText(speed[currentSpeed].toString()),
                 style:
                     const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
               ),
@@ -130,7 +131,7 @@ class _TextToSignPageState extends State<TextToSignPage> {
           setState(() {});
         },
         decoration: InputDecoration(
-          hintText: "Enter the text",
+          hintText: "ટેક્સ્ટ દાખલ કરો",
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(color: Colors.black)),
@@ -150,13 +151,17 @@ class _TextToSignPageState extends State<TextToSignPage> {
               _controller.clear();
               FocusScope.of(context).unfocus();
               try {
-                final formattedSentence =
-                    await AiServices.formatSentence(lastWords);
-                print(formattedSentence);
-                print('😊'); //showSnackBar(formattedSentence, context);
-                avatarVideoPath =
-                    await AiServices.generateAvatar(lastWords, modelsInDb);
-                tts.speak(lastWords);
+                if (alphabets.contains(lastWords[0].toUpperCase())) {
+                  final formattedSentence =
+                      await AiServices.formatSentence(lastWords);
+
+                  avatarVideoPath = await AiServices.generateAvatar(
+                      formattedSentence, modelsInDb);
+                  tts.speak(lastWords);
+                } else {
+                  avatarVideoPath =
+                      await AiServices.generateAvatar(lastWords, modelsInDb);
+                }
               } catch (e) {
                 showSnackBar('Error', context);
               }

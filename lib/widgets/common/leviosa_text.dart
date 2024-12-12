@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+//import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leviosa/constants.dart';
-import 'package:leviosa/cubit/user_cubit.dart';
-import 'package:leviosa/services/language_translation.dart';
+//import 'package:leviosa/cubit/user_cubit.dart';
 
-class LeviosaText extends StatefulWidget {
+class LeviosaText extends StatelessWidget {
   final String text;
   final TextStyle? style;
   final TextOverflow? overflow;
@@ -24,40 +23,14 @@ class LeviosaText extends StatefulWidget {
   });
 
   @override
-  State<LeviosaText> createState() => _LeviosaTextState();
-}
-
-class _LeviosaTextState extends State<LeviosaText> {
-  String? translatedText;
-  Language usedLanguage = Language.english;
-
-  Future<void> setLanguage(Language language) async {
-    if (widget.forceLanguage == null && usedLanguage == language) {
-      return;
-    }
-    usedLanguage = language;
-    if (widget.forceLanguage == null && language == Language.english) {
-      translatedText = null;
-      return;
-    }
-    translatedText = await LanguageTranslation.translate(
-      widget.text,
-      widget.forceLanguage ?? language,
-    );
-    setState(() {});
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final userLanguage = context.watch<UserCubit>().state.language;
-    setLanguage(userLanguage);
     return Text(
-      translatedText ?? widget.text,
-      style: widget.style,
-      overflow: widget.overflow,
-      maxLines: widget.maxLines,
-      textAlign: widget.textAlign,
-      softWrap: widget.softWrap,
+      text, //widget.text,
+      style: style,
+      overflow: overflow,
+      maxLines: maxLines,
+      textAlign: textAlign,
+      softWrap: softWrap,
     );
   }
 }

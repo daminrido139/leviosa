@@ -52,7 +52,7 @@ class _HomepageState extends State<CommonStudentPage> {
                         : Icons.calendar_month_outlined,
                   ),
                   LeviosaText(
-                    "Calendar",
+                    "કૅલેન્ડર",
                     style: TextStyle(
                         fontWeight: selectedPage == 0
                             ? FontWeight.bold
@@ -73,7 +73,7 @@ class _HomepageState extends State<CommonStudentPage> {
                     selectedPage == 1 ? Icons.message : Icons.message_outlined,
                   ),
                   LeviosaText(
-                    "Chats",
+                    "ચેટ્સ",
                     style: TextStyle(
                         fontWeight: selectedPage == 1
                             ? FontWeight.bold
@@ -94,7 +94,7 @@ class _HomepageState extends State<CommonStudentPage> {
                       ? Icons.join_full
                       : Icons.join_inner_outlined),
                   LeviosaText(
-                    "JOB",
+                    "નોકરી",
                     style: TextStyle(
                         fontWeight: selectedPage == 2
                             ? FontWeight.bold
@@ -114,7 +114,7 @@ class _HomepageState extends State<CommonStudentPage> {
                   Icon(
                       selectedPage == 3 ? Icons.school : Icons.school_outlined),
                   LeviosaText(
-                    "Course",
+                    "કોર્સ",
                     style: TextStyle(
                         fontWeight: selectedPage == 3
                             ? FontWeight.bold
@@ -134,7 +134,7 @@ class _HomepageState extends State<CommonStudentPage> {
                     selectedPage == 4 ? Icons.book : Icons.book_outlined,
                   ),
                   LeviosaText(
-                    "Learning",
+                    "શિક્ષણ",
                     style: TextStyle(
                         fontWeight: selectedPage == 4
                             ? FontWeight.bold

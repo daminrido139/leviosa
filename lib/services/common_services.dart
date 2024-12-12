@@ -50,6 +50,19 @@ String getGujaratiNumber(String n) {
       n.length, (i) => nums[int.parse(n[i])].toString()).join();
 }
 
+String translateNumbersInText(String text) {
+  List<String> words = [];
+  for (int i = 0; i < text.length; i++) {
+    String c = text[i];
+    if (int.tryParse(c) == null) {
+      words.add(c);
+    } else {
+      words.add(getGujaratiNumber(c));
+    }
+  }
+  return words.join('');
+}
+
 List<Widget> generateShapes(
   int count,
   double size, [
