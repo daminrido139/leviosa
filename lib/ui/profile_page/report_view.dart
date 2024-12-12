@@ -18,7 +18,7 @@ class _ReportViewState extends State<ReportView> {
 
   Future<void> captureAndSaveScreenshot() async {
     try {
-      // // Capture screenshot as image bytes
+      // Capture screenshot as image bytes
       // final imageBytes = await screenshotController.capture();
 
       // if (imageBytes != null) {
@@ -36,12 +36,12 @@ class _ReportViewState extends State<ReportView> {
       //   // Show success message
       //   ScaffoldMessenger.of(context).showSnackBar(
       //     SnackBar(content: Text('Screenshot saved at $imagePath')),
-      //   );
+      //  );
       // } else {
       //   ScaffoldMessenger.of(context).showSnackBar(
       //     SnackBar(content: Text('Failed to capture screenshot')),
       //   );
-      // }
+      //}
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),

@@ -9,7 +9,7 @@ class AiServices {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   static final model = GenerativeModel(
-    model: 'gemini-1.5-flash',
+    model: 'gemini-1.5-flash-002',
     apiKey: 'AIzaSyAfCKcnsK08BZ_ddwm2KPvuUdvzJ5lqBkA',
   );
   static final chat = model.startChat(history: [Content.text(text2signPrompt)]);
