@@ -37,56 +37,98 @@ class _Level1PageState extends State<Level1Page> {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/bg/kids_bg.webp'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          title: const LeviosaText(
-            'Level 1',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/bg/kids_bg.webp'),
+            fit: BoxFit.cover,
           ),
-          backgroundColor: Colors.white.withOpacity(0.4),
-          actions: const [
-            Text(
-              "0  🪙",
-              style: TextStyle(
-                fontSize: 24,
-              ),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              "0  🔥",
-              style: TextStyle(
-                fontSize: 24,
-              ),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-          ],
         ),
-        body: ListView.builder(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            shrinkWrap: true,
-            itemCount: Utility.level1.length,
-            itemBuilder: (context, ind) {
-              return customverticalcard(
-                  Utility.level1[ind][0],
-                  Utility.level1[ind][1],
-                  Utility.level1[ind][2],
-                  context,
-                  ind,
-                  Utility.level1[ind][3]);
-            }),
-      ),
-    );
+        child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              title: const LeviosaText(
+                'Level 1',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              backgroundColor: Colors.white.withOpacity(0.4),
+              actions: const [
+                Text(
+                  "0  🪙",
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  "0  🔥",
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+              ],
+            ),
+            body: Column(children: [
+              ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  shrinkWrap: true,
+                  itemCount: Utility.level1.length,
+                  itemBuilder: (context, ind) {
+                    return customverticalcard(
+                        Utility.level1[ind][0],
+                        Utility.level1[ind][1],
+                        Utility.level1[ind][2],
+                        context,
+                        ind,
+                        Utility.level1[ind][3]);
+                  }),
+              Container(
+                color: Colors.white.withOpacity(0.75),
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 0.5),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      margin: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          height: 100,
+                          width: 100,
+                          "assets/img/quiz.jpeg",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 25,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        context.push(RouterConstants.startquiz);
+                      },
+                      child: const LeviosaText(
+                        "Start Quiz",
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ]
+
+                ///////////////////////////////////////// lesson lock check
+
+                /////////////////////////////////
+
+                )));
   }
 
   Widget customverticalcard(

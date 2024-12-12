@@ -38,4 +38,5 @@ class RouterConstants {
   static const mathsTablePage = '/maths-table-page';
   static const reportView = '/report-view';
   static const jobPostPage = '/job-post-page';
+  static const startquiz = '/start-quiz';
 }
