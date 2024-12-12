@@ -7,6 +7,7 @@ import 'package:leviosa/ui/Generative_ai/leviosa_chat_bot.dart';
 import 'package:leviosa/ui/app_entry.dart';
 import 'package:leviosa/ui/assignment_page/assignment_student_detailed_view.dart';
 import 'package:leviosa/ui/assignment_page/new_assignment_page.dart';
+import 'package:leviosa/ui/avatar_ai/avatar_ai.dart';
 import 'package:leviosa/ui/chat_page/chat_room.dart';
 import 'package:leviosa/ui/chat_page/chat_search_page.dart';
 import 'package:leviosa/ui/common_page/common_hr_page.dart';
@@ -74,6 +75,11 @@ final appRouter = GoRouter(
       path: RouterConstants.jobPostPage,
       name: RouterConstants.jobPostPage,
       builder: (context, state) => const JobPost(),
+    ),
+    GoRoute(
+      path: RouterConstants.avatarAiPage,
+      name: RouterConstants.avatarAiPage,
+      builder: (context, state) => const AvatarAi(),
     ),
     GoRoute(
       path: RouterConstants.signInPage,

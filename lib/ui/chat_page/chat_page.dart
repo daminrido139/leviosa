@@ -105,16 +105,72 @@ class _ChatPageState extends State<ChatPage> {
       //     // )
       //   ],
       // ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.push(RouterConstants.leviosaChatBot);
-        },
-        backgroundColor: const Color.fromARGB(255, 243, 227, 173),
-        child: SizedBox(
-          width: 30,
-          height: 30,
-          child: Image.asset("assets/img/chatbot_15320513.png"),
-        ),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTap: () {
+              context.push(RouterConstants.leviosaChatBot);
+            },
+            child: Container(
+              height: 55,
+              width: 55,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10),
+                  color: const Color.fromARGB(255, 243, 227, 173),
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(2, 2),
+                        blurRadius: 5,
+                        spreadRadius: 2)
+                  ]),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Image.asset("assets/img/chatbot_15320513.png"),
+                ),
+              ),
+            ),
+          ),
+          ///////////////////////////////////////////////////////////////
+          const SizedBox(height: 20),
+
+          GestureDetector(
+            onTap: () {
+              context.push(RouterConstants.avatarAiPage);
+            },
+            child: Container(
+              height: 55,
+              width: 55,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10),
+                  color: const Color.fromARGB(255, 243, 227, 173),
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(2, 2),
+                        blurRadius: 5,
+                        spreadRadius: 2)
+                  ]),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Icon(
+                    Icons.person_2_outlined,
+                    size: 30,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
