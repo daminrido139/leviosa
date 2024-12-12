@@ -86,40 +86,79 @@ class _Level1PageState extends State<Level1Page> {
                         ind,
                         Utility.level1[ind][3]);
                   }),
-              Container(
-                color: Colors.white.withOpacity(0.75),
-                child: Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 0.5),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      margin: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(
-                          height: 100,
-                          width: 100,
-                          "assets/img/quiz.jpeg",
-                          fit: BoxFit.cover,
+              InkWell(
+                onTap: () {
+                  context.push(RouterConstants.startquiz);
+                },
+                child: Container(
+                  color: Colors.white.withOpacity(0.75),
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 0.5),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        margin: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            height: 100,
+                            width: 100,
+                            "assets/img/quiz.jpeg",
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 25,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        context.push(RouterConstants.startquiz);
-                      },
-                      child: const LeviosaText(
-                        "Start Quiz",
+                      const SizedBox(
+                        width: 25,
+                      ),
+                      const LeviosaText(
+                        "Start Quiz 1",
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              InkWell(
+                onTap: () {
+                  context.push(RouterConstants.startquiz2);
+                },
+                child: Container(
+                  color: Colors.white.withOpacity(0.75),
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 0.5),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        margin: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            height: 100,
+                            width: 100,
+                            "assets/img/quiz.jpeg",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    )
-                  ],
+                      const SizedBox(
+                        width: 25,
+                      ),
+                      const LeviosaText(
+                        "Start Quiz 2",
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
                 ),
               )
             ]
