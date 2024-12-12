@@ -181,5 +181,8 @@ output: 1
 input: I eat 2 apples
 output: I 2 apple eat
 
+input: Good morning!
+output: Good morning
+
 Note: the output only contains alphabets, numbers and space, it should not contain any other punctuations or special characters
 ''';

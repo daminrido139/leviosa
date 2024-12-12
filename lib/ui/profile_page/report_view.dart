@@ -4,9 +4,7 @@ import 'package:leviosa/widgets/common/dynamic_cv_preview.dart';
 import 'package:leviosa/widgets/common/gradient_text.dart';
 import 'package:leviosa/widgets/common/leviosa_button.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'dart:io';
 
 class ReportView extends StatefulWidget {
   const ReportView({super.key});
@@ -20,7 +18,7 @@ class _ReportViewState extends State<ReportView> {
 
   Future<void> captureAndSaveScreenshot() async {
     try {
-      // // Capture screenshot as image bytes
+      // Capture screenshot as image bytes
       // final imageBytes = await screenshotController.capture();
 
       // if (imageBytes != null) {
@@ -38,12 +36,12 @@ class _ReportViewState extends State<ReportView> {
       //   // Show success message
       //   ScaffoldMessenger.of(context).showSnackBar(
       //     SnackBar(content: Text('Screenshot saved at $imagePath')),
-      //   );
+      //  );
       // } else {
       //   ScaffoldMessenger.of(context).showSnackBar(
       //     SnackBar(content: Text('Failed to capture screenshot')),
       //   );
-      // }
+      //}
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
