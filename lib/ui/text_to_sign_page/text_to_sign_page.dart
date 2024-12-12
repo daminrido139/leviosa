@@ -152,10 +152,10 @@ class _TextToSignPageState extends State<TextToSignPage> {
               try {
                 final formattedSentence =
                     await AiServices.formatSentence(lastWords);
-                setState(() {});
-                //showSnackBar(formattedSentence, context);
-                avatarVideoPath = await AiServices.generateAvatar(
-                    formattedSentence, modelsInDb);
+                print(formattedSentence);
+                print('😊'); //showSnackBar(formattedSentence, context);
+                avatarVideoPath =
+                    await AiServices.generateAvatar(lastWords, modelsInDb);
                 tts.speak(lastWords);
               } catch (e) {
                 showSnackBar('Error', context);
