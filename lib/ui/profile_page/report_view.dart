@@ -6,7 +6,6 @@ import 'package:leviosa/widgets/common/leviosa_button.dart';
 import 'package:leviosa/widgets/common/leviosa_text.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'dart:io';
 
 class ReportView extends StatefulWidget {
@@ -21,30 +20,30 @@ class _ReportViewState extends State<ReportView> {
 
   Future<void> captureAndSaveScreenshot() async {
     try {
-      // Capture screenshot as image bytes
-      final imageBytes = await screenshotController.capture();
+      // // Capture screenshot as image bytes
+      // final imageBytes = await screenshotController.capture();
 
-      if (imageBytes != null) {
-        // Get the application's temporary directory
-        final directory = await getApplicationDocumentsDirectory();
-        final imagePath = '${directory.path}/screenshot.png';
+      // if (imageBytes != null) {
+      //   // Get the application's temporary directory
+      //   final directory = await getApplicationDocumentsDirectory();
+      //   final imagePath = '${directory.path}/screenshot.png';
 
-        // Save the image file locally
-        final imageFile = File(imagePath);
-        await imageFile.writeAsBytes(imageBytes);
+      //   // Save the image file locally
+      //   final imageFile = File(imagePath);
+      //   await imageFile.writeAsBytes(imageBytes);
 
-        // Save image to gallery (optional)
-        await ImageGallerySaver.saveFile(imageFile.path);
+      //   // Save image to gallery (optional)
+      //   await ImageGallerySaver.saveFile(imageFile.path);
 
-        // Show success message
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Screenshot saved at $imagePath')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to capture screenshot')),
-        );
-      }
+      //   // Show success message
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(content: Text('Screenshot saved at $imagePath')),
+      //   );
+      // } else {
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(content: Text('Failed to capture screenshot')),
+      //   );
+      // }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
