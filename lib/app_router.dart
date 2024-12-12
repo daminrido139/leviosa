@@ -32,6 +32,7 @@ import 'package:leviosa/ui/learning_page.dart/youtubeplayerpagestudent_page.dart
 import 'package:leviosa/ui/profile_page/profile_page.dart';
 import 'package:leviosa/ui/profile_page/report_view.dart';
 import 'package:leviosa/ui/quiz_page/quiz_page.dart';
+import 'package:leviosa/ui/quiz_page/quiz_page2.dart';
 import 'package:leviosa/ui/settings_page/settingsstudent_page.dart';
 import 'package:leviosa/ui/sign_in_page/sign_in_page.dart';
 import 'package:leviosa/ui/sign_to_text/sign_to_text_page.dart';
@@ -63,6 +64,11 @@ final appRouter = GoRouter(
       path: RouterConstants.startquiz,
       name: RouterConstants.startquiz,
       builder: (context, state) => const QuizPage(),
+    ),
+    GoRoute(
+      path: RouterConstants.startquiz2,
+      name: RouterConstants.startquiz2,
+      builder: (context, state) => const QuizPage2(),
     ),
     GoRoute(
       path: RouterConstants.jobPostPage,
