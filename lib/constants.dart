@@ -25,11 +25,7 @@ enum FileType {
   pdf,
 }
 
-enum LetterType {
-  number,
-  vowels,
-  consonants,
-}
+enum LetterType { number, vowels, consonants, quiz }
 
 class Utility {
   static const List youtubeLevel1 = [
@@ -108,6 +104,7 @@ const String kidsBgm = 'music/kids_bgm.mp3';
 ////////////////////////////// English to Gujarathi ////////////////////////////
 
 final gujarat = {"Chats": "ચેટ્સ"};
+final List answer = ["૦", "૧", "૨", "૩"];
 
 ////////////////////////////////////////////////////////////////////////////////// No modifications can be made without a selected code snippet.
 // However, some improvements can be suggested for the entire code file.
@@ -186,3 +183,18 @@ output: Good morning
 
 Note: the output only contains alphabets, numbers and space, it should not contain any other punctuations or special characters
 ''';
+
+class QuizConsts {
+  static final List<List<String>> quiz1 = [
+    ["સાચો જવાબ પસંદ કરો", "0", "1", "2", "3", "2"],
+    ["સાચો જવાબ પસંદ કરો", "5", "6", "7", "8", "5"],
+    ["", "0", "1", "2", "3", "2"],
+    ["સાચો જવાબ પસંદ કરો", "0", "1", "2", "3", "2"],
+    ["સાચો જવાબ પસંદ કરો", "0", "1", "2", "3", "2"],
+    ["સાચો જવાબ પસંદ કરો", "0", "1", "2", "3", "2"],
+    ["સાચો જવાબ પસંદ કરો", "0", "1", "2", "3", "2"],
+    ["સાચો જવાબ પસંદ કરો", "0", "1", "2", "3", "2"],
+    ["સાચો જવાબ પસંદ કરો", "0", "1", "2", "3", "2"],
+    ["સાચો જવાબ પસંદ કરો", "0", "1", "2", "3", "2"],
+  ];
+}
