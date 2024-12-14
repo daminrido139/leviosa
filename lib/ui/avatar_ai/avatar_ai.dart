@@ -17,6 +17,7 @@ class _AvatarAiState extends State<AvatarAi> {
   Map<String, String> modelsInDb = {};
   FocusNode focusNode = FocusNode();
   String lastWords = '';
+  String lastResponse = '';
   bool loading = false;
 
   @override
@@ -45,6 +46,9 @@ class _AvatarAiState extends State<AvatarAi> {
         children: [
           Column(
             children: [
+              const SizedBox(height: 70),
+              const Text("Avatar AI",
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
               Expanded(
                 child: SingleChildScrollView(
                   child: SizedBox(
@@ -63,6 +67,9 @@ class _AvatarAiState extends State<AvatarAi> {
                   ),
                 ),
               ),
+              Text(lastResponse,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w500)),
               inputField(),
             ],
           ),
@@ -104,10 +111,9 @@ class _AvatarAiState extends State<AvatarAi> {
               _controller.clear();
               FocusScope.of(context).unfocus();
               try {
-                final response = await AvatarAiServices.query(lastWords);
-
+                lastResponse = await AvatarAiServices.query(lastWords);
                 avatarVideoPath =
-                    await AiServices.generateAvatar(response, modelsInDb);
+                    await AiServices.generateAvatar(lastResponse, modelsInDb);
               } catch (e) {
                 showSnackBar('Error', context);
               }
